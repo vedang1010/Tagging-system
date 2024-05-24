@@ -74,10 +74,10 @@ const Profile = () => {
             <ListItemIcon><WorkIcon style={{ color: '#fff' }} /></ListItemIcon>
             <ListItemText primary="My Progress" />
           </ListItem>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon><AccountCircleIcon style={{ color: '#fff' }} /></ListItemIcon>
             <ListItemText primary="Match Analysts" />
-          </ListItem>
+          </ListItem> */}
           <ListItem button>
             <ListItemIcon><SettingsIcon style={{ color: '#fff' }} /></ListItemIcon>
             <ListItemText primary="Settings" />
@@ -91,7 +91,7 @@ const Profile = () => {
 
       <Box sx={{ flexGrow: 1, padding: 3 }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ xs: 'column', md: 'row' }}>
-          <Typography variant="h4">Applicant Profile</Typography>
+          <Typography variant="h4">User Profile</Typography>
           <Box display="flex" alignItems="center" mt={{ xs: 2, md: 0 }}>
             <TextField
               variant="outlined"
