@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-
+import './Admin.css'; // Import the CSS file
 const Admin = () => {
   // const [reviewers, setReviewers] = useState([]); 
   const [newReviewer, setNewReviewer] = useState('');
@@ -106,8 +106,8 @@ const Admin = () => {
   const COLORS = ['#FFBB28', '#FF8042', '#0088FE'];
 
   return (
-    // <Container maxWidth="lg">
-    <>
+    <Container className="admin-container" maxWidth="">
+    {/* <> */}
 
       <Typography variant="h3" component="h1" gutterBottom>
         Admin Dashboard
@@ -281,8 +281,8 @@ const Admin = () => {
         </TableContainer>
       </Paper>
         
-      </>
-    // </Container>
+      {/* </> */}
+    </Container>
   );
 };
 
