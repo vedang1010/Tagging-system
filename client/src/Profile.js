@@ -15,8 +15,8 @@ import WorkIcon from '@mui/icons-material/Work';
 
 const Profile = () => {
   const user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'abc',
+    email: 'acd.doe@example.com',
     points: 1200,
     badge: 'Diamond',
     avatarUrl: 'https://via.placeholder.com/150',
