@@ -1,3 +1,6 @@
+import React from 'react';
+import './styles/App.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
 import React, { useState } from 'react';
@@ -77,6 +80,9 @@ function App() {
         />
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/component-store" element={<ComponentStore />} />
+          <Route path="/component/:id" element={<ComponentCard />} />
+          <Route path="/tags/:tag" element={<ComponentStore />} />
         </Routes>
       </div>
     </Router>
