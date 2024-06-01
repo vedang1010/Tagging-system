@@ -5,7 +5,7 @@ import styles from '../styles/SideNav.module.css';
 function Sidenav() {
     return (
       <div className={styles.sidenav}>
-        <a href="#component-store"><span className={styles.icon}>&#x1F3A4;</span> Component Store</a>
+        <a href="#component-store" id={styles.icon1}><span className={styles.icon}>&#x1F3A4;</span> Component Store</a>
         <a href="#upload-idea"><span className={styles.icon}>&#x270D;</span> Upload Idea</a>
         <a href="#component-status"><span className={styles.icon}>&#x1F4BB;</span> Component Status</a>
         <a href="#current-issues"><span className={styles.icon}>&#x1F4CB;</span> Current Issues</a>
