@@ -6,6 +6,7 @@ import Profile from './Profile';
 import ComponentStore from './ComponentStore';
 import ComponentCard from './ComponentCard';
 import { motion, useScroll, useSpring } from "framer-motion";
+import HomePage from './pages/HomePage';
 
 function App() {
     const { scrollYProgress } = useScroll();
@@ -21,8 +22,7 @@ function App() {
 
     <Router>
       <div className="App">
-        <h1>This is client home page</h1>
-        <Link to="/">
+        <Link to="/home">
           <button>Go to Home Page</button>
         </Link>
         <Link to="/admin">
@@ -82,6 +82,7 @@ function App() {
           <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentCard />} />
           <Route path="/tags/:tag" element={<ComponentStore />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </div>
     </Router>

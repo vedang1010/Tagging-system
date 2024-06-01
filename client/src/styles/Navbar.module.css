@@ -1,0 +1,30 @@
+/* styles/Navbar.module.css */
+
+.navbar {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  /* padding: 20px 20px; */
+
+  box-sizing: border-box;
+}
+
+.navbar a {
+  color: #757474;
+  text-decoration: none;
+  /* font-family: 'Roboto', sans-serif; */
+  text-align: center;
+  /* font-weight: bold; */
+  font-size: 18px;
+  margin-left: 20px;
+  padding:10px;
+  
+}
+
+.navbar a:hover {
+  color: white; /* Optional: Change color on hover */
+  background-color: #575757;
+  border: 2px solid #575757;
+  border-radius: 5px;
+}
