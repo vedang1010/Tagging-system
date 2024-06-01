@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import './Admin.css'; // Import the CSS file
+import './styles/Admin.css'; // Import the CSS file
 
 const Admin = () => {
   const [newReviewer, setNewReviewer] = useState('');
