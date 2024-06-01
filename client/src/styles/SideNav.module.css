@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    /* font-family: 'Roboto', sans-serif; */
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #757474; /* Same color as seen in the image */
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidenav a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidenav a:hover {
+    background-color: #575757; /* Change background color on hover */
+  }
+  
+  .sidenav a.active {
+    background-color: #444444; /* Background color for the active link */
+  }
+  
+  .sidenav .icon {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 18px; /* Adjust icon size */
+  }
+  
+  

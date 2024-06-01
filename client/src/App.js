@@ -5,13 +5,13 @@ import Admin from './Admin';
 import Profile from './Profile';
 import ComponentStore from './ComponentStore';
 import ComponentDetails from './components/ComponentDetails';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>This is client home page</h1>
-        <Link to="/">
+        <Link to="/home">
           <button>Go to Home Page</button>
         </Link>
         <Link to="/admin">
@@ -28,6 +28,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentDetails />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </div>
     </Router>
