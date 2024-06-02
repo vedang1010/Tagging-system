@@ -3,23 +3,22 @@ import './styles/App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
-import React, { useState } from 'react';
-import { CssBaseline, Container, Button, Box } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes, Navigate,Link } from 'react-router-dom';
-import Signup from './components/Authentication/Signup';
-import Login from './components/Authentication/Login';
-import Logout from './components/Authentication/Logout'
-import ComponentStorePage from './pages/ComponentStorePage';
-import './App.css'
+import ComponentStore from './ComponentStore';
+import ComponentCard from './ComponentCard';
+import { motion, useScroll, useSpring } from "framer-motion";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoginView, setIsLoginView] = useState(true);
-
-  const toggleView = () => {
-    setIsLoginView(!isLoginView);
-  };
+    const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   return (
+    <>
+
+    <motion.div className="progress-bar" style={{ scaleX }} />
+
     <Router>
       <div className="App">
         <h1>This is client home page</h1>
@@ -86,6 +85,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 

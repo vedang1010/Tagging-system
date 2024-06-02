@@ -28,6 +28,7 @@ const Admin = () => {
   const [editedRewardSystem, setEditedRewardSystem] = useState([]);
   const [activeComponent, setActiveComponent] = useState('userManagement');
 
+  
   useEffect(() => {
     const initialRewards = [
       { rank: "5.00 - 4.00", reward: '100' },
@@ -302,7 +303,7 @@ const Admin = () => {
   };
 
   return (
-    <Container className="admin-container" maxWidth="">
+  <Container className="admin-container" maxWidth="" style={{ display: 'flex' }}>
       <Box className="navbar">
         <Button
           className={activeComponent === 'userManagement' ? 'active' : ''}
