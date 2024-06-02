@@ -5,9 +5,20 @@ import Admin from './Admin';
 import Profile from './Profile';
 import ComponentStore from './ComponentStore';
 import ComponentCard from './ComponentCard';
+import { motion, useScroll, useSpring } from "framer-motion";
 
 function App() {
+    const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   return (
+    <>
+
+    <motion.div className="progress-bar" style={{ scaleX }} />
+
     <Router>
       <div className="App">
         <h1>This is client home page</h1>
@@ -32,6 +43,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 
