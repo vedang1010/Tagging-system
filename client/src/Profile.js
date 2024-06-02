@@ -9,7 +9,7 @@ import UserInfo from './components/profile/components/UserInfo';
 import ProgressCards from './components/profile/components/ProgressCards';
 import Contributions from './components/profile/components/Contributions';
 import './styles/Profile.css';
-
+import Footer from "./components/Footer"
 const Profile = () => {
   const initialUser = {
     name: 'ABC',
@@ -122,6 +122,7 @@ const Profile = () => {
   const getProgressValue = (accepted, proposed) => (accepted / proposed) * 100;
 
   return (
+    <>
     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd' }}>
       <Sidebar user={user} />
       <Box sx={{ flexGrow: 1, padding: 3 }}>
@@ -162,6 +163,8 @@ const Profile = () => {
         )}
       </Box>
     </Box>
+    <Footer/>
+    </>
   );
 };
 
