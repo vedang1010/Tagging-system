@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    height:900px;
+    font-family: "Lato", sans-serif;
+    height:850px;
 }
 
 .app {
@@ -16,7 +19,7 @@ body {
     margin-top:40px;
     border: 1px solid white;
     border-radius: 10px;
-    height: 700px;;
+    height: 620px;;
 }
 
 h1 {
@@ -29,14 +32,20 @@ form {
 }
 
 label {
-    margin: 10px 0 5px;
+    /* margin: 10px 0 5px; */
+    text-align: left; 
+     padding-bottom: 10px;
+    padding-top: 20px; 
+    font-weight: bold;
+
 }
 
 input {
-    padding: 10px;
+    padding: 30px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 small {
@@ -56,12 +65,37 @@ button {
     cursor: pointer;
 }
 
+.button1{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    margin-bottom: 40px;
+    background-color: #e0e0e0;
+}
+
+.button1:hover{
+    background-color: #9d9b9b;
+    color: white;
+}
+
 button.cancel {
     background-color: #e0e0e0;
 }
 
 button.next {
     background-color: #7b50e7;
+    color: white;
+}
+
+button.cancel:hover{
+    background-color: #9d9b9b;
+    color: white;
+}
+
+button.next:hover{
+    background-color: #462f80;
     color: white;
 }
 
