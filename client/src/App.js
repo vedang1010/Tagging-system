@@ -1,26 +1,36 @@
-import React from 'react';
-import './styles/App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
-import ComponentStore from './ComponentStore';
-import ComponentCard from './ComponentCard';
-import { motion, useScroll, useSpring } from "framer-motion";
-import HomePage from './pages/HomePage';
-import ReviewPage from './pages/ReviewPage';
-import Review from './pages/Review';
+import React, { useState } from 'react';
+import { CssBaseline, Container, Button, Box } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes, Navigate,Link } from 'react-router-dom';
+import Signup from './components/Authentication/Signup';
+import Login from './components/Authentication/Login';
+import Logout from './components/Authentication/Logout'
+import ComponentStorePage from './pages/ComponentStorePage';
+import ComponentCard from './ComponentCard'
+import HomePage from './pages/HomePage'
+import ReviewPage from './pages/ReviewPage'
+import Review from './pages/Review'
+
+import './styles/App.css'
 
 function App() {
-    const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoginView, setIsLoginView] = useState(true);
+
+  const toggleView = () => {
+    setIsLoginView(!isLoginView);
+  };
+  //   const { scrollYProgress } = useScroll();
+  // const scaleX = useSpring(scrollYProgress, {
+  //   stiffness: 100,
+  //   damping: 30,
+  //   restDelta: 0.001
+  // });
   return (
     <>
 
-    <motion.div className="progress-bar" style={{ scaleX }} />
+    {/* <motion.div className="progress-bar" style={{ scaleX }} /> */}
 
     <Router>
       <div className="App">
@@ -33,7 +43,7 @@ function App() {
         <Link to="/profile">
           <button>Go to Profile Page</button>
         </Link>
-        <Link to="/component-store">
+        <Link to="/components">
           <button>Go to Component Store</button>
         </Link>
         <Link to="/review">
@@ -83,9 +93,7 @@ function App() {
         />
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentCard />} />
-          <Route path="/tags/:tag" element={<ComponentStore />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review1" element={<Review />} />
