@@ -1,6 +1,3 @@
-import React from 'react';
-import './styles/App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
 import React, { useState } from 'react';
@@ -10,7 +7,12 @@ import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import Logout from './components/Authentication/Logout'
 import ComponentStorePage from './pages/ComponentStorePage';
-import './App.css'
+import ComponentCard from './ComponentCard'
+import HomePage from './pages/HomePage'
+import ReviewPage from './pages/ReviewPage'
+import Review from './pages/Review'
+
+import './styles/App.css'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,16 +21,16 @@ function App() {
   const toggleView = () => {
     setIsLoginView(!isLoginView);
   };
-    const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  //   const { scrollYProgress } = useScroll();
+  // const scaleX = useSpring(scrollYProgress, {
+  //   stiffness: 100,
+  //   damping: 30,
+  //   restDelta: 0.001
+  // });
   return (
     <>
 
-    <motion.div className="progress-bar" style={{ scaleX }} />
+    {/* <motion.div className="progress-bar" style={{ scaleX }} /> */}
 
     <Router>
       <div className="App">
@@ -41,7 +43,7 @@ function App() {
         <Link to="/profile">
           <button>Go to Profile Page</button>
         </Link>
-        <Link to="/component-store">
+        <Link to="/components">
           <button>Go to Component Store</button>
         </Link>
         <CssBaseline />
@@ -92,9 +94,7 @@ function App() {
         />
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentCard />} />
-          <Route path="/tags/:tag" element={<ComponentStore />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review1" element={<Review />} />
