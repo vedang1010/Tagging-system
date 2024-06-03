@@ -1,8 +1,9 @@
 // src/components/UserInfo.js
 import React from 'react';
-import { Box, Paper, Grid, TextField, Typography, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Paper, Grid, TextField, Typography, List, ListItem, ListItemText, IconButton, Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const UserInfo = ({ user, isEditing, handleChange }) => (
+const UserInfo = ({ user, isEditing, handleChange, handleJobChange, handleAddJob, handleRemoveJob }) => (
   <Paper elevation={3} sx={{ padding: 4, marginBottom: 3 }}>
     {isEditing ? (
       <Grid container spacing={2}>
@@ -52,6 +53,15 @@ const UserInfo = ({ user, isEditing, handleChange }) => (
             variant="outlined"
             margin="normal"
           />
+          <TextField
+            fullWidth
+            label="About"
+            name="about"
+            value={user.about}
+            onChange={handleChange}
+            variant="outlined"
+            margin="normal"
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -92,12 +102,65 @@ const UserInfo = ({ user, isEditing, handleChange }) => (
             margin="normal"
           />
         </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">Job Details</Typography>
+          {user.jobDetails.map((job, index) => (
+            <Box key={index} display="flex" alignItems="center">
+              <TextField
+                fullWidth
+                label="Title"
+                name="title"
+                value={job.title}
+                onChange={(e) => handleJobChange(e, index)}
+                variant="outlined"
+                margin="normal"
+                sx={{ marginRight: 2 }}
+              />
+              <TextField
+                fullWidth
+                label="Company"
+                name="company"
+                value={job.company}
+                onChange={(e) => handleJobChange(e, index)}
+                variant="outlined"
+                margin="normal"
+                sx={{ marginRight: 2 }}
+              />
+              <TextField
+                fullWidth
+                label="Period"
+                name="period"
+                value={job.period}
+                onChange={(e) => handleJobChange(e, index)}
+                variant="outlined"
+                margin="normal"
+                sx={{ marginRight: 2 }}
+              />
+              <TextField
+                fullWidth
+                label="Duration"
+                name="duration"
+                value={job.duration}
+                onChange={(e) => handleJobChange(e, index)}
+                variant="outlined"
+                margin="normal"
+                sx={{ marginRight: 2 }}
+              />
+              <IconButton onClick={() => handleRemoveJob(index)} aria-label="delete">
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          ))}
+          <Button onClick={handleAddJob} variant="contained" color="primary" sx={{ marginTop: 2 }}>
+            Add Job
+          </Button>
+        </Grid>
       </Grid>
     ) : (
       <>
         <Typography variant="h6">About Me</Typography>
         <Typography variant="body1" color="textSecondary">
-          Senior Developer at DTS, with a passion for UX Design and Research.
+          {user.about}
         </Typography>
         <Typography variant="h6" sx={{ marginTop: 2 }}>Experience</Typography>
         <List>
