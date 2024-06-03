@@ -7,6 +7,7 @@ import ComponentStore from './ComponentStore';
 import ComponentCard from './ComponentCard';
 import { motion, useScroll, useSpring } from "framer-motion";
 import HomePage from './pages/HomePage';
+import ReviewPage from './pages/ReviewPage';
 import Review from './pages/Review';
 
 function App() {
@@ -86,7 +87,8 @@ function App() {
           <Route path="/component/:id" element={<ComponentCard />} />
           <Route path="/tags/:tag" element={<ComponentStore />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/review" element={<Review />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/review1" element={<Review />} />
         </Routes>
       </div>
     </Router>
