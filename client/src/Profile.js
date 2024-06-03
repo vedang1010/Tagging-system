@@ -24,6 +24,7 @@ const Profile = () => {
     twitter: '@abc',
     linkedin: 'linkedin.com/in/abc',
     experience: 4,
+    about:'Senior Developer at DTS, with a passion for UX Design and Research.',
     skills: ['UX Design', 'UX Research'],
     jobDetails: [
       {
@@ -114,9 +115,33 @@ const Profile = () => {
     const { name, value } = e.target;
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
-
+  const handleJobChange = (e, index) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => {
+      const updatedJobs = [...prevUser.jobDetails];
+      updatedJobs[index] = { ...updatedJobs[index],
+        [name]: value,
+      };
+      return { ...prevUser, jobDetails: updatedJobs };
+    });
+  };
+  const handleAddJob = () => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      jobDetails: [
+        ...prevUser.jobDetails,
+        { title: '', company: '', period: '', duration: '' },
+      ],
+    }));
+  };
+  const handleRemoveJob = (index) => {
+    setUser((prevUser) => {
+      const updatedJobDetails = prevUser.jobDetails.filter((_, i) => i !== index);
+      return { ...prevUser, jobDetails: updatedJobDetails };
+    });
+  };
   const handleLoadMoreContributions = () => {
-    setVisibleContributions((prevVisible) => prevVisible + 3);
+    setVisibleContributions((prevVisible) => prevVisible + 1);
   };
 
   const getProgressValue = (accepted, proposed) => (accepted / proposed) * 100;
@@ -148,7 +173,10 @@ const Profile = () => {
          <UserInfo
           user={user}
           isEditing={isEditing}
-          handleChange={handleChange}
+          handleChange={handleChange} 
+          handleJobChange={handleJobChange}
+            handleAddJob={handleAddJob}
+            handleRemoveJob={handleRemoveJob}
         />
         {!isEditing && (
           <>
