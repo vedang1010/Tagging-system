@@ -14,28 +14,34 @@ function ReviewPage() {
     <div className={styles.ReviewPage}>
       <h2>Review Page</h2>
       <ul>
-        <li className={styles.Ideas}>
+      <li className={styles.Ideas}>
           <div className={styles.card}>
-            <img src={images[0]} alt="Component 1" />
-            <div className={styles.cardContent}>
-              <Link to="/review1" className={styles.CompoentPreview}>Component 1</Link>
-            </div>
+            <Link to="/review1" className={styles.CompoentPreview}>
+                <img src={images[1]} alt="Component 2" />
+                    <div className={styles.cardContent}>
+                        Component 1
+                    </div>
+            </Link>
           </div>
         </li>
         <li className={styles.Ideas}>
           <div className={styles.card}>
-            <img src={images[1]} alt="Component 2" />
-            <div className={styles.cardContent}>
-              <Link to="/review1" className={styles.CompoentPreview}>Component 2</Link>
-            </div>
+            <Link to="/review1" className={styles.CompoentPreview}>
+                <img src={images[1]} alt="Component 2" />
+                    <div className={styles.cardContent}>
+                        Component 2
+                    </div>
+            </Link>
           </div>
         </li>
         <li className={styles.Ideas}>
           <div className={styles.card}>
-            <img src={images[2]} alt="Component 3" />
-            <div className={styles.cardContent}>
-              <Link to="/review1" className={styles.CompoentPreview}>Component 3</Link>
-            </div>
+            <Link to="/review1" className={styles.CompoentPreview}>
+                <img src={images[1]} alt="Component 2" />
+                    <div className={styles.cardContent}>
+                        Component 3
+                    </div>
+            </Link>
           </div>
         </li>
       </ul>
