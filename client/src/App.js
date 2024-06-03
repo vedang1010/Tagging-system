@@ -5,13 +5,15 @@ import Admin from './Admin';
 import Profile from './Profile';
 import ComponentStore from './ComponentStore';
 import ComponentDetails from './components/ComponentDetails';
+import HomePage from './pages/HomePage';
+import ReviewPage from './pages/ReviewPage';
+import Review from './pages/Review';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>This is client home page</h1>
-        <Link to="/">
+        <Link to="/home">
           <button>Go to Home Page</button>
         </Link>
         <Link to="/admin">
@@ -23,11 +25,17 @@ function App() {
         <Link to="/component-store">
           <button>Go to Component Store</button>
         </Link>
+        <Link to="/review">
+          <button>Review Page</button>
+        </Link>
         <Routes>
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentDetails />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/review1" element={<Review />} />
         </Routes>
       </div>
     </Router>
