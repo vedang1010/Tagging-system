@@ -42,7 +42,7 @@ const Review = () => {
       <h1>Review Idea / Component</h1>
       <div className={styles.detailsContainer}>
         <div className={styles.imagePreview}>
-          <img src="https://via.placeholder.com/150" alt="Component Preview" />
+          <img src="https://via.placeholder.com/150" alt="Component Preview" className={styles.image} />
           <div className={styles.details}>
           <p className={styles.leftText}><strong>Component Name:</strong> {componentDetails.name}</p>
           <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {componentDetails.type}</p>
