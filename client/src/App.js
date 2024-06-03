@@ -6,6 +6,7 @@ import Profile from './Profile';
 import ComponentStore from './ComponentStore';
 import ComponentDetails from './components/ComponentDetails';
 import HomePage from './pages/HomePage';
+import ReviewPage from './pages/ReviewPage';
 import Review from './pages/Review';
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
           <Route path="/component-store" element={<ComponentStore />} />
           <Route path="/component/:id" element={<ComponentDetails />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/review" element={<Review />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/review1" element={<Review />} />
         </Routes>
       </div>
     </Router>
