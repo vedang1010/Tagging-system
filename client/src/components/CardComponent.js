@@ -3,6 +3,7 @@ import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 
+
 const StyledCard = styled(Card)(({ theme }) => ({
   textDecoration: 'none',
   color: 'inherit',

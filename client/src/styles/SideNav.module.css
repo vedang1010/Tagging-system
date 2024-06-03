@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #757474; /* Same color as seen in the image */
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidenav a {
+    margin-top: 10px;;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidenav a:hover {
+    background-color: #575757; /* Change background color on hover */
+    border-radius: 25px;;
+  }
+  
+  .sidenav a.active {
+    background-color: #444444; /* Background color for the active link */
+  }
+  
+  .sidenav .icon {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 18px; /* Adjust icon size */
+  }
+
+  .main {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+   .sidenav {padding-top: 15px;}
+   .sidenav a {font-size: 18px;}
+  }
+  
+  @media screen and (max-width: 450px) {
+   .sidenav {padding-top: 15px;}
+   .sidenav a {font-size: 18px;}
+  }
+  
+  .sidenav #icon1{
+    margin-top:70px;
+  }
+  
