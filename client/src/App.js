@@ -1,3 +1,6 @@
+import React from 'react';
+import './styles/App.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
 import React, { useState } from 'react';
@@ -16,11 +19,20 @@ function App() {
   const toggleView = () => {
     setIsLoginView(!isLoginView);
   };
+    const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   return (
+    <>
+
+    <motion.div className="progress-bar" style={{ scaleX }} />
+
     <Router>
       <div className="App">
-        <h1>This is client home page</h1>
-        <Link to="/">
+        <Link to="/home">
           <button>Go to Home Page</button>
         </Link>
         <Link to="/admin">
@@ -33,6 +45,9 @@ function App() {
           <button>Go to Component Store</button>
         </Link>
         <CssBaseline />
+        <Link to="/review">
+          <button>Review Page</button>
+        </Link>
         <Routes>
         <Route
           path="/components"
@@ -77,9 +92,16 @@ function App() {
         />
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/component-store" element={<ComponentStore />} />
+          <Route path="/component/:id" element={<ComponentCard />} />
+          <Route path="/tags/:tag" element={<ComponentStore />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/review1" element={<Review />} />
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 

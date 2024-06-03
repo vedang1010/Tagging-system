@@ -3,6 +3,7 @@ import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 
+
 const StyledCard = styled(Card)(({ theme }) => ({
   textDecoration: 'none',
   color: 'inherit',
@@ -21,7 +22,7 @@ const StyledBox = styled(Box)({
 
 function CardComponent({ component }) {
   return (
-    <StyledBox component={Link} to={`/component/${component.id}`}>
+    <StyledBox component={Link} to={`/Component/${component.id}`}>
       <StyledCard>
         <CardMedia
           component="img"

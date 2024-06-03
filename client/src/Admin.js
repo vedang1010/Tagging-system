@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Typography, Paper, Box, TextField, Button, List, ListItem, ListItemText, IconButton, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,MenuItem
+  Container, Typography, Paper, Box, TextField, Button, List, ListItem, ListItemText, IconButton, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, MenuItem
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
+import './styles/Admin.css'; // Import the CSS file
 
 const Admin = () => {
-  // const [reviewers, setReviewers] = useState([]); 
   const [newReviewer, setNewReviewer] = useState('');
   const [newReviewerCategory, setNewReviewerCategory] = useState('');
   const categories = ['Functional', 'Legal', 'Technical'];
@@ -26,7 +26,9 @@ const Admin = () => {
   const [departmentContributions, setDepartmentContributions] = useState([]);
   const [rewardSystem, setRewardSystem] = useState([]);
   const [editedRewardSystem, setEditedRewardSystem] = useState([]);
+  const [activeComponent, setActiveComponent] = useState('userManagement');
 
+  
   useEffect(() => {
     const initialRewards = [
       { rank: "5.00 - 4.00", reward: '100' },
@@ -41,9 +43,9 @@ const Admin = () => {
       { name: 'Reviewer4', category: 'Functional' },
       { name: 'Reviewer5', category: 'Legal' },
     ];
-  
-      setFilteredReviewers(initialReviewers)
-    setReviewers(initialReviewers)
+
+    setFilteredReviewers(initialReviewers);
+    setReviewers(initialReviewers);
     setComponentsStats({
       total: 100,
       reused: 50,
@@ -73,7 +75,7 @@ const Admin = () => {
       setNewReviewerCategory('');
     }
   };
-  
+
   const handleFilterByCategory = (category) => {
     setSelectedCategory(category);
     if (category === '') {
@@ -105,94 +107,99 @@ const Admin = () => {
 
   const COLORS = ['#FFBB28', '#FF8042', '#0088FE'];
 
-  return (
-    // <Container maxWidth="lg">
-    <>
-
-      <Typography variant="h3" component="h1" gutterBottom>
-        Admin Dashboard
-      </Typography>
-
-      <Paper elevation={3} sx={{ padding: 2, marginBottom: 3 }}>
-        <Typography variant="h5" component="h2" gutterBottom>
-          User Management
-        </Typography>
-        <Box display="flex" alignItems="center" mb={2}>
-          <TextField
-            label="Add a new reviewer"
-            value={newReviewer}
-            onChange={(e) => setNewReviewer(e.target.value)}
-            variant="outlined"
-            sx={{ marginRight: 2 }}
-          />
-          <TextField
-            select
-            label="Select Category"
-            value={newReviewerCategory}
-            onChange={(e) => setNewReviewerCategory(e.target.value)}
-            variant="outlined"
-            sx={{ width: 200, marginRight: 2 }}
-          >
-            {categories.map((category) => (
-              <MenuItem key={category} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </TextField>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAddReviewer}
-          >
-            Add Reviewer
-          </Button>
-        </Box>
-        <Box display="flex" alignItems="center" mb={2}>
-          <TextField
-            select
-            label="Filter by Category"
-            value={selectedCategory}
-            onChange={(e) => handleFilterByCategory(e.target.value)}
-            variant="outlined"
-            sx={{ width: 200, marginRight: 2 }}
-          >
-            <MenuItem value="">All</MenuItem>
-            {categories.map((category) => (
-              <MenuItem key={category} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Box>
-        <List>
-          {filteredReviewers.map(reviewer => (
-            <ListItem key={reviewer.name} secondaryAction={
-              <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveReviewer(reviewer.name)}>
-                <DeleteIcon />
-              </IconButton>
-            }>
-              <ListItemText primary={reviewer.name} secondary={`Category: ${reviewer.category}`} />
-            </ListItem>
-          ))}
-        </List>
-      </Paper>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'userManagement':
+        return (
+          <Paper elevation={3} className="paper">
+            <Typography variant="h5" component="h2" className="typography-h5" gutterBottom>
+              User Management
+            </Typography>
+            <Box display="flex" alignItems="center" mb={2}>
+              <TextField
+                label="Add a new reviewer"
+                value={newReviewer}
+                onChange={(e) => setNewReviewer(e.target.value)}
+                variant="outlined"
+                sx={{ marginRight: 2 }}
+                className="text-field"
+              />
+              <TextField
+                select
+                label="Select Category"
+                value={newReviewerCategory}
+                onChange={(e) => setNewReviewerCategory(e.target.value)}
+                variant="outlined"
+                sx={{ width: 200, marginRight: 2 }}
+                className="text-field"
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category} className="menu-item">
+                    {category}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleAddReviewer}
+                className="button-contained-primary"
+              >
+                Add Reviewer
+              </Button>
+            </Box>
+            <Box display="flex" alignItems="center" mb={2}>
+              <TextField
+                select
+                label="Filter by Category"
+                value={selectedCategory}
+                onChange={(e) => handleFilterByCategory(e.target.value)}
+                variant="outlined"
+                sx={{ width: 200, marginRight: 2 }}
+                className="text-field"
+              >
+                <MenuItem value="">All</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category} className="menu-item">
+                    {category}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            <List>
+              {filteredReviewers.map(reviewer => (
+                <ListItem key={reviewer.name} secondaryAction={
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveReviewer(reviewer.name)}>
+                    <DeleteIcon />
+                  </IconButton>
+                }>
+                  <ListItemText primary={reviewer.name} secondary={`Category: ${reviewer.category}`} />
+                </ListItem>
+              ))}
+            </List>
+          </Paper>
+        );
+      case 'componentsStats':
+        return (
+          <Paper elevation={3} className="paper">
+            <Typography variant="h5" component="h2" className="typography-h5" gutterBottom>
               Components Statistics
             </Typography>
+            <Typography variant="body1">Total components: {componentsStats.total}</Typography>
+            <Typography variant="body1">Reused components: {componentsStats.reused}</Typography>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={pieData}
+                  dataKey="value"
+                  nameKey="name"
                   cx="50%"
                   cy="50%"
                   labelLine={false}
                   label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   outerRadius={100}
                   fill="#8884d8"
-                  dataKey="value"
+                  className="pie"
                 >
                   {pieData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -203,11 +210,11 @@ const Admin = () => {
               </PieChart>
             </ResponsiveContainer>
           </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+        );
+      case 'issuesStats':
+        return (
+          <Paper elevation={3} className="paper">
+            <Typography variant="h5" component="h2" className="typography-h5" gutterBottom>
               Issues Statistics
             </Typography>
             <ResponsiveContainer width="100%" height={300}>
@@ -222,67 +229,118 @@ const Admin = () => {
               </BarChart>
             </ResponsiveContainer>
           </Paper>
-        </Grid>
-      </Grid>
+        );
+      case 'departmentContributions':
+        return (
+          <Paper elevation={3} className="paper" sx={{ padding: 2, marginTop: 3 }}>
+            <Typography variant="h5" component="h2" className="typography-h5" gutterBottom>
+              Department Contributions
+            </Typography>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart layout="vertical" data={departmentContributions}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" />
+                <YAxis dataKey="department" type="category" />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="contributions" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </Paper>
+        );
+      case 'rewardSystem':
+        return (
+          <Paper elevation={3} className="paper">
+            <Typography variant="h5" component="h2" className="typography-h5" gutterBottom>
+              Reward System
+            </Typography>
+            <TableContainer className="table-container">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Stars</TableCell>
+                    <TableCell>Points Multiplier</TableCell>
+                    <TableCell align="center">Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {editedRewardSystem.map((reward, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <TextField
+                          value={reward.rank}
+                          onChange={(e) => handleRewardChange(index, 'rank', e.target.value)}
+                          className="text-field"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={reward.reward}
+                          onChange={(e) => handleRewardChange(index, 'reward', e.target.value)}
+                          className="text-field"
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Box display="flex" justifyContent="center" m={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleUpdateRewards}
+                  className="button-contained-primary"
+                >
+                  Update Rewards
+                </Button>
+              </Box>
+            </TableContainer>
+          </Paper>
+        );
+      default:
+        return null;
+    }
+  };
 
-      <Paper elevation={3} sx={{ padding: 2, marginTop: 3 }}>
-        <Typography variant="h5" component="h2" gutterBottom>
+  return (
+  <Container className="admin-container" maxWidth="" style={{ display: 'flex' }}>
+      <Box className="navbar">
+        <Button
+          className={activeComponent === 'userManagement' ? 'active' : ''}
+          onClick={() => setActiveComponent('userManagement')}
+        >
+          User Management
+        </Button>
+        <Button
+          className={activeComponent === 'componentsStats' ? 'active' : ''}
+          onClick={() => setActiveComponent('componentsStats')}
+        >
+          Components Statistics
+        </Button>
+        <Button
+          className={activeComponent === 'issuesStats' ? 'active' : ''}
+          onClick={() => setActiveComponent('issuesStats')}
+        >
+          Issues Statistics
+        </Button>
+        <Button
+          className={activeComponent === 'departmentContributions' ? 'active' : ''}
+          onClick={() => setActiveComponent('departmentContributions')}
+        >
           Department Contributions
-        </Typography>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart layout="vertical" data={departmentContributions}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
-            <YAxis dataKey="department" type="category" />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="contributions" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </Paper>
-
-      <Paper elevation={3} sx={{ padding: 2, marginTop: 3 }}>
-        <Typography variant="h5" component="h2" gutterBottom>
+        </Button>
+        <Button
+          className={activeComponent === 'rewardSystem' ? 'active' : ''}
+          onClick={() => setActiveComponent('rewardSystem')}
+        >
           Reward System
-        </Typography>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Stars</TableCell>
-                <TableCell>Points Multiplier</TableCell>
-                <TableCell align="center">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {editedRewardSystem.map((reward, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <TextField
-                      value={reward.rank}
-                      onChange={(e) => handleRewardChange(index, 'rank', e.target.value)}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      value={reward.reward}
-                      onChange={(e) => handleRewardChange(index, 'reward', e.target.value)}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Box display="flex" justifyContent="center" m={2}>
-            <Button variant="contained" color="primary" onClick={handleUpdateRewards}>
-              Update Rewards
-            </Button>
-          </Box>
-        </TableContainer>
-      </Paper>
-        
-      </>
-    // </Container>
+        </Button>
+      </Box>
+
+      <Box className="content">
+        {renderComponent()}
+      </Box>
+    </Container>
   );
 };
 
