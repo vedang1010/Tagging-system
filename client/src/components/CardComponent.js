@@ -22,7 +22,7 @@ const StyledBox = styled(Box)({
 
 function CardComponent({ component }) {
   return (
-    <StyledBox component={Link} to={`/component/${component.id}`}>
+    <StyledBox component={Link} to={`/Component/${component.id}`}>
       <StyledCard>
         <CardMedia
           component="img"

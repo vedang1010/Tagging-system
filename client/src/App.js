@@ -1,16 +1,28 @@
 import React from 'react';
-import './App.css';
+import './styles/App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Admin from './Admin';
 import Profile from './Profile';
 import ComponentStore from './ComponentStore';
+
 import ComponentDetails from './components/ComponentDetails';
 import HomePage from './pages/HomePage';
 import ReviewPage from './pages/ReviewPage';
+import { motion, useScroll, useSpring } from "framer-motion";
 import Review from './pages/Review';
 
 function App() {
+    const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   return (
+    <>
+
+    <motion.div className="progress-bar" style={{ scaleX }} />
+
     <Router>
       <div className="App">
         <Link to="/home">
@@ -32,13 +44,15 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/component-store" element={<ComponentStore />} />
-          <Route path="/component/:id" element={<ComponentDetails />} />
+          <Route path="/component/:id" element={<ComponentCard />} />
+          <Route path="/tags/:tag" element={<ComponentStore />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review1" element={<Review />} />
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 
