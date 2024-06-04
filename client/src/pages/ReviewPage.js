@@ -14,7 +14,7 @@ const images = [
 // useEffect(()=>{
 //    const fetchIdeas = async ()=>{
 //      try{
-//        const reponse = await axios.get('https://localhost:5000/getAllIdeas');
+//        const reponse = await axios.get('https://localhost:5000/api/review/getAllIdeas');
 //      } catch(error){
 //          console.error(error.message);
 //      }
