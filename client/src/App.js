@@ -1,18 +1,25 @@
-import Admin from './Admin';
-import Profile from './Profile';
-import React, { useState } from 'react';
-import { CssBaseline, Container, Button, Box } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes, Navigate,Link } from 'react-router-dom';
-import Signup from './components/Authentication/Signup';
-import Login from './components/Authentication/Login';
-import Logout from './components/Authentication/Logout'
-import ComponentStorePage from './pages/ComponentStorePage';
-import ComponentCard from './ComponentCard'
-import HomePage from './pages/HomePage'
-import ReviewPage from './pages/ReviewPage'
-import Review from './pages/Review'
+import React, { useState } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import Admin from "./Admin";
+import Profile from "./Profile";
+import ComponentStore from "./ComponentStore";
+import ComponentDetails from "./components/ComponentDetails";
+import Upload_Idea from "./Upload_Idea";
+import Upload_Component from "./Upload_Component";
+import Text_Editor from "./Text_Editor";
 
-import './styles/App.css'
+import ComponentStorePage from "./ComponentStorePage";
+import Container from "./Container";
+import Box from "./Box";
+import Login from "./Login";
+import Signup from "./Signup";
+import Button from "./Button";
+import Logout from "./Logout";
+import ComponentCard from "./ComponentCard";
+import HomePage from "./pages/HomePage";
+import ReviewPage from "./pages/ReviewPage";
+import Review from "./pages/Review";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
