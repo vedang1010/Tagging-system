@@ -1,18 +1,20 @@
-import Admin from './Admin';
-import Profile from './Profile';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import Admin from "./Admin";
+import Profile from "./Profile";
+import Upload_Idea from "./Upload_Idea";
+import Upload_Component from "./Upload_Component";
 import { CssBaseline, Container, Button, Box } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes, Navigate,Link } from 'react-router-dom';
-import Signup from './components/Authentication/Signup';
-import Login from './components/Authentication/Login';
-import Logout from './components/Authentication/Logout'
-import ComponentStorePage from './pages/ComponentStorePage';
-import ComponentCard from './ComponentCard'
-import HomePage from './pages/HomePage'
-import ReviewPage from './pages/ReviewPage'
-import Review from './pages/Review'
 
-import './styles/App.css'
+import ComponentStorePage from "./components/ComponentStore/ComponentStorePage";
+// import Container from "./Container";
+import Login from "./components/Authentication/Login";
+import Signup from "./components/Authentication/Signup";
+import Logout from "./components/Authentication/Logout";
+import ComponentCard from "./ComponentCard";
+import HomePage from "./pages/HomePage";
+import ReviewPage from "./pages/ReviewPage";
+import Review from "./pages/Review";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,10 +48,16 @@ function App() {
         <Link to="/components">
           <button>Go to Component Store</button>
         </Link>
-        <CssBaseline />
         <Link to="/review">
           <button>Review Page</button>
         </Link>
+        <Link to="/uploadComponent">
+          <button> uploadComponent</button>
+        </Link>
+        <Link to="/uploadIdea">
+          <button> uploadIdea</button>
+        </Link>
+        <CssBaseline />
         <Routes>
         <Route
           path="/components"
@@ -98,6 +106,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review1" element={<Review />} />
+          <Route path="/uploadComponent" element={<Upload_Component />} />
+          <Route path="/uploadIdea" element={<Upload_Idea/>} />
+
         </Routes>
       </div>
     </Router>
