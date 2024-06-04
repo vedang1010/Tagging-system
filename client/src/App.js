@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
 import Admin from "./Admin";
 import Profile from "./Profile";
-import ComponentStore from "./ComponentStore";
-import ComponentDetails from "./components/ComponentDetails";
 import Upload_Idea from "./Upload_Idea";
 import Upload_Component from "./Upload_Component";
-import Text_Editor from "./Text_Editor";
+import { CssBaseline, Container, Button, Box } from '@mui/material';
 
-import ComponentStorePage from "./ComponentStorePage";
-import Container from "./Container";
-import Box from "./Box";
-import Login from "./Login";
-import Signup from "./Signup";
-import Button from "./Button";
-import Logout from "./Logout";
+import ComponentStorePage from "./components/ComponentStore/ComponentStorePage";
+// import Container from "./Container";
+import Login from "./components/Authentication/Login";
+import Signup from "./components/Authentication/Signup";
+import Logout from "./components/Authentication/Logout";
 import ComponentCard from "./ComponentCard";
 import HomePage from "./pages/HomePage";
 import ReviewPage from "./pages/ReviewPage";
@@ -56,6 +51,13 @@ function App() {
         <Link to="/review">
           <button>Review Page</button>
         </Link>
+        <Link to="/uploadComponent">
+          <button> uploadComponent</button>
+        </Link>
+        <Link to="/uploadIdea">
+          <button> uploadIdea</button>
+        </Link>
+        <CssBaseline />
         <Routes>
         <Route
           path="/components"
@@ -104,6 +106,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review1" element={<Review />} />
+          <Route path="/uploadComponent" element={<Upload_Component />} />
+          <Route path="/uploadIdea" element={<Upload_Idea/>} />
+
         </Routes>
       </div>
     </Router>

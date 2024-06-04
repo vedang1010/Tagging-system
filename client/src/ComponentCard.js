@@ -3,7 +3,7 @@ import './styles/ComponentCard.css';
 import Header from './components/componentCards/components/Header';
 // import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Content from './components/componentCards/components/Content';
-import ComponentStore from './ComponentStore';
+// import ComponentStore from './ComponentStore';
 
 import Footer from './components/Footer'
 const ComponentCard = () => {
