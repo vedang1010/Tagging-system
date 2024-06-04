@@ -7,7 +7,6 @@ router.post('/getAllIdeas',getAllIdeas);
 router.post('/fetchComponent',fetchComponent);
 router.post('/fetchIdea',fetchIdea);
 
-
 module.exports = router;
 
 
