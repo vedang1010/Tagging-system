@@ -4,13 +4,17 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 
 const userRoutes = require('./routes/auth')
+const reviewRoutes = require('./routes/review');
 const app = express();
 
+require('dotenv').config();
 
 app.use(express.json());
-require('dotenv').config();
 app.use(cors());
+
+
 app.use('/api/user',userRoutes);
+app.use('/api/review',reviewRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });

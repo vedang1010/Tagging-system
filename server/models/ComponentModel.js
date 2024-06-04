@@ -52,4 +52,4 @@ const tagsSchema = new Schema({
     }
 })
 
-module.export = {componentSchema, tagsSchema}
+module.export = mongoose.model('Component',componentSchema,'Tag', tagsSchema);

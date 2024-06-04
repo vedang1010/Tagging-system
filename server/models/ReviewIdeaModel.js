@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const reviewIdeaSchema = new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:componentSchema,
+        ref:'Component',
         required: true
     },
     funct_stars:{
@@ -31,7 +31,7 @@ const reviewIdeaSchema = new Schema({
 const reviewComponent= new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:componentSchema,
+        ref:'Component',
         required: true
     },
     tech_stars:{
@@ -53,6 +53,7 @@ const reviewComponent= new Schema({
     }
 })
 
-module.export={reviewIdeaSchema, reviewComponent}
+module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)
+
 
 
