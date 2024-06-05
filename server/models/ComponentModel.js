@@ -4,17 +4,47 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
+const contributor= new Schema({
+    email:[{
+        type: String,
+    }],
+    date:{
+        type: Date,
+        default: Date.now
+    },
+    version:{
+        type:Number,
+    },
+    link:{
+        type : String,
+    }
+})
+
+const tagsComponent = new Schema({
+    id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Component',
+        required: true
+    },
+    access:[{
+        type: String,
+    }]
+})
+
 const componentSchema = new Schema({
+    name:{
+        type: String,
+        required: true,
+        
+    },
     idea: {
         type: String,
         required: true
     },
-    taglist: {
-        type: Array
-    },
-    contributors: {
-        type: Array,
-    },
+    taglist: [{
+      type: String,  
+    }],
+    contributors:[contributor],
     type: {
         type: String,
         required: true
@@ -32,12 +62,33 @@ const componentSchema = new Schema({
         type: String,
         required: true
     },
+    sys_requirements: {
+        type: String,
+        required: true
+    },
+    dependencies: {
+        type: String,
+        required: true
+    },
+    license: {
+        type: String,
+        required: true
+    },
+
     status1: {
-        type: Boolean
+        type: String,
+        required: true,
+        default: "Pending"
     },
     status2: {
-        type: Boolean
+        type: String,
+        required: true,
+        default: "Pending"
     },
+    preview:[{
+        type: String,
+        
+    }]
 })
 
 
@@ -46,10 +97,7 @@ const tagsSchema = new Schema({
         type: String,
         required: true
     },
-    components: {
-        type: Array,
-        ref: 'Component'
-    }
+    tagsComponents: [tagsComponent]
 })
 
 module.export = mongoose.model('Component',componentSchema,'Tag', tagsSchema);
