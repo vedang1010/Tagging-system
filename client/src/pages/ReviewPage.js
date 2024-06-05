@@ -15,23 +15,23 @@ const images = [
 
 
 
-const [userState, setUserState] = useState(user);
+// const [userState, setUserState] = useState(user);
 
-useEffect(() => {
-  const fetchIdeas = async () => {
-    try {
-      const response = await axios.get('https://localhost:5000/api/review/getAllIdeas');
-      console.log(response.data); // Handle the response as needed
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+// useEffect(() => {
+//   const fetchIdeas = async () => {
+//     try {
+//       const response = await axios.get('https://localhost:5000/api/review/getAllIdeas');
+//       console.log(response.data); // Handle the response as needed
+//     } catch (error) {
+//       console.error(error.message);
+//     }
+//   };
 
-  if (userState) {
-    fetchIdeas();
-    setUserState(false); // Or whatever logic you need here
-  }
-}, [userState]);
+//   if (userState) {
+//     fetchIdeas();
+//     setUserState(false); // Or whatever logic you need here
+//   }
+// }, [userState]);
 
 
 function ReviewPage() {
