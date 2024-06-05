@@ -17,12 +17,14 @@ const reviewIdeaSchema = new Schema({
     Remarks:{
         type: String,
     },
-    email:{
-        type: Array,
+    contributor_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'UserInfo'
     },
     status :{
         type: String,
-        required: true
+        required: true,
+        default: "Pending"
     }
 
 })
@@ -38,18 +40,20 @@ const reviewComponent= new Schema({
         type: Number,
         
     },
-    legal_start:{
+    legal_stars:{
         type: Number,
     },
     Remarks:{
         type: String,
     },
-    email:{
-        type: Array,
+    contributor_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'UserInfo'
     },
     status :{
         type: String,
-        required: true
+        required: true,
+        default: "Pending"
     }
 })
 

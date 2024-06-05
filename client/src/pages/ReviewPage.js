@@ -4,22 +4,35 @@ import styles from '../styles/ReviewPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
+
 // Sample images (you can replace these with actual image URLs)
+//const[user,setUser]=useState('true');
 const images = [
   'https://via.placeholder.com/150',
   'https://via.placeholder.com/150',
   'https://via.placeholder.com/150'
 ];
 
-// useEffect(()=>{
-//    const fetchIdeas = async ()=>{
-//      try{
-//        const reponse = await axios.get('https://localhost:5000/api/review/getAllIdeas');
-//      } catch(error){
-//          console.error(error.message);
-//      }
-//    }
-// })
+
+
+// const [userState, setUserState] = useState(user);
+
+// useEffect(() => {
+//   const fetchIdeas = async () => {
+//     try {
+//       const response = await axios.get('https://localhost:5000/api/review/getAllIdeas');
+//       console.log(response.data); // Handle the response as needed
+//     } catch (error) {
+//       console.error(error.message);
+//     }
+//   };
+
+//   if (userState) {
+//     fetchIdeas();
+//     setUserState(false); // Or whatever logic you need here
+//   }
+// }, [userState]);
+
 
 function ReviewPage() {
 
