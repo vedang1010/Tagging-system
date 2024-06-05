@@ -21,7 +21,8 @@ const fetchComponent = async(req,res)=>{
 
 const getAllIdeas = async(req,res)=>{
     try{
-        console.log("fetchIdea");
+        //console.log("fetchIdea");
+        
         return res.json({msg: 'hello from getAllIdeas'})
     } catch(error){
         console.log(error);
