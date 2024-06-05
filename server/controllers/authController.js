@@ -1,5 +1,5 @@
 // server/controllers/authController.js
-const User = require('../models/User');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const sendMail = require('../utils/mailer');
