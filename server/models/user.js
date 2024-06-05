@@ -17,6 +17,9 @@ const userSchema = new Schema({
   },
   otpExpiration: {
     type: Date
+  },
+  group:{
+    type:String,
   }
 });
 
