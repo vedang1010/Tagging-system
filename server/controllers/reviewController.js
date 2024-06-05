@@ -28,5 +28,6 @@ const getAllIdeas = async(req,res)=>{
     }
 
 }
+console.log("Welcome2");
 
 module.exports = {getAllIdeas, fetchIdea, fetchComponent}
