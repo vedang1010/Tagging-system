@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Upload_Image from './Upload_Image';
-import Text_Editor from './Text_Editor';
+import Upload_Image from '../utils/Upload_Image';
+import Text_Editor from '../utils/Text_Editor';
 
 function Upload_Component() {
   // tags of component

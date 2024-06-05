@@ -39,7 +39,7 @@ const Review = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h1>Review Idea / Component</h1>
+      <h1 className={styles.heading}>Review Idea / Component</h1>
       <div className={styles.detailsContainer}>
         <div className={styles.imagePreview}>
           <img src="https://via.placeholder.com/150" alt="Component Preview" className={styles.image} />

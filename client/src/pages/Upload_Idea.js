@@ -1,5 +1,5 @@
 import React from "react";
-import Text_Editor from './Text_Editor';
+import Text_Editor from '../utils/Text_Editor';
 
 function Upload_Idea() {
   return (
