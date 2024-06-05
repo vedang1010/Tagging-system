@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
-import Admin from "./Admin";
-import Profile from "./Profile";
-import Upload_Idea from "./Upload_Idea";
-import Upload_Component from "./Upload_Component";
+import Admin from "./pages/Admin";
+import Profile from "./pages/Profile";
+import Upload_Idea from "./pages/Upload_Idea";
+import Upload_Component from "./pages/Upload_Component";
 import { CssBaseline, Container, Button, Box, Grid } from '@mui/material';
 
 import ComponentStorePage from "./pages/ComponentStorePage";
@@ -11,7 +11,7 @@ import ComponentStorePage from "./pages/ComponentStorePage";
 import Login from "./components/Authentication/Login";
 import Signup from "./components/Authentication/Signup";
 import Logout from "./components/Authentication/Logout";
-import ComponentCard from "./ComponentCard";
+import ComponentCard from "./pages/ComponentCard";
 import HomePage from "./pages/HomePage";
 import ReviewPage from "./pages/ReviewPage";
 import Review from "./pages/Review";
