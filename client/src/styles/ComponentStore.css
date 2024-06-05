@@ -1,0 +1,41 @@
+.left-nav, .right-nav {
+    position: fixed;
+    
+    overflow-y: auto;
+    width: 15%;
+  }
+  
+  .left-right-grid{
+    background-color: #f5f5f5;
+  }
+  
+  
+  .slick-prev:before, .slick-next:before {
+    color:brown;
+  }
+  
+  
+  
+  .slick-next{
+    right: 0%;
+  }
+  
+  
+  .slick-prev{
+    left: 0%;
+    z-index: 1;
+  }
+  
+  .carousel-img{
+    align-self: center;
+  }
+  
+  .img-cover{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .slick-slide{
+    padding: 0px 5px;
+  }
+  
