@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { Box, Typography, Paper, IconButton, Badge, Divider } from '@mui/material';
 import { Notifications as NotificationsIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import AvatarSection from './components/profile/components/AvatarSection';
-import Sidebar from './components/profile/components/Sidebar';
-import UserInfo from './components/profile/components/UserInfo';
-import ProgressCards from './components/profile/components/ProgressCards';
-import Contributions from './components/profile/components/Contributions';
-import './styles/Profile.css';
-import Footer from "./components/Footer"
+import AvatarSection from '../components/profile/components/AvatarSection';
+import Sidebar from '../components/profile/components/Sidebar';
+import UserInfo from '../components/profile/components/UserInfo';
+import ProgressCards from '../components/profile/components/ProgressCards';
+import Contributions from '../components/profile/components/Contributions';
+import '../styles/Profile.css';
+import Footer from "../components/Footer"
 const Profile = () => {
   const initialUser = {
     name: 'ABC',
