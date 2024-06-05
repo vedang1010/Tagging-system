@@ -4,8 +4,8 @@ import Text_Editor from '../utils/Text_Editor';
 function Upload_Idea() {
   return (
     <>
-      <section className="max-w-4xl p-6 mx-auto  bg-indigo-500 rounded-lg shadow-md mt-10 mb-20">
-        <h1 className="text-4xl mb-10 font-bold text-white">
+      <section className="w-10/12 p-6 mx-auto  bg-indigo-500 rounded-lg shadow-md mt-20 mb-20">
+        <h1 className="text-4xl mb-10 font-bold text-white text-center">
           Upload Your Idea
         </h1>
         <form>
