@@ -8,7 +8,7 @@ import Sidebar from '../components/profile/components/Sidebar';
 import UserInfo from '../components/profile/components/UserInfo';
 import ProgressCards from '../components/profile/components/ProgressCards';
 import Contributions from '../components/profile/components/Contributions';
-import '../styles/Profile.css';
+// import '../styles/Profile.css';
 import Footer from "../components/Footer"
 const Profile = () => {
   const initialUser = {

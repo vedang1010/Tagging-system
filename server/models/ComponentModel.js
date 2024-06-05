@@ -5,8 +5,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const contributor= new Schema({
-    email:[{
-        type: String,
+    id:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'UserInfo',
+        required: true
     }],
     date:{
         type: Date,
@@ -100,4 +102,10 @@ const tagsSchema = new Schema({
     tagsComponents: [tagsComponent]
 })
 
-module.export = mongoose.model('Component',componentSchema,'Tag', tagsSchema);
+const Component = mongoose.model('Component', componentSchema);
+const Tag = mongoose.model('Tag', tagsSchema);
+
+module.exports = {
+    Component,
+    Tag
+};

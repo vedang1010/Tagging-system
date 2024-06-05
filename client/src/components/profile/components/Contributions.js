@@ -1,6 +1,7 @@
 // src/components/Contributions.js
 import React from 'react';
 import { Paper, Typography, List, ListItem, ListItemText, Divider, Button, Box } from '@mui/material';
+import "../styles/Profile.css"
 
 const Contributions = ({ user, visibleContributions, handleLoadMoreContributions }) => (
   <Paper elevation={3} sx={{ padding: 4, marginBottom: 3 }}>
