@@ -42,7 +42,7 @@ function App() {
           <CssBaseline />
           <Navbar />
           <Grid container spacing={0} className='outer-grid'>
-            <Box p={3} mt={8}>
+            {/* <Box p={3} mt={8}> */}
               <Routes>
                 <Route path="/componentStore" element={<ComponentStorePage />} />
                 <Route path="/profile" element={<Profile />} />
@@ -50,10 +50,10 @@ function App() {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/review" element={<ReviewPage />} />
                 <Route path="/review1" element={<Review />} />
-                <Route path="/uploadComponent" element={<Upload_Component />} />
+                <Route path="/uploadcomponent" element={<Upload_Component />} />
                 <Route path="/uploadIdea" element={<Upload_Idea />} />
               </Routes>
-            </Box>
+            {/* </Box> */}
           </Grid>
         </Box>
       </Router>
