@@ -26,7 +26,7 @@ const fetchComponent = async(req,res)=>{
         } else {
             console.log('nothing found');
         }
-        return res.json({compo})
+        return res.json(compo)
     } catch(error){
         console.log(error);
     }

@@ -1,74 +1,76 @@
-.contribution-list{
-    text-align: center;
+.contribution-list {
+  text-align: center;
 }
+
 /* Profile.css */
 
 body {
-    background-color: #e3f2fd;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .contribution-list {
-    font-size: 0.875rem;
-    color: #757575;
-  }
-  
-  .card-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 1rem;
-  }
-  
-  .card-small {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .card-content {
-    display: flex;
-    align-items: center;
-  }
-  
-  .card-icon {
-    margin-right: 0.5rem;
-  }
-  
-  .card-text {
-    font-size: 1.25rem;
-  }
-  
-  .card-small {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .card-icon {
-    color: #1e88e5;
-    margin-right: 8px;
-  }
-  
-  .card-text {
-    font-weight: bold;
-  }
-  
-  .card-small {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .card-icon {
-    color: #1e88e5;
-    margin-right: 8px;
-  }
-  
-  .card-text {
-    font-weight: bold;
-  }
+  background-color: #e3f2fd;
+  font-family: 'Roboto', sans-serif;
+}
 
-  
+.contribution-list {
+  font-size: 0.875rem;
+  color: #757575;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.card-small {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+}
+
+.card-icon {
+  margin-right: 0.5rem;
+}
+
+.card-text {
+  font-size: 1.25rem;
+}
+
+.card-small {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-icon {
+  color: #1e88e5;
+  margin-right: 8px;
+}
+
+.card-text {
+  font-weight: bold;
+}
+
+.card-small {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-icon {
+  color: #1e88e5;
+  margin-right: 8px;
+}
+
+.card-text {
+  font-weight: bold;
+}
+.contributions-list{
+  display: block;
+}

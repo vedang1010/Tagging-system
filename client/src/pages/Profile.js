@@ -191,7 +191,7 @@ const Profile = () => {
         )}
       </Box>
     </Box>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 };

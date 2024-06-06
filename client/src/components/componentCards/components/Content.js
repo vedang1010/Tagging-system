@@ -13,7 +13,7 @@ const Content = () => {
           <AppDetails />
         </main>
         <main className="content">
-          <Screenshots />
+          {/* <Screenshots /> */}
         </main>
         <main className="content">
           <Description />
