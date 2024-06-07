@@ -30,7 +30,7 @@ const reviewIdeaSchema = new Schema({
 })
 
 
-const reviewComponent= new Schema({
+const reviewComponentSchema= new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Component',
@@ -57,7 +57,11 @@ const reviewComponent= new Schema({
     }
 })
 
-module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)
+// module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)
+const ReviewIdea = mongoose.model('ReviewIdea', reviewIdeaSchema);
+const ReviewComponent = mongoose.model('ReviewComponent', reviewComponentSchema);
+
+module.exports = { ReviewIdea, ReviewComponent };
 
 
 
