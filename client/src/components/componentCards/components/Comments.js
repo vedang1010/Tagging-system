@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 
 
-const Ratings = () => {
-    const [ratingValue, setRatingValue] = useState(4.2);
+const Comments = ({component}) => {
+    const [ratingValue, setRatingValue] = useState(component.stars);
     const [ratingCount, setRatingCount] = useState(1736);
     const [ratingBars, setRatingBars] = useState([
       { stars: 5, width: '70%' },
@@ -27,8 +27,8 @@ const Ratings = () => {
   
     return (
       <section className="ratings">
-        <h2>Ratings and reviews</h2>
-        <div className="rating-overview">
+        <h2>Comments</h2>
+        {/* <div className="rating-overview">
           <div className="rating-score">
             <span className="rating-value">{ratingValue}</span>
             <span className="rating-stars">★</span>
@@ -43,11 +43,11 @@ const Ratings = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
         {reviews.map((review, index) => (
           <div key={index} className="review">
             <div className="review-header">
-              <span className="review-rating">{review.rating} ★</span>
+              {/* <span className="review-rating">{review.rating} ★</span> */}
               <span className="review-title">{review.title}</span>
             </div>
             <div className="review-body">
@@ -67,4 +67,4 @@ const Ratings = () => {
     );
   };
   
-export default Ratings
+export default Comments

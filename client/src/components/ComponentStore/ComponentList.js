@@ -5,7 +5,7 @@ import ComponentItem from './ComponentItem';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import { useNavigate } from 'react-router-dom';
 const StyledCard = styled('div')({
   backgroundColor: 'white',
   borderRadius: '8px',
@@ -18,11 +18,12 @@ const StyledCard = styled('div')({
 });
 
 const ComponentList = () => {
-  
+  const navigate = useNavigate();
+
   const componentsByCategory = {
     DTS: [
       {
-        id: 1, title: 'DTS Component 1', description: 'Description of DTS component 1', publisher: 'Dummy Publisher 3',
+        id: '666042d68170c800922258c5', title: 'DTS Component 1', description: 'Description of DTS component 1', publisher: 'Dummy Publisher 3',
         imageUrl: 'https://dummyimage.com/300x200/000/fff',
       },
       {
@@ -186,7 +187,9 @@ const ComponentList = () => {
     ],
   };
 
-  
+  const handleCardClick = (id) => {
+    navigate(`/component/${id}`);
+  };
   return (
     <div className="component-list" style={{marginLeft:'10px', marginRight:'10px' }}>
       {Object.entries(componentsByCategory).map(([category, components]) => (
@@ -197,7 +200,7 @@ const ComponentList = () => {
           </div>
           <Slider {...sliderSettings}  >
             {components.map((component) => (
-              <StyledCard key={component.id} >
+              <StyledCard key={component.id}  onClick={() => handleCardClick(component.id)} >
                 <ComponentItem component={component} />
               </StyledCard>
             ))}

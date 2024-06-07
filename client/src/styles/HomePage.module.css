@@ -5,4 +5,9 @@
     color: black;
     margin: 0 auto; /* Center the page horizontally */
   }
-  
+  .button{
+    width:250px;
+    height: 250px;
+    color: black;
+    background-color: pink;
+  }

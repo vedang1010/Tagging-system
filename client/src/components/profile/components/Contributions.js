@@ -1,11 +1,12 @@
 // src/components/Contributions.js
 import React from 'react';
 import { Paper, Typography, List, ListItem, ListItemText, Divider, Button, Box } from '@mui/material';
+import "../styles/Profile.css"
 
 const Contributions = ({ user, visibleContributions, handleLoadMoreContributions }) => (
   <Paper elevation={3} sx={{ padding: 4, marginBottom: 3 }}>
     <Typography variant="h6">Contributions</Typography>
-    <List>
+    <List className="contributions-list">
       {user.contributions.slice(0, visibleContributions).map((contribution, index) => (
         <React.Fragment key={index}>
           <ListItem>

@@ -3,6 +3,8 @@ import React from 'react';
 import { Box, Typography, Avatar, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 // import 'client/src/styles/Profile.css';
+import "../styles/Profile.css"
+// import ""
 
 const AvatarSection = ({ user, isEditing, handleEditProfile, handleSaveProfile }) => (
   <Box display="flex" justifyContent="space-between" alignItems="center" flexDirection={{ xs: 'column', md: 'row' }}>
