@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const userRoutes = require('./routes/auth')
 const reviewRoutes = require('./routes/review');
+const componentCardRoutes = require('./routes/componentCard');
 const app = express();
 
 require('dotenv').config();
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/api/user',userRoutes);
 app.use('/api/review',reviewRoutes);
+app.use('/api/componentCard',componentCardRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });
