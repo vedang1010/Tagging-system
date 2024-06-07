@@ -14,7 +14,7 @@ const AdditionalInfo = ({component}) => {
     // ]);
     const [installationInfo, setInstallationInfo] = useState('Get this app while signed in...');
     const [supportedLanguages, setSupportedLanguages] = useState('English, Spanish, French, German');
-    const [legalDisclaimer, setLegalDisclaimer] = useState(component.license);
+    const [license, setLicense] = useState(component.license);
   
     return (
       <section className="additional-info">
@@ -33,9 +33,9 @@ const AdditionalInfo = ({component}) => {
               ))}
             </div>
           </div>
-          <div><FaGlobe /> <strong>Installation:</strong> {installationInfo}</div>
+          {/* <div><FaGlobe /> <strong>Installation:</strong> {installationInfo}</div> */}
           <div><FaGlobe /> <strong>Supported languages:</strong> {supportedLanguages}</div>
-          <div><FaExclamationCircle /> <strong>Legal disclaimer:</strong> {legalDisclaimer}</div>
+          <div><FaExclamationCircle /> <strong>License:</strong> {license}</div>
         </div>
         <div className="button-group">
           <button className="raise-issue"><FaExclamationCircle /> Raise Issue</button>

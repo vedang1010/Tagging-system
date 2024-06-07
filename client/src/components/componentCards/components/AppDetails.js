@@ -6,7 +6,7 @@ const AppDetails = ({component}) => {
       imageUrl: 'https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000',
       appName: component.name,
       rating: component.stars+' ★',
-      reviews: '1.73K ratings',
+      reviews:component.frequency+ ' views',
       category:component.type,
       downloadLink:component.contributors[component.contributors.length-1].link
     });
