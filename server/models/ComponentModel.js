@@ -33,6 +33,7 @@ const tagsComponent = new Schema({
     }]
 })
 
+console.log("comp");
 const componentSchema = new Schema({
     name:{
         type: String,
