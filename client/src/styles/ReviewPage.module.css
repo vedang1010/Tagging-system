@@ -1,79 +1,62 @@
-/* ReviewPage.module.css */
 .ReviewPage {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 100%px;
-    margin: 20px auto;
-    font-family: 'Arial, sans-serif';
-    height:670px;
-  }
   
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-  li {
-    margin: 10px;
-    flex: 1 1 calc(33.333% - 20px);
-    box-sizing: border-box;
-  }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    height:300px
-  }
-  
-  .card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-  
-  .card-content {
-    margin-top: 40px;
-    text-align: center;
-  }
-  
-  .card-content a {
-    text-decoration: none;
-    color: #000000;
-    font-weight: bold;
-    display: block;
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .card-content a:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
+  padding: 70px;
+  font-family: Arial, sans-serif;
+}
 
-  .CompoentPreview{
-    text-decoration: none;
-    color: #000000;
-    font-size: 20px;
-    margin-top: 15px;;
-  }
-  
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Ideas {
+  margin: 10px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px; 
+  height: 300px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.ComponentPreview {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card img {
+  width: 100%;
+  height: 75%; /* Adjust height percentage to make image taller */
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f8f8;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}

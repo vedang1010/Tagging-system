@@ -17,11 +17,8 @@ app.use(cors());
 app.use('/api/user',userRoutes);
 
 app.use('/api/review',reviewRoutes);
-<<<<<<< HEAD
 
-=======
 app.use('/api/componentCard',componentCardRoutes);
->>>>>>> 29dcf127b826af6c8db5c5df01de37f23a8d4726
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });

@@ -29,7 +29,7 @@ const getAllIdeas = async (req, res) => {
         });
 
         if (compo.length > 0) {
-            console.log("Original compo:", compo);
+            //console.log("Original compo:", compo);
 
             const updatedCompo = await Promise.all(compo.map(async (component) => {
                 try {
@@ -48,7 +48,7 @@ const getAllIdeas = async (req, res) => {
                         preview: compbyId.preview
                     };
 
-                    //console.log("Updated component:", updatedComponent);
+                    console.log("Updated component:", updatedComponent);
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);

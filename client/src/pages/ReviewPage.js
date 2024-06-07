@@ -17,65 +17,49 @@ const images = [
 
 
 function ReviewPage() {
-const [userState, setUserState] = useState(true);
+// const [userState, setUserState] = useState(true);
+const [components, setComponents] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
 console.log('userState');
-useEffect(() => {
- 
-  const fetchIdeas = async () => {
-    try {
-      console.log("SS")
 
-      const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
-      console.log(response.data); // Handle the response as needed
-      console.log("SS")
 
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  if (userState) {
-    fetchIdeas();
-    setUserState(false); // Or whatever logic you need here
+const fetchIdeas = async () => {
+  try {
+    console.log("Fetching data...");
+    const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
+    setComponents(response.data);
+    setLoading(false);
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    setError(error);
+    setLoading(false);
   }
-}, [userState]);
+};
+
+useEffect(() => {
+  fetchIdeas();
+}, []); 
 
 
 
   return (
     <div className={styles.ReviewPage}>
-      <h2>Review Page</h2>
+      
       <ul>
-      <li className={styles.Ideas}>
-          <div className={styles.card}>
-            <Link to="/review1" className={styles.CompoentPreview}>
-                <img src={images[1]} alt="Component 2" />
-                    <div className={styles.cardContent}>
-                        Component 1
-                    </div>
-            </Link>
-          </div>
-        </li>
-        <li className={styles.Ideas}>
-          <div className={styles.card}>
-            <Link to="/review1" className={styles.CompoentPreview}>
-                <img src={images[1]} alt="Component 2" />
-                    <div className={styles.cardContent}>
-                        Component 2
-                    </div>
-            </Link>
-          </div>
-        </li>
-        <li className={styles.Ideas}>
-          <div className={styles.card}>
-            <Link to="/review1" className={styles.CompoentPreview}>
-                <img src={images[1]} alt="Component 2" />
-                    <div className={styles.cardContent}>
-                        Component 3
-                    </div>
-            </Link>
-          </div>
-        </li>
+        {components.map((component, index) =>(
+            <li key={component._id} className={styles.Ideas}>
+              <div className={styles.card}>
+                <Link to={`/review1`} className={styles.ComponentPreview}>
+                  <img src={component.preview[0]} alt={`Component ${index + 1}`} />
+                  <div className={styles.cardContent} >
+                    {component.name}
+                  </div>
+                </Link>
+              </div>
+            </li>
+        ))}
       </ul>
     </div>
   );
