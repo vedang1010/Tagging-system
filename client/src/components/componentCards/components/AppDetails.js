@@ -1,14 +1,28 @@
 import React from 'react'
 import { useState } from 'react';
 
-const AppDetails = () => {
+const AppDetails = ({component}) => {
     const [details, setDetails] = useState({
       imageUrl: 'https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000',
-      appName: 'LinkedIn',
-      rating: '4.2 ★',
+      appName: component.name,
+      rating: component.stars+' ★',
       reviews: '1.73K ratings',
-      category: 'Social'
+      category:component.type,
+      downloadLink:component.contributors[component.contributors.length-1].link
     });
+    const handleDownload = (downloadLink) => {
+      if (downloadLink) {
+        const link = document.createElement('a');
+        link.href = downloadLink; // Use the provided downloadLink parameter
+        link.download = component.name || 'download'; // Use component name or a default name
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        console.error('No download link available');
+      }
+    };
+    
   
     return (
       <section className="app-details">
@@ -20,7 +34,9 @@ const AppDetails = () => {
               <p>{`${details.rating} | ${details.reviews} | ${details.category}`}</p>
             </div>
           </div>
-          <button className="cta-button">Download Component</button>
+          {/* <button className="cta-button"  >Download Component</button> */}
+          <button className="cta-button" onClick={() => handleDownload(details.downloadLink)}>Download Component</button>
+
         </div>
       </section>
     );

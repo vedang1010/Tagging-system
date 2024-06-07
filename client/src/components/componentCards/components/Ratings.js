@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 
 
-const Ratings = () => {
-    const [ratingValue, setRatingValue] = useState(4.2);
+const Ratings = ({component}) => {
+    const [ratingValue, setRatingValue] = useState(component.stars);
     const [ratingCount, setRatingCount] = useState(1736);
     const [ratingBars, setRatingBars] = useState([
       { stars: 5, width: '70%' },

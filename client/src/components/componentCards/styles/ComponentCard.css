@@ -926,3 +926,19 @@ li{
 .read-more:hover {
   text-decoration: underline;
 }
+.gallery-container {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.gallery {
+  display: inline-flex;
+}
+
+.gallery img {
+  width: 200px; /* Adjust image width as needed */
+  height: auto;
+  margin-right: 10px; /* Adjust spacing between images as needed */
+}
+
