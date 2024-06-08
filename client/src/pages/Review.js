@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import styles from '../styles/Review.module.css';
+import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+
 
 const Review = () => {
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
-  const [page, setPage] = useState('review'); // 'review' or 'ratings'
+  const [page, setPage] = useState('review'); 
+  const [ObjectId] = useParams();
+  const [ideas, setIdeas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();

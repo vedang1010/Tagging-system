@@ -45,13 +45,12 @@ useEffect(() => {
 
 
   return (
-    <div className={styles.ReviewPage}>
-      
-      <ul>
+    <div className={styles.ReviewPage}>   
+      <ul className={styles.list}>
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
               <div className={styles.card}>
-                <Link to={`/review1`} className={styles.ComponentPreview}>
+                <Link to={`/review/review1`} className={styles.ComponentPreview}>
                   <img src={component.preview[0]} alt={`Component ${index + 1}`} />
                   <div className={styles.cardContent} >
                     {component.name}
