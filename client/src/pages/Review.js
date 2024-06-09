@@ -12,6 +12,7 @@ const Review = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState([]);
+  const [status, setStatus] = useState('Pending')
 
   try{
     useEffect(() => {
@@ -51,8 +52,33 @@ const Review = () => {
   const handleReject = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
+    setStatus('rejected');
+    //axios.post("http://127.0.0.1:5000/api/review/updateStatus1/" + status + remarks, rating)
   };
 
+  const handleAccept =() =>{
+    console.log('Rejected with remarks', { remarks, rating });
+    setPage('ratings');
+    setStatus('accepted');
+  }
+
+  const handleOnClick = async()=>{
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
+        status: status,
+        remarks: remarks,
+        rating: rating
+      });
+      
+      if (response.status !== 200) {
+        console.log(response.status);
+      } else {
+        console.log(response.status);
+      }
+    } catch (error) {
+      console.error("Error occurred while sending the request:", error);
+    }
+  }
   // const ideas = {
   //   name: 'Example Component',
   //   type: 'UI Element',
@@ -130,7 +156,7 @@ const Review = () => {
         <div>
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-            <button type="button" className={styles.next} onClick={() => setPage('ratings')}>Accept</button>
+            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
           
         </div>
@@ -167,7 +193,7 @@ const Review = () => {
 
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
-            <button type="submit" className={styles.next}>Submit</button>
+            <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
           </div>
         </form>
       )}
