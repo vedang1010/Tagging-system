@@ -21,6 +21,7 @@ function ReviewPage() {
 const [components, setComponents] = useState([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
+const [reviewid, setReviewid] = useState(0);
 console.log('userState');
 
 
@@ -29,6 +30,7 @@ const fetchIdeas = async () => {
     console.log("Fetching data...");
     const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
     setComponents(response.data);
+    setReviewid(response.data._id);
     setLoading(false);
     console.log(response.data);
   } catch (error) {
@@ -56,7 +58,7 @@ if (error) {
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
               <div className={styles.card}>
-                <Link to={`/review1/${component.id}`} className={styles.ComponentPreview}>
+                <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
                   <img src={component.preview[0]} alt={`Component ${index + 1}`} />
                   <div className={styles.cardContent} >
                     {component.name}

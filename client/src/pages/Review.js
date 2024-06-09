@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Review = () => {
-  const {objectId} = useParams();
+  const {objectId, reviewId} = useParams();
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
   const [page, setPage] = useState('review'); 
@@ -67,7 +67,9 @@ const Review = () => {
       const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
         status: status,
         remarks: remarks,
-        rating: rating
+        rating: rating,
+        objectId: objectId,
+        reviewId: reviewId,
       });
       
       if (response.status !== 200) {

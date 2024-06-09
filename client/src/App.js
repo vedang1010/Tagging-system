@@ -50,11 +50,11 @@ function App() {
                 <Route path="/component/:id" element={<ComponentCard />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/review" element={<ReviewPage />} />
-                <Route path="/review1/:objectId" element={<Review />} />
+                <Route path="/review1/:objectId/:reviewId" element={<Review />} />
                 <Route path="/uploadcomponent" element={<Upload_Component />} />
                 <Route path="/uploadIdea" element={<Upload_Idea />} />
                 <Route path="/reviewComponentPage" element={<ReviewComponentPage />} />
-                <Route path="/review2/:objectId" element={<Review2 />} />
+                <Route path="/review2/:objectId/:reviewId" element={<Review2 />} />
               </Routes>
             {/* </Box> */}
           </Grid>

@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
 const Review2 = () => {
-  const {objectId} = useParams();
+  const {objectId, reviewId} = useParams();
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [remarks, setRemarks] = useState('');
@@ -19,6 +19,7 @@ const Review2 = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState([]);
+  const [status, setStatus] = useState('pending')
 
   try{
     useEffect(() => {
@@ -62,11 +63,38 @@ const Review2 = () => {
   const handleReject = () => {
     //console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
+    setStatus('rejected');
     
   };
 
-  const handleOnClick =()=>{
+  const handleAccept = () => {
+
+    setPage('ratings');
+    setStatus('accepted');
+  }
+
+
+  const handleOnClick =async()=>{
      setPage('ratings');
+     try {
+        console.log(reviewId," "+objectId);
+        const response = await axios.post("http://127.0.0.1:5000/api/review/status2", {
+          status: status,
+          remarks: remarks,
+          rating1: rating1,
+          rating2: rating2,
+          objectId: objectId,
+          reviewId: reviewId,
+        });
+        
+        if (response.status !== 200) {
+          console.log(response.status);
+        } else {
+          console.log(response.status);
+        }
+      } catch (error) {
+        console.error("Error occurred while sending the request:", error);
+      }
   }
 
   // const ideas = {
@@ -135,8 +163,8 @@ const Review2 = () => {
             </div>
           </div>
           <div className={styles.buttons}>
-            <button type="button" className={styles.cancel} onClick={() => setPage('reject')}>Reject</button>
-            <button type="button" className={styles.next} onClick={() => setPage('ratings')}>Accept</button>
+          <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
+          <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
         </>
       ) : (
@@ -192,9 +220,9 @@ const Review2 = () => {
                 
               </div>
               <div className={styles.buttons}>
-                <button type="button" className={styles.cancel} onClick={handleOnClick}>Go Back</button>
-                <button type="submit" className={styles.next}>Submit</button>
-              </div>
+                <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
+                <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
+            </div>
             </form>
           </div>
         </div>
