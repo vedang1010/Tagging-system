@@ -1,10 +1,10 @@
 .formContainer {
     max-width: 100%;
-    margin: auto;
+    margin: 25px;;
     padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    /* border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); */
     height: 950px;
   }
   
@@ -147,4 +147,14 @@
   
   .downloadContainer svg {
     margin-right: 5px;
+  }
+
+  .detaillist{
+    
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .detailtext{
+    padding: 20px;
   }

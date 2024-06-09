@@ -5,7 +5,20 @@ const fetchIdea = async(req,res)=>{
     //const{Idea}=req.body;
     try{
         console.log("fetchIdea");
-        return res.json({msg: 'hello from fetcghIdeas'})
+        const objectId = req.params.id;
+        console.log(objectId);
+        
+        try{
+            const component = await Component.findById(objectId);
+            console.log(component);
+            if(!component){
+                return res.status(404).json({message: 'Component not found'});
+            }else{
+                return res.status(200).json({component});
+            }
+        }catch(error){
+            console.log(error);
+        }
     } catch(error){
         console.log(error);
     }

@@ -42,7 +42,13 @@ useEffect(() => {
   fetchIdeas();
 }, []); 
 
+if (loading) {
+  return <div>Loading...</div>;
+}
 
+if (error) {
+  return <div>Error: {error.message}</div>;
+}
 
   return (
     <div className={styles.ReviewPage}>   
@@ -50,7 +56,7 @@ useEffect(() => {
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
               <div className={styles.card}>
-                <Link to={`/review/review1`} className={styles.ComponentPreview}>
+                <Link to={`/review1/${component.id}`} className={styles.ComponentPreview}>
                   <img src={component.preview[0]} alt={`Component ${index + 1}`} />
                   <div className={styles.cardContent} >
                     {component.name}

@@ -49,7 +49,7 @@ function App() {
                 <Route path="/component/:id" element={<ComponentCard />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/review" element={<ReviewPage />} />
-                <Route path="/review/review1" element={<Review />} />
+                <Route path="/review1/:objectId" element={<Review />} />
                 <Route path="/uploadcomponent" element={<Upload_Component />} />
                 <Route path="/uploadIdea" element={<Upload_Idea />} />
               </Routes>

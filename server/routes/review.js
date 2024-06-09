@@ -5,7 +5,7 @@ const{getAllIdeas, fetchIdea, fetchComponent}= require('../controllers/reviewCon
 console.log("Welcome1");
 router.get('/getAllIdeas',getAllIdeas);
 router.post('/fetchComponent',fetchComponent);
-router.post('/fetchIdea',fetchIdea);
+router.get('/fetchIdea/:id', fetchIdea);
 
 module.exports = router;
 
