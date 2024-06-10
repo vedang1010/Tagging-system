@@ -19,7 +19,19 @@ const userInfo = new Schema({
     dept:{
         type: String,
         required: true,
+    },
+    group:{
+        type:String,            //Either group A or B
+                                //A => reviewer , B => Consumer
+        required: true,
+    },
+    subgroup:{
+        type:Number,         // 1. fucntional_review
+                             // 2. Technical_review
+                             // 3. Legal_review
     }
+
+
 
 })
 
