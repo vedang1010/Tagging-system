@@ -1,28 +1,35 @@
 // src/components/ComponentStore/ComponentStorePage.js
-import React from 'react';
-import LeftNav from '../components/Layout/LeftNav';
+import React, { useState } from 'react';
 import RightNav from '../components/Layout/RightNav';
 import CustomCarousel from '../components/ComponentStore/Carousel';
 import ComponentList from '../components/ComponentStore/ComponentList';
 import { Grid } from '@mui/material';
-// import SearchBar from './SearchBar';
+import SearchBar from '../components/ComponentStore/SearchBar'
 import '../styles/ComponentStore.css'
-const ComponentStorePage = () => {
-    return (
-        <>
-        
-        <Grid container spacing={2}>
-            <Grid item xs={8}>
-                <CustomCarousel />
-                <ComponentList />
-            </Grid>
-            <Grid item xs={4} className='left-right-grid'>
-                <RightNav />
-            </Grid>
-        </Grid>
-        </>
 
-    );
+
+
+const ComponentStorePage = () => {
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={8}>
+          <SearchBar setShowSearchResults={setShowSearchResults} />
+          {!showSearchResults && (
+            <>
+              <CustomCarousel />
+              <ComponentList />
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12} sm={4} className='left-right-grid'>
+          <RightNav />
+        </Grid>
+      </Grid>
+    </>
+  );
 };
 
 export default ComponentStorePage;

@@ -6,6 +6,7 @@ console.log("Welcome");
 const userRoutes = require('./routes/auth')
 const reviewRoutes = require('./routes/review');
 const componentCardRoutes = require('./routes/componentCard');
+const ComponentStoreRoutes = require("./routes/ComponentStoreRoutes");
 const app = express();
 
 require('dotenv').config();
@@ -19,6 +20,8 @@ app.use('/api/user',userRoutes);
 app.use('/api/review',reviewRoutes);
 
 app.use('/api/componentCard',componentCardRoutes);
+
+app.use('/api/ComponentStore',ComponentStoreRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });
