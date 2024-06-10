@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import React,  { useState, useEffect } from 'react';
 import styles from '../styles/Review.module.css';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Review = () => {
+  const {objectId, reviewId} = useParams();
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
-  const [page, setPage] = useState('review'); // 'review' or 'ratings'
+  const [page, setPage] = useState('review'); 
+  const [ideas, setIdeas] = useState(null);
+  const [loading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [contri, setContri] = useState([]);
+  const [status, setStatus] = useState('Pending')
+
+  try{
+    useEffect(() => {
+        console.log(objectId);
+        axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
+        console.log(response.data);
+        const idea = response.data.component  
+        console.log(" idea"+idea);      ;
+        setIdeas(idea);
+        setIsLoading(false);
+        setError(false);
+      })
+      .catch((error)=>{
+        console.log("Here is the error ",error);
+        setIsLoading(false);
+        setError(error);
+      })
+     },[objectId])
+  } catch (error) {
+    console.error(error.message+ " over here ");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,39 +52,96 @@ const Review = () => {
   const handleReject = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
+    setStatus('rejected');
+    //axios.post("http://127.0.0.1:5000/api/review/updateStatus1/" + status + remarks, rating)
   };
 
-  const componentDetails = {
-    name: 'Example Component',
-    type: 'UI Element',
-    details: 'This is a detailed description of the component.',
-    tags: 'UI, Design, Example',
-    language: 'JavaScript',
-    version: '1.0.0',
-    dependencies: 'React, PropTypes',
-    input: 'Props',
-    output: 'UI Component'
-  };
+  const handleAccept =() =>{
+    console.log('Rejected with remarks', { remarks, rating });
+    setPage('ratings');
+    setStatus('accepted');
+  }
+
+  const handleOnClick = async()=>{
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
+        status: status,
+        remarks: remarks,
+        rating: rating,
+        objectId: objectId,
+        reviewId: reviewId,
+      });
+      
+      if (response.status !== 200) {
+        console.log(response.status);
+      } else {
+        console.log(response.status);
+      }
+    } catch (error) {
+      console.error("Error occurred while sending the request:", error);
+    }
+  }
+  // const ideas = {
+  //   name: 'Example Component',
+  //   type: 'UI Element',
+  //   details: 'This is a detailed description of the component.',
+  //   tags: 'UI, Design, Example',
+  //   language: 'JavaScript',
+  //   version: '1.0.0',
+  //   dependencies: 'React, PropTypes',
+  //   input: 'Props',
+  //   output: 'UI Component'
+  // };
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!ideas) {
+    return <div>No idea found</div>;
+  }
+
+  const { name, type, details, language, version, dependencies, input, output } = ideas;
 
   return (
     <div className={styles.formContainer}>
       <h1 className={styles.heading}>Review Idea / Component</h1>
       <div className={styles.detailsContainer}>
         <div className={styles.imagePreview}>
-          <img src="https://via.placeholder.com/150" alt="Component Preview" className={styles.image} />
+          <img src={ideas.preview} alt="Component Preview" className={styles.image} />
           <div className={styles.details}>
-          <p className={styles.leftText}><strong>Component Name:</strong> {componentDetails.name}</p>
-          <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {componentDetails.type}</p>
+          <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
+          <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
+          <p className={styles.leftText} id={styles.leftdown}><strong>Description : </strong> {ideas.description}</p>
           </div>
         </div>
       <div className={styles.details}>
           
-          <p><strong>Details:</strong> {componentDetails.details}</p>
-          <p><strong>Language Used:</strong> {componentDetails.language}</p>
-          <p><strong>Version:</strong> {componentDetails.version}</p>
-          <p><strong>Dependencies:</strong> {componentDetails.dependencies}</p>
-          <p><strong>Input:</strong> {componentDetails.input}</p>
-          <p><strong>Output:</strong> {componentDetails.output}</p>
+          <p>
+            <strong>Details:</strong>
+            <ol className={styles.detaillist}  style={{ listStyleType: "upper-roman" }}>
+              <li className={styles.detailtext}><strong >System Requirements : </strong>{ideas.sys_requirements}</li>
+              <li className={styles.detailtext}><strong>dependencies : </strong>{ideas.dependencies}</li>
+              <li className={styles.detailtext}><strong>license : </strong>{ideas.  license}</li>
+            </ol>
+            
+          
+          </p>
+          {/* <p><strong>Language Used:</strong> {ideas.language}</p> */}
+          <p><strong>Dependencies:</strong> {ideas.dependencies}</p>
+          <p><strong>Version:</strong> {ideas.version}</p>
+          {/* <p>
+            <strong>Contributors:</strong> 
+            {ideas.contributor.array.map((element, index) => (
+              <span key={index}>{element}{index < ideas.contributor.array.length - 1 ? ', ' : ''}</span>
+            ))}
+        </p> */}
+          {/* <p><strong>Output:</strong> {ideas.output}</p> */}
           <div className={styles.downloadContainer}>
             <a href="/path/to/download">
             <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
@@ -72,7 +158,7 @@ const Review = () => {
         <div>
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-            <button type="button" className={styles.next} onClick={() => setPage('ratings')}>Accept</button>
+            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
           
         </div>
@@ -109,7 +195,7 @@ const Review = () => {
 
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
-            <button type="submit" className={styles.next}>Submit</button>
+            <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
           </div>
         </form>
       )}

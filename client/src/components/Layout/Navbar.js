@@ -80,7 +80,7 @@ function Navbar() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
+      <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1, backgroundColor: '#0a1324' }}>
         <Toolbar>
           {isSmallScreen && (
             <IconButton

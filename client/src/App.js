@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Upload_Idea from "./pages/Upload_Idea";
 import Upload_Component from "./pages/Upload_Component";
 import { CssBaseline, Container, Button, Box, Grid } from '@mui/material';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import ComponentStorePage from "./pages/ComponentStorePage";
 // import Container from "./Container";
@@ -15,8 +16,8 @@ import ComponentCard from "./pages/ComponentCard";
 import HomePage from "./pages/HomePage";
 import ReviewPage from "./pages/ReviewPage";
 import Review from "./pages/Review";
-
-
+import ReviewComponentPage from "./pages/ReviewComponentPage";
+import Review2 from "./pages/Review2";
 
 // New imports
 
@@ -49,9 +50,11 @@ function App() {
                 <Route path="/component/:id" element={<ComponentCard />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/review" element={<ReviewPage />} />
-                <Route path="/review1" element={<Review />} />
+                <Route path="/review1/:objectId/:reviewId" element={<Review />} />
                 <Route path="/uploadcomponent" element={<Upload_Component />} />
                 <Route path="/uploadIdea" element={<Upload_Idea />} />
+                <Route path="/reviewComponentPage" element={<ReviewComponentPage />} />
+                <Route path="/review2/:objectId/:reviewId" element={<Review2 />} />
               </Routes>
             {/* </Box> */}
           </Grid>
