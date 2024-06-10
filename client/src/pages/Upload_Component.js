@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Upload_Image from '../utils/Upload_Image';
-import Text_Editor from '../utils/Text_Editor';
+import Upload_Image from "../utils/Upload_Image";
+import Text_Editor from "../utils/Text_Editor";
 
 function Upload_Component() {
   // tags of component
@@ -44,16 +44,19 @@ function Upload_Component() {
     }
   };
 
+  const handleScreenshots = (e) => {
+
+  };
   // tag remove on click
   const handleTagRemove = (tag) => {
     setSelectedTags(selectedTags.filter((t) => t !== tag));
   };
 
   // getting descriptions
-  const getDescription = (description)=>{
+  const getDescription = (description) => {
     console.log("description");
     setDescription(description);
-  }
+  };
 
   // upload the component
   const handleUpload = (e) => {
@@ -197,7 +200,7 @@ function Upload_Component() {
                 Description & Usage
               </label>
               <div className="w-10/12 mx-auto  bg-white ">
-              <Text_Editor getDescription={getDescription} /> 
+                <Text_Editor getDescription={getDescription} />
               </div>
             </div>
 
@@ -221,9 +224,12 @@ function Upload_Component() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  
-                  {/* using direct Upload Module from ant design*/}
-                  <Upload_Image value={screenshots} onChange={setScreenshots} />
+
+                  {/* using direct Upload Module from ant design */}
+                  <Upload_Image
+                    // value={screenshots}
+                    // onChange={handleScreenshots}
+                  />
 
                   <p className="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
                 </div>
@@ -232,7 +238,10 @@ function Upload_Component() {
           </div>
 
           <div className="flex justify-center mt-10">
-            <button className="px-6 py-2 leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-900 focus:outline-none focus:bg-gray-600" type="submit">
+            <button
+              className="px-6 py-2 leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-900 focus:outline-none focus:bg-gray-600"
+              type="submit"
+            >
               Upload Your Component
             </button>
           </div>
