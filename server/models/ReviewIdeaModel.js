@@ -60,6 +60,16 @@ const reviewComponentSchema= new Schema({
         required: true,
         default: "Pending"
     }
+    // status_tech :{
+    //     type: String,
+    //     required: true,
+    //     default: "Pending"
+    // },
+    // status_legal :{
+    //     type: String,
+    //     required: true,
+    //     default: "Pending"
+    // }
 })
 
 // module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)

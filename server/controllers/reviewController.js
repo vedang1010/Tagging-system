@@ -102,6 +102,11 @@ const getAllComponents = async (req, res) => {
 
         const compo = await ReviewComponent.find({
             status: 'Pending'
+            // $or: [
+            //     { status_tech: 'Pending' },
+            //     { status_legal: 'Pending' }
+            // ]
+            
         });
 
         if (compo.length > 0) {
