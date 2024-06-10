@@ -14,9 +14,9 @@ const SearchContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   margin: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-  },
+  // [theme.breakpoints.down('sm')]: {
+  //   flexDirection: 'column',
+  // },
 }));
 
 const SearchBar = ({ setShowSearchResults }) => {
@@ -49,6 +49,8 @@ const SearchBar = ({ setShowSearchResults }) => {
           onChange={(e) => setQuery(e.target.value)}
           fullWidth
           sx={{ maxWidth: 600 }}
+          md={{ width: '300px' }}
+          lg={{ width: '1200px' }}
         />
         <IconButton onClick={handleSearch} color="primary">
           <SearchIcon />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {
   AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
 } from '@mui/material';
@@ -48,9 +48,9 @@ function Navbar() {
     >
       <div style={{display:"flex", flexDirection: "column"}}>
 
-      <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-      <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+
+      <MenuItem onClick={handleMenuClose}><Link to={'/profile'}>View Profile</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to={'/logout'}>Logout</Link></MenuItem>
       </div>
     </Menu>
   );
@@ -63,7 +63,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home', 'Dashboard', 'Settings', 'Profile','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent'].map((text, index) => (
+        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent'].map((text, index) => (
           <NavLink 
             to={`/${text.toLowerCase()}`} 
             key={index} 
