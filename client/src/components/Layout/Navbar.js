@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
 
+import '../../styles/Navbar.css'
 function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -62,7 +63,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home', 'Dashboard', 'Settings', 'Profile','UploadComponent','UploadIdea','ComponentStore'].map((text, index) => (
+        {['Home', 'Dashboard', 'Settings', 'Profile','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent'].map((text, index) => (
           <NavLink 
             to={`/${text.toLowerCase()}`} 
             key={index} 
@@ -95,13 +96,7 @@ function Navbar() {
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Navbar
           </Typography>
-          <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.15)', borderRadius: 1, width: 'auto', ml: 2, mr: 2 }}>
-            <SearchIcon sx={{ p: 1 }} />
-            <InputBase
-              placeholder="Search…"
-              sx={{ color: 'inherit', ml: 1, flex: 1 }}
-            />
-          </Box>
+       
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
