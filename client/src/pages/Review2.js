@@ -2,12 +2,8 @@ import React,  { useState, useEffect } from 'react';
 import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import Swal from "sweetalert2";
+
 
 const Review2 = () => {
   const {objectId, reviewId} = useParams();
@@ -92,8 +88,18 @@ const Review2 = () => {
         } else {
           console.log(response.status);
         }
+
+        Swal.fire({
+          title: status,
+          icon: "success"
+        });
       } catch (error) {
         console.error("Error occurred while sending the request:", error);
+        Swal.fire({
+          title: "Oops!",
+          text: error.message,
+          icon: "warning",
+        });
       }
   }
 

@@ -2,6 +2,8 @@ import React,  { useState, useEffect } from 'react';
 import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 
 const Review = () => {
   const {objectId, reviewId} = useParams();
@@ -13,6 +15,8 @@ const Review = () => {
   const [error, setError] = useState(null);
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
+  const [tech, setTech] = useState('false');
+  //const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
@@ -24,6 +28,7 @@ const Review = () => {
         setIdeas(idea);
         setIsLoading(false);
         setError(false);
+        // 
       })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -77,8 +82,19 @@ const Review = () => {
       } else {
         console.log(response.status);
       }
+
+      Swal.fire({
+        title: status,
+        icon: "success"
+      });
+
     } catch (error) {
       console.error("Error occurred while sending the request:", error);
+      Swal.fire({
+        title: "Oops!",
+        text: error.message,
+        icon: "warning",
+      });
     }
   }
   // const ideas = {

@@ -14,6 +14,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
+      localStorage.setItem('user', JSON.stringify(response.json));
       setAlertMessage('Login successful');
       setAlertSeverity('success');
       onLogin(); 
