@@ -1,3 +1,5 @@
+
+
 .formContainer {
     max-width: 100%;
     margin: 25px;;
@@ -19,6 +21,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
+    
   }
   
   .detailsContainer .details {
@@ -158,3 +161,19 @@
   .detailtext{
     padding: 20px;
   }
+
+  .tagsContainer {
+    display: inline;
+  }
+  
+  .tag {
+    display: inline;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.9em;
+    margin-right: 4px;
+  }
+  
+  
+  
