@@ -1,16 +1,30 @@
-const {componentSchema, tagsSchema} = require('../models/ComponentModel');
+const { Component, Tag } = require('../models/ComponentModel');
 
 
-const viewComponentStoreDashboard = async (req,res) =>{
-    
-    try{
+const viewComponentStoreDashboard = async (req, res) => {
 
-    }catch(err){
-        
+    try {
+
+    } catch (err) {
+
     }
 }
 
 
-module.exports = {viewComponentStoreDashboard};
+const SearchComponents = async (req, res) => {
+    try {
+        console.log("in search");
+        const searchQuery  = req.query.q;
+        console.log(searchQuery)
+        const components = await Component.find({ name: { $regex: searchQuery, $options: 'i' } });
+        res.status(200).json(components);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+
+
+module.exports = { viewComponentStoreDashboard ,SearchComponents};
 
 

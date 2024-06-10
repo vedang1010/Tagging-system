@@ -41,6 +41,7 @@
 
   .outer-grid {
     margin-left: 13rem;
+    margin-top: 100px;
   }
   
   @media (max-width: 900px) {

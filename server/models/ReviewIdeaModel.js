@@ -50,7 +50,12 @@ const reviewComponentSchema= new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'UserInfo'
     },
-    status :{
+    status1 :{
+        type: String,
+        required: true,
+        default: "Pending"
+    },
+    status2 :{
         type: String,
         required: true,
         default: "Pending"

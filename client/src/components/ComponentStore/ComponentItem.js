@@ -5,12 +5,14 @@ import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 const ComponentItem = ({ component }) => {
   return (
     <Card className="component-card" >
-      <CardMedia
-        component="img"
-        height="140"
-        image={component.imageUrl}
-        alt={component.name}
-      />
+      {component.preview && component.preview[0] && (
+        <CardMedia
+          component="img"
+          height="140"
+          image={component.preview[0]} // Use the first preview image URL
+          alt={component.name}
+        />
+      )}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {component.name}
@@ -19,10 +21,10 @@ const ComponentItem = ({ component }) => {
           {component.description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Publisher: {component.publisher}
+          Likes: {component.likes}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Ratings: {component.ratings}
+          Stars: {component.stars}
         </Typography>
       </CardContent>
     </Card>

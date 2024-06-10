@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const {viewComponentStoreDashboard} = require('../controllers/componentStoreController');
+const {viewComponentStoreDashboard ,SearchComponents} = require('../controllers/componentStoreController');
 
-router('/viewComponentStoreDashboard' , viewComponentStoreDashboard);
+router.post('/viewComponentStoreDashboard' , viewComponentStoreDashboard);
+router.get('/SearchComponents' , SearchComponents);
+
+module.exports = router;

@@ -39,3 +39,25 @@
     padding: 0px 5px;
   }
   
+
+  /* src/styles/ComponentStore.css */
+
+.left-right-grid {
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 900px) {
+  .left-right-grid {
+    display: none;
+  }
+}
+
+.component-card {
+  margin: 10px;
+  transition: transform 0.3s;
+}
+
+.component-card:hover {
+  transform: scale(1.05);
+}
