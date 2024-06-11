@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Upload_Idea from "./pages/Upload_Idea";
 import Upload_Component from "./pages/Upload_Component";
 import { CssBaseline, Container, Button, Box, Grid } from '@mui/material';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import ComponentStorePage from "./pages/ComponentStorePage";
 // import Container from "./Container";
@@ -15,8 +16,8 @@ import ComponentCard from "./pages/ComponentCard";
 import HomePage from "./pages/HomePage";
 import ReviewPage from "./pages/ReviewPage";
 import Review from "./pages/Review";
-
-
+import ReviewComponentPage from "./pages/ReviewComponentPage";
+import Review2 from "./pages/Review2";
 
 // New imports
 
@@ -43,16 +44,54 @@ function App() {
           <Navbar />
           <Grid container spacing={0} className='outer-grid'>
             {/* <Box p={3} mt={8}> */}
-              <Routes>
-                <Route path="/componentStore" element={<ComponentStorePage />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/component/:id" element={<ComponentCard />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/review" element={<ReviewPage />} />
-                <Route path="/review1/:objectId" element={<Review />} />
-                <Route path="/uploadcomponent" element={<Upload_Component />} />
-                <Route path="/uploadIdea" element={<Upload_Idea />} />
-              </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isAuthenticated ? (
+                    <Navigate to="/home" />
+                  ) : (
+                    <Container>
+                      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        {isLoginView ? (
+                          <Login onLogin={() => setIsAuthenticated(true)} />
+                        ) : (
+                          <Signup onComplete={() => setIsLoginView(true)} />
+                        )}
+                        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                          {isLoginView ? <p>Don't have an account?</p> : <p>Already have an account?</p>}
+                          <Button onClick={toggleView}>
+                            {isLoginView ? 'Signup' : 'Login'}
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Container>
+                  )
+                }
+              />
+
+              <Route path="/logout" element={
+                isAuthenticated ? (
+                  <>
+                    <Logout onLogout={() => setIsAuthenticated(false)} />
+                    <Navigate to="/" />
+                  </>
+                ) : (
+                  <Navigate to="/" />
+                )}
+              />
+
+              <Route path="/componentStore" element={isAuthenticated ? <ComponentStorePage /> : <Navigate to="/" />} />
+              <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/" />} />
+              <Route path="/component/:id" element={isAuthenticated ? <ComponentCard /> : <Navigate to="/" />} />
+              <Route path="/home" element={isAuthenticated ? <HomePage /> : <Navigate to="/" />} />
+              <Route path="/reviewidea" element={isAuthenticated ? <ReviewPage /> : <Navigate to="/" />} />
+              <Route path="/review1/:objectId/:reviewId" element={isAuthenticated ? <Review /> : <Navigate to="/" />} />
+              <Route path="/uploadcomponent" element={isAuthenticated ? <Upload_Component /> : <Navigate to="/" />} />
+              <Route path="/uploadIdea" element={isAuthenticated ? <Upload_Idea /> : <Navigate to="/" />} />
+              <Route path="/reviewcomponent" element={isAuthenticated ? <ReviewComponentPage /> : <Navigate to="/" />} />
+              <Route path="/review2/:objectId/:reviewId" element={isAuthenticated ? <Review2 /> : <Navigate to="/" />} />
+            </Routes>
             {/* </Box> */}
           </Grid>
         </Box>
@@ -106,41 +145,41 @@ function App() {
 //               path="/components"
 //               element={isAuthenticated ? <ComponentStorePage /> : <Navigate to="/" />}
 //             />
-//             <Route
-//               path="/"
-//               element={
-//                 isAuthenticated ? (
-//                   <Navigate to="/components" />
-//                 ) : (
-//                   <Container>
-//                     <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-//                       {isLoginView ? (
-//                         <Login onLogin={() => setIsAuthenticated(true)} />
-//                       ) : (
-//                         <Signup onComplete={() => setIsLoginView(true)} />
-//                       )}
-//                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-//                         {isLoginView ? <p>Don't have an account?</p> : <p>Already have an account?</p>}
-//                         <Button onClick={toggleView}>
-//                           {isLoginView ? 'Signup' : 'Login'}
-//                         </Button>
-//                       </Box>
-//                     </Box>
-//                   </Container>
-//                 )
-//               }
-//             />
+// <Route
+//   path="/"
+//   element={
+//     isAuthenticated ? (
+//       <Navigate to="/components" />
+//     ) : (
+//       <Container>
+//         <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+//           {isLoginView ? (
+//             <Login onLogin={() => setIsAuthenticated(true)} />
+//           ) : (
+//             <Signup onComplete={() => setIsLoginView(true)} />
+//           )}
+//           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+//             {isLoginView ? <p>Don't have an account?</p> : <p>Already have an account?</p>}
+//             <Button onClick={toggleView}>
+//               {isLoginView ? 'Signup' : 'Login'}
+//             </Button>
+//           </Box>
+//         </Box>
+//       </Container>
+//     )
+//   }
+// />
 
-//             <Route path="/logout" element={
-//               isAuthenticated ? (
-//                 <>
-//                   <Logout onLogout={() => setIsAuthenticated(false)} />
-//                   <Navigate to="/" />
-//                 </>
-//               ) : (
-//                 <Navigate to="/" />
-//               )}
-//             />
+// <Route path="/logout" element={
+//   isAuthenticated ? (
+//     <>
+//       <Logout onLogout={() => setIsAuthenticated(false)} />
+//       <Navigate to="/" />
+//     </>
+//   ) : (
+//     <Navigate to="/" />
+//   )}
+// />
 
 //             <Route path="/admin" element={<Admin />} />
 //             <Route path="/profile" element={<Profile />} />

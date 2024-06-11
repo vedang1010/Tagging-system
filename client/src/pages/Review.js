@@ -2,9 +2,11 @@ import React,  { useState, useEffect } from 'react';
 import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 
 const Review = () => {
-  const {objectId} = useParams();
+  const {objectId, reviewId} = useParams();
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
   const [page, setPage] = useState('review'); 
@@ -12,6 +14,9 @@ const Review = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState([]);
+  const [status, setStatus] = useState('Pending')
+  const [tech, setTech] = useState('false');
+  //const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
@@ -23,6 +28,7 @@ const Review = () => {
         setIdeas(idea);
         setIsLoading(false);
         setError(false);
+        // 
       })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -51,8 +57,46 @@ const Review = () => {
   const handleReject = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
+    setStatus('rejected');
+    //axios.post("http://127.0.0.1:5000/api/review/updateStatus1/" + status + remarks, rating)
   };
 
+  const handleAccept =() =>{
+    console.log('Rejected with remarks', { remarks, rating });
+    setPage('ratings');
+    setStatus('accepted');
+  }
+
+  const handleOnClick = async()=>{
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
+        status: status,
+        remarks: remarks,
+        rating: rating,
+        objectId: objectId,
+        reviewId: reviewId,
+      });
+      
+      if (response.status !== 200) {
+        console.log(response.status);
+      } else {
+        console.log(response.status);
+      }
+
+      Swal.fire({
+        title: status,
+        icon: "success"
+      });
+
+    } catch (error) {
+      console.error("Error occurred while sending the request:", error);
+      Swal.fire({
+        title: "Oops!",
+        text: error.message,
+        icon: "warning",
+      });
+    }
+  }
   // const ideas = {
   //   name: 'Example Component',
   //   type: 'UI Element',
@@ -130,7 +174,7 @@ const Review = () => {
         <div>
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-            <button type="button" className={styles.next} onClick={() => setPage('ratings')}>Accept</button>
+            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
           
         </div>
@@ -167,7 +211,7 @@ const Review = () => {
 
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
-            <button type="submit" className={styles.next}>Submit</button>
+            <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
           </div>
         </form>
       )}

@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import styles from '../styles/ReviewPage.module.css';
+import styles from '../styles/ReviewComponentPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
@@ -16,22 +16,22 @@ const images = [
 
 
 
-function ReviewPage() {
+function ReviewComponentPage() {
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 const [reviewid, setReviewid] = useState(0);
-console.log('userState');
+console.log('reviewComponent');
 
 
 const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
-    const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
+    const response = await axios.get('http://127.0.0.1:5000/api/review/getAllComponents');
     setComponents(response.data);
-    setReviewid(response.data._id);
     setLoading(false);
+    setReviewid(response.data._id);
     console.log(response.data);
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -58,7 +58,7 @@ if (error) {
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
               <div className={styles.card}>
-                <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
+                <Link to={`/review2/${component.id}/${component._id}`} className={styles.ComponentPreview}>
                   <img src={component.preview[0]} alt={`Component ${index + 1}`} />
                   <div className={styles.cardContent} >
                     {component.name}
@@ -67,9 +67,11 @@ if (error) {
               </div>
             </li>
         ))}
+        
       </ul>
     </div>
+    
   );
 }
 
-export default ReviewPage;
+export default ReviewComponentPage;
