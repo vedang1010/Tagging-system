@@ -168,16 +168,16 @@ const Review2 = () => {
       {page === 'review' ? (
         <>
           <div className={styles.detailsContainer}>
-            <div className={styles.imagePreview}>
+            <div className={` ${styles.imagePreview}`}>
               <img src={ideas.preview} alt="Component Preview" className={styles.image} />
               <div className={styles.details}>
                 <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Description:</strong> {ideas.description}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Version:</strong> {version}</p>
+                <p className={styles.leftText}><strong>Type:</strong> {ideas.type}</p>
+                <p className={styles.leftText}><strong>Description:</strong> {ideas.description}</p>
+                <p className={styles.leftText}><strong>Version:</strong> {version}</p>
               </div>
             </div>
-            <div className={styles.details}>
+            <div className={`${styles.card} ${styles.details}`}>
               <p>
                 <strong>Details:</strong>
                 <ol className={styles.detaillist} style={{ listStyleType: "upper-roman" }}>
@@ -189,14 +189,7 @@ const Review2 = () => {
               <p><strong>Language Used:</strong> {ideas.language}</p>
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
-              <p><strong>Contributors : </strong>{contri}</p>
-              {/* <p className={styles.leftText} id={styles.leftdown}>
-                    <strong>Contributors :</strong>
-                    {ideas.contributors[ideas.contributors.length - 1].id.map((contributorId, index) => (
-                      <span key={index}>{contributorId} </span>
-                    ))}
-                </p> */}
-                
+              <p><strong>Contributors :</strong>{contri}</p>
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
@@ -210,8 +203,8 @@ const Review2 = () => {
             </div>
           </div>
           <div className={styles.buttons}>
-          <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-          <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
+            <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
+            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
         </>
       ) : (
@@ -245,20 +238,17 @@ const Review2 = () => {
                     </span>
                   ))}
                 </div>
-                
               </div>
-            
               <div className={styles.buttons}>
                 <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
                 <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
-            </div>
+              </div>
             </form>
           </div>
         </div>
       )}
     </div>
   );
-};
-
+}  
 
 export default Review2;
