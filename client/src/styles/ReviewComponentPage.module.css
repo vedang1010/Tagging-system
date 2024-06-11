@@ -1,7 +1,13 @@
 .ReviewPage {
-  
-    padding: 70px;
     font-family: Arial, sans-serif;
+    padding-left: 40px;
+  }
+
+  .heading {
+    text-align: center;
+    margin-top:-10px;
+    color: #333;
+    font-weight: bold;;
   }
   
   

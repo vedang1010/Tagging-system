@@ -16,6 +16,8 @@ const Review2 = () => {
   const [error, setError] = useState(null);
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('pending')
+  const [tech, setTech] = useState('false');
+  const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
@@ -37,6 +39,25 @@ const Review2 = () => {
   } catch (error) {
     console.error(error.message+ " over here ");
   }
+
+  try{
+    useEffect(()=>{
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+        response =>{
+          const data = JSON.stringify(response.data);
+          console.log(data);
+          if(data.subgroup == 2) setTech(true);
+          else setTech(false);
+        }
+      ).catch((error) => {
+        console.log("Some error happened")
+        console.log(error);
+      })
+    },[])
+  }catch (error) {
+    console.error(error.message+ " over here 2");
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,9 +99,10 @@ const Review2 = () => {
           status: status,
           remarks: remarks,
           rating1: rating1,
-          rating2: rating2,
+          
           objectId: objectId,
           reviewId: reviewId,
+          isTech : tech
         });
         
         if (response.status !== 200) {
@@ -128,10 +150,12 @@ const Review2 = () => {
     return <div>No idea found</div>;
   }
 
+  //ideas.contributors[ideas.contributors.length - 1];
+
   const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.heading}>Review Idea / Component</h1>
+      <h1 className={styles.heading}>Review Component</h1>
       {page === 'review' ? (
         <>
           <div className={styles.detailsContainer}>
@@ -142,6 +166,12 @@ const Review2 = () => {
                 <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
                 <p className={styles.leftText} id={styles.leftdown}><strong>Description:</strong> {ideas.description}</p>
                 <p className={styles.leftText} id={styles.leftdown}><strong>Version:</strong> {ideas.version}</p>
+                <p className={styles.leftText} id={styles.leftdown}>
+                    <strong>Contributors :</strong>
+                    {ideas.contributors[ideas.contributors.length - 1].id.map((contributorId, index) => (
+                      <span key={index}>{contributorId} </span>
+                    ))}
+                </p>
               </div>
             </div>
             <div className={styles.details}>
@@ -188,7 +218,7 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>Functional Review:</span>
+                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
                 <div>
                   {[...Array(5)].map((star, index) => (
                     <span
@@ -206,25 +236,7 @@ const Review2 = () => {
                 </div>
                 
               </div>
-              <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>Technical Review:</span>
-                <div>
-                  {[...Array(5)].map((star, index) => (
-                    <span
-                      key={index}
-                      onClick={() => handleStarClick2(index)}
-                      style={{
-                        fontSize: '2em',
-                        cursor: 'pointer',
-                        color: index < rating2 ? 'gold' : 'gray'
-                      }}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-                
-              </div>
+            
               <div className={styles.buttons}>
                 <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
                 <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
