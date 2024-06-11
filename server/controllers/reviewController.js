@@ -9,17 +9,34 @@ const fetchIdea = async(req,res)=>{
         console.log("fetchIdea");
         const objectId = req.params.id;
         console.log(objectId);
-        
-        try{
+        try {
             const component = await Component.findById(objectId);
             console.log(component);
-            if(!component){
-                return res.status(404).json({message: 'Component not found'});
-            }else{
-                return res.status(200).json({component});
+    
+            const contributors = component.contributors;
+            console.log("contributors: ", contributors);
+    
+            const contributorsInfo = [];
+    
+            for (let i = 0; i < contributors.length; i++) {
+                try {
+                    const user = await UserInfo.findById(contributors[i].id);
+                    console.log("user: ", user);
+                    contributorsInfo.push(user);
+                } catch (error) {
+                    console.error("Error fetching user info: ", error);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                }
             }
-        }catch(error){
-            console.log(error);
+    
+            if (!component) {
+                return res.status(404).json({ message: 'Component not found' });
+            } else {
+                return res.status(200).json({ component, contributorsInfo });
+            }
+        } catch (error) {
+            console.error("Error fetching component: ", error);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     } catch(error){
         console.log(error);
