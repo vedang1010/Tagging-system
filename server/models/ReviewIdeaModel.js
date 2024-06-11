@@ -43,7 +43,10 @@ const reviewComponentSchema= new Schema({
     legal_stars:{
         type: Number,
     },
-    Remarks:{
+    Remarks_tech:{
+        type: String,
+    },
+    Remarks_legal:{
         type: String,
     },
     contributor_id:{
@@ -55,7 +58,17 @@ const reviewComponentSchema= new Schema({
         required: true,
         default: "Pending"
     },
-    status2 :{
+    // status2 :{
+    //     type: String,
+    //     required: true,
+    //     default: "Pending"
+    // }
+    status_tech :{
+        type: String,
+        required: true,
+        default: "Pending"
+    },
+    status_legal :{
         type: String,
         required: true,
         default: "Pending"

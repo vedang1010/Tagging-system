@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/ReviewPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-
+import Swal from "sweetalert2";
 
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
@@ -19,6 +19,7 @@ const images = [
 function ReviewPage() {
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
+const [isComponents, setIsComponents] = useState(false);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 const [reviewid, setReviewid] = useState(0);
@@ -29,6 +30,9 @@ const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
     const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
+      if(response.status === 200) {setIsComponents(true)}
+      else setIsComponents(false);
+
     setComponents(response.data);
     setReviewid(response.data._id);
     setLoading(false);
@@ -37,6 +41,11 @@ const fetchIdeas = async () => {
     console.error("Error fetching data:", error);
     setError(error);
     setLoading(false);
+    Swal.fire({
+      title: "Sorry",
+      text:"No Ideas to Review",
+      icon: "error"
+    });
   }
 };
 
@@ -53,7 +62,8 @@ if (error) {
 }
 
   return (
-    <div className={styles.ReviewPage}>   
+    <div className={styles.ReviewPage}>
+      { isComponents ? 
       <ul className={styles.list}>
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
@@ -67,7 +77,14 @@ if (error) {
               </div>
             </li>
         ))}
-      </ul>
+      </ul> :
+        Swal.fire({
+          title: "Sorry",
+          text:"No Ideas to Review",
+          icon: "error"
+        })
+
+}
     </div>
   );
 }

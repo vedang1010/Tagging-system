@@ -5,6 +5,8 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 
 
+
+
 const Review = () => {
   const {objectId, reviewId} = useParams();
   const [rating, setRating] = useState(0);
@@ -16,19 +18,21 @@ const Review = () => {
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
-  //const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
-        console.log(objectId);
+        //console.log(objectId);
+      
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
-        console.log(response.data);
-        const idea = response.data.component  
-        console.log(" idea"+idea);      ;
-        setIdeas(idea);
-        setIsLoading(false);
-        setError(false);
-        // 
+            console.log(response.data);
+            const idea = response.data.component  
+            setIdeas(idea);
+            setIsLoading(false);
+            setError(false);
+            console.log('User ID:', user);
+
+
       })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -38,6 +42,25 @@ const Review = () => {
      },[objectId])
   } catch (error) {
     console.error(error.message+ " over here ");
+  }
+
+
+  try{
+    useEffect(()=>{
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+        response =>{
+          const data = JSON.stringify(response.data);
+          console.log(data);
+          if(data.subgroup == 2) setTech(true);
+          else setTech(false);
+        }
+      ).catch((error) => {
+        console.log("Some error happened")
+        console.log(error);
+      })
+    },[])
+  }catch (error) {
+    console.error(error.message+ " over here 2");
   }
 
   const handleSubmit = (e) => {
@@ -58,7 +81,7 @@ const Review = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
     setStatus('rejected');
-    //axios.post("http://127.0.0.1:5000/api/review/updateStatus1/" + status + remarks, rating)
+    
   };
 
   const handleAccept =() =>{
@@ -68,6 +91,7 @@ const Review = () => {
   }
 
   const handleOnClick = async()=>{
+    setPage('ratings');
     try {
       const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
         status: status,
@@ -126,7 +150,9 @@ const Review = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.heading}>Review Idea / Component</h1>
+      <h1 className={styles.heading}>Review Idea </h1>
+      {page === 'review' ? (
+        <>
       <div className={styles.detailsContainer}>
         <div className={styles.imagePreview}>
           <img src={ideas.preview} alt="Component Preview" className={styles.image} />
@@ -150,7 +176,7 @@ const Review = () => {
           </p>
           {/* <p><strong>Language Used:</strong> {ideas.language}</p> */}
           <p><strong>Dependencies:</strong> {ideas.dependencies}</p>
-          <p><strong>Version:</strong> {ideas.version}</p>
+          
           {/* <p>
             <strong>Contributors:</strong> 
             {ideas.contributor.array.map((element, index) => (
@@ -170,28 +196,27 @@ const Review = () => {
           </div>
         </div>
       </div>
-      {page === 'review' ? (
-        <div>
-          <div className={styles.buttons}>
-            <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
+      <div className={styles.buttons}>
+          <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
+          <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
-          
-        </div>
-      ) : (
+        </>
+    ) : (
+      <div className={styles.card}>
+      <div className={styles.cardContent}>
+        <h2>{page === 'reject' ? 'Reject Component' : 'Accept Component'}</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="remarks">Remarks:</label>
+          <label htmlFor="remarks" className={styles.label}>Remarks:</label>
           <textarea
             id="remarks"
             rows="4"
             cols="50"
             value={remarks}
             onChange={(e) => setRemarks(e.target.value)}
-           
+            className={styles.textarea}
           ></textarea>
-
           <div className={styles.ratingContainer}>
-            <span style={{ fontWeight: 'bold' }}>Ratings:</span>
+            <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
             <div>
               {[...Array(5)].map((star, index) => (
                 <span
@@ -207,16 +232,18 @@ const Review = () => {
                 </span>
               ))}
             </div>
+            
           </div>
-
+        
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
             <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
-          </div>
+        </div>
         </form>
-      )}
+      </div>
     </div>
-  );
+  )}
+</div>
+);
 };
-
 export default Review;

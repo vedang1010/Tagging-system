@@ -14,8 +14,12 @@ const Review2 = () => {
   const [ideas, setIdeas] = useState(null);
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [contri, setContri] = useState([]);
+  const [contri, setContri] = useState("");
   const [status, setStatus] = useState('pending')
+  const [tech, setTech] = useState('false');
+  const [version, setVersion] = useState(0);
+  
+  const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
@@ -23,7 +27,14 @@ const Review2 = () => {
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
         console.log(response.data);
         const idea = response.data.component  
-        console.log(" idea"+idea);      ;
+        const length =  response.data.contributorsInfo.length;
+        const length2 = response.data.component.contributors.length;
+        const contributors = response.data.contributorsInfo[length-1].email;
+        const version = response.data.component.contributors[length2-1].version;
+        setVersion(version);
+        setContri(contributors)
+        // console.log(" idea"+idea);   
+        // console.log("version "+response.data.component.contributors[0].version);   
         setIdeas(idea);
         setIsLoading(false);
         setError(false);
@@ -37,6 +48,25 @@ const Review2 = () => {
   } catch (error) {
     console.error(error.message+ " over here ");
   }
+
+  try{
+    useEffect(()=>{
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+        response =>{
+          const data = JSON.stringify(response.data);
+          console.log(data);
+          if(data.subgroup == 2) setTech(true);
+          else setTech(false);
+        }
+      ).catch((error) => {
+        console.log("Some error happened")
+        console.log(error);
+      })
+    },[])
+  }catch (error) {
+    console.error(error.message+ " over here 2");
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,9 +82,9 @@ const Review2 = () => {
     setRating1(index + 1);
   };
 
-  const handleStarClick2 = (index) => {
-    setRating2(index + 1);
-  };
+  // const handleStarClick2 = (index) => {
+  //   setRating2(index + 1);
+  // };
 
   const handleReject = () => {
     //console.log('Rejected with remarks', { remarks, rating });
@@ -78,9 +108,10 @@ const Review2 = () => {
           status: status,
           remarks: remarks,
           rating1: rating1,
-          rating2: rating2,
+          
           objectId: objectId,
           reviewId: reviewId,
+          isTech : tech
         });
         
         if (response.status !== 200) {
@@ -128,23 +159,25 @@ const Review2 = () => {
     return <div>No idea found</div>;
   }
 
-  const { name, type, details, language, version, dependencies, input, output } = ideas;
+  //ideas.contributors[ideas.contributors.length - 1];
+
+  //const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.heading}>Review Idea / Component</h1>
+      <h1 className={styles.heading}>Review Component</h1>
       {page === 'review' ? (
         <>
           <div className={styles.detailsContainer}>
-            <div className={styles.imagePreview}>
+            <div className={` ${styles.imagePreview}`}>
               <img src={ideas.preview} alt="Component Preview" className={styles.image} />
               <div className={styles.details}>
                 <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Description:</strong> {ideas.description}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Version:</strong> {ideas.version}</p>
+                <p className={styles.leftText}><strong>Type:</strong> {ideas.type}</p>
+                <p className={styles.leftText}><strong>Description:</strong> {ideas.description}</p>
+                <p className={styles.leftText}><strong>Version:</strong> {version}</p>
               </div>
             </div>
-            <div className={styles.details}>
+            <div className={`${styles.card} ${styles.details}`}>
               <p>
                 <strong>Details:</strong>
                 <ol className={styles.detaillist} style={{ listStyleType: "upper-roman" }}>
@@ -156,6 +189,7 @@ const Review2 = () => {
               <p><strong>Language Used:</strong> {ideas.language}</p>
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
+              <p><strong>Contributors :</strong>{contri}</p>
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
@@ -169,8 +203,8 @@ const Review2 = () => {
             </div>
           </div>
           <div className={styles.buttons}>
-          <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-          <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
+            <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
+            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
         </>
       ) : (
@@ -188,7 +222,7 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>Functional Review:</span>
+                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
                 <div>
                   {[...Array(5)].map((star, index) => (
                     <span
@@ -204,38 +238,17 @@ const Review2 = () => {
                     </span>
                   ))}
                 </div>
-                
-              </div>
-              <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>Technical Review:</span>
-                <div>
-                  {[...Array(5)].map((star, index) => (
-                    <span
-                      key={index}
-                      onClick={() => handleStarClick2(index)}
-                      style={{
-                        fontSize: '2em',
-                        cursor: 'pointer',
-                        color: index < rating2 ? 'gold' : 'gray'
-                      }}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-                
               </div>
               <div className={styles.buttons}>
                 <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
                 <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
-            </div>
+              </div>
             </form>
           </div>
         </div>
       )}
     </div>
   );
-};
-
+}  
 
 export default Review2;
