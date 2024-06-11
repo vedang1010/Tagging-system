@@ -91,6 +91,7 @@ const Review = () => {
   }
 
   const handleOnClick = async()=>{
+    setPage('ratings');
     try {
       const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
         status: status,
@@ -149,7 +150,9 @@ const Review = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.heading}>Review Idea / Component</h1>
+      <h1 className={styles.heading}>Review Idea </h1>
+      {page === 'review' ? (
+        <>
       <div className={styles.detailsContainer}>
         <div className={styles.imagePreview}>
           <img src={ideas.preview} alt="Component Preview" className={styles.image} />
@@ -173,7 +176,7 @@ const Review = () => {
           </p>
           {/* <p><strong>Language Used:</strong> {ideas.language}</p> */}
           <p><strong>Dependencies:</strong> {ideas.dependencies}</p>
-          <p><strong>Version:</strong> {ideas.version}</p>
+          
           {/* <p>
             <strong>Contributors:</strong> 
             {ideas.contributor.array.map((element, index) => (
@@ -193,28 +196,27 @@ const Review = () => {
           </div>
         </div>
       </div>
-      {page === 'review' ? (
-        <div>
-          <div className={styles.buttons}>
-            <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
-            <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
+      <div className={styles.buttons}>
+          <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
+          <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
           </div>
-          
-        </div>
-      ) : (
+        </>
+    ) : (
+      <div className={styles.card}>
+      <div className={styles.cardContent}>
+        <h2>{page === 'reject' ? 'Reject Component' : 'Accept Component'}</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="remarks">Remarks:</label>
+          <label htmlFor="remarks" className={styles.label}>Remarks:</label>
           <textarea
             id="remarks"
             rows="4"
             cols="50"
             value={remarks}
             onChange={(e) => setRemarks(e.target.value)}
-           
+            className={styles.textarea}
           ></textarea>
-
           <div className={styles.ratingContainer}>
-            <span style={{ fontWeight: 'bold' }}>Ratings:</span>
+            <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
             <div>
               {[...Array(5)].map((star, index) => (
                 <span
@@ -230,16 +232,18 @@ const Review = () => {
                 </span>
               ))}
             </div>
+            
           </div>
-
+        
           <div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
             <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
-          </div>
+        </div>
         </form>
-      )}
+      </div>
     </div>
-  );
+  )}
+</div>
+);
 };
-
 export default Review;
