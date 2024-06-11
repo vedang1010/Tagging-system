@@ -15,8 +15,11 @@ const Review2 = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState("");
+  const [contri, setContri] = useState("");
   const [status, setStatus] = useState('pending')
   const [tech, setTech] = useState('false');
+  const [version, setVersion] = useState(0);
+  
   const user = JSON.parse(localStorage.getItem('user'));
 
   try{
@@ -25,6 +28,14 @@ const Review2 = () => {
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
         console.log(response.data);
         const idea = response.data.component  
+        const length =  response.data.contributorsInfo.length;
+        const length2 = response.data.component.contributors.length;
+        const contributors = response.data.contributorsInfo[length-1].email;
+        const version = response.data.component.contributors[length2-1].version;
+        setVersion(version);
+        setContri(contributors)
+        // console.log(" idea"+idea);   
+        // console.log("version "+response.data.component.contributors[0].version);   
         const length =  response.data.contributorsInfo.length;
         const length2 = response.data.component.contributors.length;
         const contributors = response.data.contributorsInfo[length-1].email;
@@ -99,6 +110,9 @@ const Review2 = () => {
     setRating1(index + 1);
   };
 
+  // const handleStarClick2 = (index) => {
+  //   setRating2(index + 1);
+  // };
   // const handleStarClick2 = (index) => {
   //   setRating2(index + 1);
   // };
@@ -180,7 +194,7 @@ const Review2 = () => {
 
   //ideas.contributors[ideas.contributors.length - 1];
 
-  const { name, type, details, language, version, dependencies, input, output } = ideas;
+  //const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
       <h1 className={styles.heading}>Review Component</h1>
@@ -194,13 +208,7 @@ const Review2 = () => {
                 <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
                 <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
                 <p className={styles.leftText} id={styles.leftdown}><strong>Description:</strong> {ideas.description}</p>
-                <p className={styles.leftText} id={styles.leftdown}><strong>Version:</strong> {ideas.version}</p>
-                <p className={styles.leftText} id={styles.leftdown}>
-                    <strong>Contributors :</strong>
-                    {ideas.contributors[ideas.contributors.length - 1].id.map((contributorId, index) => (
-                      <span key={index}>{contributorId} </span>
-                    ))}
-                </p>
+                <p className={styles.leftText} id={styles.leftdown}><strong>Version:</strong> {version}</p>
               </div>
             </div>
             <div className={`${styles.card} ${styles.details}`}>
@@ -215,7 +223,14 @@ const Review2 = () => {
               <p><strong>Language Used:</strong> {ideas.language}</p>
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
-              <p><strong>Contributors :</strong>{contri}</p>
+              <p><strong>Contributors : </strong>{contri}</p>
+              {/* <p className={styles.leftText} id={styles.leftdown}>
+                    <strong>Contributors :</strong>
+                    {ideas.contributors[ideas.contributors.length - 1].id.map((contributorId, index) => (
+                      <span key={index}>{contributorId} </span>
+                    ))}
+                </p> */}
+                
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
