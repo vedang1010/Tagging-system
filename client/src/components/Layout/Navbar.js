@@ -49,8 +49,8 @@ function Navbar() {
       <div style={{display:"flex", flexDirection: "column"}}>
 
 
-      <MenuItem onClick={handleMenuClose}><Link to={'/profile'}>View Profile</Link></MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to={'/logout'}>Logout</Link></MenuItem>
+      <Link to={'/profile'}><MenuItem onClick={handleMenuClose}>View Profile</MenuItem></Link>
+      <Link to={'/logout'}><MenuItem onClick={handleMenuClose}>Logout</MenuItem></Link>
       </div>
     </Menu>
   );

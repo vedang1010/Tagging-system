@@ -5,6 +5,8 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 
 
+
+
 const Review = () => {
   const {objectId, reviewId} = useParams();
   const [rating, setRating] = useState(0);
@@ -16,19 +18,21 @@ const Review = () => {
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
-  //const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   try{
     useEffect(() => {
-        console.log(objectId);
+        //console.log(objectId);
+      
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
-        console.log(response.data);
-        const idea = response.data.component  
-        console.log(" idea"+idea);      ;
-        setIdeas(idea);
-        setIsLoading(false);
-        setError(false);
-        // 
+            console.log(response.data);
+            const idea = response.data.component  
+            setIdeas(idea);
+            setIsLoading(false);
+            setError(false);
+            console.log('User ID:', user);
+
+
       })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -38,6 +42,25 @@ const Review = () => {
      },[objectId])
   } catch (error) {
     console.error(error.message+ " over here ");
+  }
+
+
+  try{
+    useEffect(()=>{
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+        response =>{
+          const data = JSON.stringify(response.data);
+          console.log(data);
+          if(data.subgroup == 2) setTech(true);
+          else setTech(false);
+        }
+      ).catch((error) => {
+        console.log("Some error happened")
+        console.log(error);
+      })
+    },[])
+  }catch (error) {
+    console.error(error.message+ " over here 2");
   }
 
   const handleSubmit = (e) => {
@@ -58,7 +81,7 @@ const Review = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
     setStatus('rejected');
-    //axios.post("http://127.0.0.1:5000/api/review/updateStatus1/" + status + remarks, rating)
+    
   };
 
   const handleAccept =() =>{

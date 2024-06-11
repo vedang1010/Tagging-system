@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/ReviewComponentPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-
+import Swal from "sweetalert2";
 
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
@@ -19,6 +19,7 @@ const images = [
 function ReviewComponentPage() {
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
+const [isComponents, setIsComponents] = useState(false);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 const [reviewid, setReviewid] = useState(0);
@@ -29,6 +30,9 @@ const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
     const response = await axios.get('http://127.0.0.1:5000/api/review/getAllComponents');
+    if(response.status === 200) {setIsComponents(true)}
+    else setIsComponents(false);
+
     setComponents(response.data);
     setLoading(false);
     setReviewid(response.data._id);
@@ -54,6 +58,7 @@ if (error) {
 
   return (
     <div className={styles.ReviewPage}>   
+    { isComponents ? 
       <ul className={styles.list}>
         {components.map((component, index) =>(
             <li key={component._id} className={styles.Ideas}>
@@ -68,7 +73,11 @@ if (error) {
             </li>
         ))}
         
-      </ul>
+      </ul> : Swal.fire({
+          title: "Sorry",
+          text:"No Components to Review",
+          icon: "error"
+        })} 
     </div>
     
   );

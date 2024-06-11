@@ -1,6 +1,8 @@
 const {ReviewIdea, ReviewComponent}= require('../models/ReviewIdeaModel');
 const {Component,Tag} = require('../models/ComponentModel');
-console.log(Component);
+const {UserInfo} = require('../models/userInfo');
+
+
 const fetchIdea = async(req,res)=>{
     //const{Idea}=req.body;
     try{
@@ -66,7 +68,7 @@ const getAllIdeas = async (req, res) => {
 
                     if (!compbyId) {
                         console.error(`Component with id ${id} not found`);
-                        return component; 
+                        return res.status(500).json({ });; 
                     }
 
                     // Create a new object with the additional fields
@@ -101,11 +103,11 @@ const getAllComponents = async (req, res) => {
         console.log("fetch");
 
         const compo = await ReviewComponent.find({
-            status: 'Pending'
-            // $or: [
-            //     { status_tech: 'Pending' },
-            //     { status_legal: 'Pending' }
-            // ]
+            //status: 'Pending'
+            $or: [
+                { status_tech: 'Pending' },
+                { status_legal: 'Pending' }
+            ]
             
         });
 
@@ -119,7 +121,7 @@ const getAllComponents = async (req, res) => {
 
                     if (!compbyId) {
                         console.error(`Component with id ${id} not found`);
-                        return component; 
+                        return res.status(500).json({ });; 
                     }
 
                     // Create a new object with the additional fields
@@ -192,30 +194,45 @@ const updateStatus2 = async(req, res) => {
         console.log(data);
         const status = data.status;
         const remarks = data.remarks;
-        const rating1 = data.rating1;
-        const rating2 = data.rating2;
+        const rating = data.rating1;
+        
         const id = data.objectId;
         const id2 = data.reviewId;
+        const isTech = data.isTech;
+        
+        
+        const reviewComponent = await ReviewComponent.findById(id2)
+        if (!reviewComponent) {
+            console.log(" 2 review Idea");
+            return res.status(404).json({ error: 'Component not found' });
+        }
+        console.log(" reviee "+reviewComponent);
+        
+
+        if(isTech){
+            reviewComponent.status_tech = status;
+            reviewComponent.Remarks_tech = remarks;
+            reviewComponent.tech_stars = rating;
+        }
+        else {   
+            reviewComponent.status_legal = status;
+            reviewComponent.Remarks_legal = remarks;
+            reviewComponent.legal_stars = rating;
+        }
+
+        await reviewComponent.save();
 
         const component= await Component.findById(id);
         if (!component) {
             return res.status(404).json({ error: 'Component not found' });
         }
-        else component.status1 = status;
-        
-        const reviewIdea = await ReviewComponent.findById(id2)
-        if (!reviewIdea) {
-            console.log(" 2 review Idea");
-            return res.status(404).json({ error: 'Component not found' });
-        }
-        console.log(" reviee "+reviewIdea);
-        reviewIdea.status = status;
-        reviewIdea.Remarks = remarks;
-        //reviewIdea.funct_stars = ratings;
+        else if(reviewComponent.status_tech=='accepted' && reviewComponent.status_legal=='accepted') component.status2 = 'accepted';
+        else if(reviewComponent.status_tech=='Pending' || reviewComponent.status_legal=='Pending') component.status2 = 'Pending';
+        else component.status2 = 'rejected';
 
         
         await component.save();
-        await reviewIdea.save();
+       
 
         return res.status(200).json({msg : 'hello'})
     }catch(error){
@@ -223,6 +240,25 @@ const updateStatus2 = async(req, res) => {
         return res.status(500).json({error: 'Internal Server Error'})
     }
 }
+
+
+const fetchUserInfo= async (req, res) => {
+    try{
+        const userId = req.params.user;
+        console.log(" USeer id "+userId);
+        const response = await UserInfo.find({
+            email : userId
+        });
+        if(!response){
+            console.log("Nothing found");
+            return res.status(500).json({error: 'Internal Server Error'})
+        }
+        console.log(response)
+        return res.status(200).json(response);
+    } catch(error){
+        console.log(error);
+    }
+}
 console.log("Welcome2");
 
-module.exports = {getAllIdeas, fetchIdea, getAllComponents, updateStatus1, updateStatus2}
+module.exports = {getAllIdeas, fetchIdea, getAllComponents, updateStatus1, updateStatus2, fetchUserInfo}

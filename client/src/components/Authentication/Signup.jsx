@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const Signup = ({ onComplete }) => {
   const [step, setStep] = useState(1);
