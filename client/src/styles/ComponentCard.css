@@ -926,3 +926,7 @@ li{
 .read-more:hover {
   text-decoration: underline;
 }
+.contribution-list{
+  display: flex;
+  flex-direction: column;
+}
