@@ -34,10 +34,10 @@ const Description = ({component}) => {
     //   )
     // };
     const description = {
-      short:component.description,
+      short:component.description.short,
       full: (
         <>
-        { component.description}
+        { component.description.full}
         </>
       )
     };

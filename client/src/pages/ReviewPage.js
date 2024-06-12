@@ -30,7 +30,7 @@ const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
     const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
-      if(response.status === 200) {setIsComponents(true)}
+      if(response.status === 200  &&  response.data.length > 0)  {setIsComponents(true)}
       else setIsComponents(false);
 
     setComponents(response.data);
@@ -48,7 +48,15 @@ const fetchIdeas = async () => {
     });
   }
 };
-
+useEffect(() => {
+  if (error) {
+    Swal.fire({
+      title: "Error",
+      text: error.message,
+      icon: "error",
+    });
+  }
+}, [error]);
 useEffect(() => {
   fetchIdeas();
 }, []); 
@@ -72,6 +80,11 @@ if (error) {
                   <img src={component.preview[0]} alt={`Component ${index + 1}`} />
                   <div className={styles.cardContent} >
                     {component.name}
+                  </div>
+                  <hr></hr>
+                  <div className={styles.cardContent} >
+                   
+                    {component.type}
                   </div>
                 </Link>
               </div>

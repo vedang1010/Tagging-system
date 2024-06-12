@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@coreui/coreui": "^5.0.2",
     "@coreui/react": "^5.1.0",
     "@emotion/react": "^11.11.4",
@@ -60,7 +61,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@types/jquery": "^3.5.30",
     "autoprefixer": "^10.4.19",
     "postcss-cli": "^11.0.0",

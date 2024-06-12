@@ -23,7 +23,6 @@ const Review = () => {
   try{
     useEffect(() => {
         //console.log(objectId);
-      
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
             console.log(response.data);
             const idea = response.data.component  
@@ -31,9 +30,7 @@ const Review = () => {
             setIsLoading(false);
             setError(false);
             console.log('User ID:', user);
-
-
-      })
+       })
       .catch((error)=>{
         console.log("Here is the error ",error);
         setIsLoading(false);
@@ -61,6 +58,7 @@ const Review = () => {
     },[])
   }catch (error) {
     console.error(error.message+ " over here 2");
+    
   }
 
   const handleSubmit = (e) => {
@@ -107,18 +105,11 @@ const Review = () => {
         console.log(response.status);
       }
 
-      Swal.fire({
-        title: status,
-        icon: "success"
-      });
+      
 
     } catch (error) {
       console.error("Error occurred while sending the request:", error);
-      Swal.fire({
-        title: "Oops!",
-        text: error.message,
-        icon: "warning",
-      });
+      
     }
   }
   // const ideas = {
@@ -133,13 +124,22 @@ const Review = () => {
   //   output: 'UI Component'
   // };
 
-
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+      });
+    }
+  }, [error]);
+  
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>error.msg</div>;
   }
 
   if (!ideas) {
