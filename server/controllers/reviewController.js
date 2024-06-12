@@ -6,7 +6,7 @@ const {UserInfo} = require('../models/userInfo');
 const fetchIdea = async(req,res)=>{
     //const{Idea}=req.body;
     try{
-        console.log("fetchIdea");
+        // console.log("fetchIdea");
         const objectId = req.params.id;
         console.log(objectId);
         try {
@@ -16,30 +16,38 @@ const fetchIdea = async(req,res)=>{
             const contributors = component.contributors;
             console.log("contributors: ", contributors);
     
+            if(!component){
+                return res.status(404).json({ message: 'Component not found' });
+            }
+
             const contributorsInfo = [];
     
             for (let i = 0; i < contributors.length; i++) {
                 try {
                     const user = await UserInfo.findById(contributors[i].id);
-                    console.log("user: ", user);
-                    contributorsInfo.push(user);
+                    if(!user){
+                        return res.status(404).json({ message: 'User not found' });
+                    }
+                    else {
+                        console.log("user: ", user);
+                        contributorsInfo.push(user);
+                    }
                 } catch (error) {
                     console.error("Error fetching user info: ", error);
                     return res.status(500).json({ error: 'Internal Server Error' });
                 }
             }
     
-            if (!component) {
-                return res.status(404).json({ message: 'Component not found' });
-            } else {
-                return res.status(200).json({ component, contributorsInfo });
-            }
+            
+            return res.status(200).json({ component, contributorsInfo });
+            
         } catch (error) {
             console.error("Error fetching component: ", error);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     } catch(error){
         console.log(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
@@ -76,7 +84,7 @@ const getAllIdeas = async (req, res) => {
         });
 
         if (compo.length > 0) {
-            //console.log("Original compo:", compo);
+            console.log("Original compo:", compo);
 
             const updatedCompo = await Promise.all(compo.map(async (component) => {
                 try {
@@ -85,7 +93,7 @@ const getAllIdeas = async (req, res) => {
 
                     if (!compbyId) {
                         console.error(`Component with id ${id} not found`);
-                        return res.status(500).json({ });; 
+                        return res.status(400).json({ });; 
                     }
 
                     // Create a new object with the additional fields
@@ -99,15 +107,15 @@ const getAllIdeas = async (req, res) => {
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);
-                    return component; 
+                    return res.status(500).json({ });; 
                 }
             }));
 
-           // console.log("Updated compo:", updatedCompo);
+            console.log("Updated compo:", updatedCompo);
             return res.status(200).json(updatedCompo);
         } else {
             console.log('nothing found');
-            return res.json({ msg: 'hello from getAllIdeas' });
+            return res.status(500).json({ msg: 'hello from getAllIdeas' });
         }
     } catch (error) {
         console.log(error);
@@ -138,7 +146,7 @@ const getAllComponents = async (req, res) => {
 
                     if (!compbyId) {
                         console.error(`Component with id ${id} not found`);
-                        return res.status(500).json({ });; 
+                        return res.status(400).json({ });; 
                     }
 
                     // Create a new object with the additional fields
@@ -152,7 +160,7 @@ const getAllComponents = async (req, res) => {
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);
-                    return component; 
+                    return res.status(500).json({ });;; 
                 }
             }));
 
