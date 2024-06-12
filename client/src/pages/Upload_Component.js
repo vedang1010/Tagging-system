@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Upload_Image from "../utils/Upload_Image";
+import Upload_File from "../utils/Upload_File";
 import Text_Editor from "../utils/Text_Editor";
 
 function Upload_Component() {
@@ -22,8 +22,11 @@ function Upload_Component() {
   const [domain, setDomain] = useState("Other");
   const [languages, setLanguages] = useState("");
   const [libraries, setLibraries] = useState("");
-  const [description, setDescription] = useState("");
-  const [screenshots, setScreenshots] = useState([]); // assuming Upload_Image component handles files
+  const [shortdescription, setShortDescription] = useState("");
+  const [largedescription, setLargeDescription] = useState("");
+  const [usagedescription, setUsageDescription] = useState("");
+  const [file, setFile] = useState("");
+  const [screenshot, setScreenshot] = useState("");
   // for tags
   const [searchInput, setSearchInput] = useState("");
   const [filteredTags, setFilteredTags] = useState(tags);
@@ -44,18 +47,28 @@ function Upload_Component() {
     }
   };
 
-  const handleScreenshots = (e) => {
-
+  const handleFile = (data) => {
+    setFile(data);
   };
+
+  const handleScreenshot = (data) => {
+    setScreenshot(data);
+  };
+
   // tag remove on click
   const handleTagRemove = (tag) => {
     setSelectedTags(selectedTags.filter((t) => t !== tag));
   };
 
   // getting descriptions
-  const getDescription = (description) => {
-    console.log("description");
-    setDescription(description);
+  const getShortDescription = (description) => {
+    setShortDescription(description);
+  };
+  const getLargeDescription = (description) => {
+    setLargeDescription(description);
+  };
+  const getUsageDescription = (description) => {
+    setUsageDescription(description);
   };
 
   // upload the component
@@ -69,8 +82,11 @@ function Upload_Component() {
       selectedTags,
       languages,
       libraries,
-      description,
-      screenshots,
+      shortdescription,
+      largedescription,
+      usagedescription,
+      file,
+      screenshot,
     };
 
     // Log collected data (for debugging)
@@ -197,10 +213,28 @@ function Upload_Component() {
 
             <div className="flex flex-col items-center">
               <label className="text-white" htmlFor="textarea">
-                Description & Usage
+                Short Description 
               </label>
               <div className="w-10/12 mx-auto  bg-white ">
-                <Text_Editor getDescription={getDescription} />
+                <Text_Editor getDescription={getShortDescription} />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <label className="text-white" htmlFor="textarea">
+                Long Description
+              </label>
+              <div className="w-10/12 mx-auto  bg-white ">
+                <Text_Editor getDescription={getLargeDescription} />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <label className="text-white" htmlFor="textarea">
+                Usage Description
+              </label>
+              <div className="w-10/12 mx-auto  bg-white ">
+                <Text_Editor getDescription={getUsageDescription} />
               </div>
             </div>
 
@@ -225,13 +259,40 @@ function Upload_Component() {
                     />
                   </svg>
 
-                  {/* using direct Upload Module from ant design */}
-                  <Upload_Image
-                    // value={screenshots}
-                    // onChange={handleScreenshots}
-                  />
+                  {/* used cloudinary to upload file on cloud */}
+                  <Upload_File handleOperation={handleScreenshot} />
 
                   <p className="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full max-w-md mx-auto">
+              <label className="block text-md mt-5 mb-2 font-medium text-white">
+                Upload files and zips
+              </label>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="space-y-1 text-center">
+                  <svg
+                   className="mx-auto h-12 w-12 text-white"
+                    class="w-6 h-6 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Zm-.293 9.293a1 1 0 0 1 0 1.414L9.414 14l1.293 1.293a1 1 0 0 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414l2-2a1 1 0 0 1 1.414 0Zm2.586 1.414a1 1 0 0 1 1.414-1.414l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L14.586 14l-1.293-1.293Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  {/* used cloudinary to upload file on cloud */}
+                  <Upload_File handleOperation={handleFile} />
+
+                  <p className="text-xs text-white">PDF, ZIP ,Tar up to 5MB</p>
                 </div>
               </div>
             </div>
