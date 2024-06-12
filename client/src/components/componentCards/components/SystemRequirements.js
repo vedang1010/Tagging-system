@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-
+import HtmlRenderer from '../../../utils/HtmlRenderer';
 
 const SystemRequirements = ({component}) => {
     const [requirements] = useState({
@@ -31,7 +31,7 @@ const SystemRequirements = ({component}) => {
           <div><strong>Mouse:</strong> {requirements.mouse}</div>
           <div><strong>Camera:</strong> {requirements.camera}</div>
         </div> */}
-        {component.sys_requirements}
+        <HtmlRenderer htmlString={component.sys_requirements} />
       </section>
     );
   };

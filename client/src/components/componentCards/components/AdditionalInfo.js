@@ -15,13 +15,29 @@ const AdditionalInfo = ({component}) => {
     const [installationInfo, setInstallationInfo] = useState('Get this app while signed in...');
     const [supportedLanguages, setSupportedLanguages] = useState('English, Spanish, French, German');
     const [license, setLicense] = useState(component.license);
-  
+    function formatDate(isoDateString) {
+      const date = new Date(isoDateString);
+      
+      const year = date.getFullYear();
+      const month = date.toLocaleString('default', { month: 'long' });
+      const day = date.getDate();
+      // const hours = date.getHours().toString().padStart(2, '0');
+      // const minutes = date.getMinutes().toString().padStart(2, '0');
+      // const seconds = date.getSeconds().toString().padStart(2, '0');
+    
+      return `${month} ${day}, ${year} `;
+    }
+    
+    // Example usage
+    // const humanReadableDate = formatDate("2023-06-05T09:00:00.000Z");
+    // console.log(humanReadableDate);
+    
     return (
       <section className="additional-info">
         <h2>Additional Information</h2>
         <div className="info-grid">
           <div><FaUser /> <strong>Contributed by:</strong> {contributedBy}</div>
-          <div><FaCalendarAlt /> <strong>Release date:</strong> {releaseDate}</div>
+          <div><FaCalendarAlt /> <strong>Release date:</strong> {formatDate(releaseDate)}</div>
           <div><FaFileArchive /> <strong>Approximate size:</strong> {approximateSize}</div>
           <div>
             <FaTags /> <strong>Tags:</strong>
