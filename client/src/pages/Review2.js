@@ -3,7 +3,8 @@ import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
-
+import { RiArrowGoBackFill } from "react-icons/ri";
+import HtmlRenderer from "../utils/HtmlRenderer"
 
 const Review2 = () => {
   const {objectId, reviewId} = useParams();
@@ -166,14 +167,7 @@ const Review2 = () => {
     return <div>error.msg</div>;
   }
 
-  if (!ideas) {
-    return <div>{Swal.fire({
-      title: "Loading...",
-      
-      icon: "warning",
-    })}</div>;
-  }
-
+  
   //ideas.contributors[ideas.contributors.length - 1];
 
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
@@ -188,7 +182,7 @@ const Review2 = () => {
               <div className={styles.details}>
                 <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
                 <p className={styles.leftText}><strong>Type:</strong> {ideas.type}</p>
-                <p className={styles.leftText}><strong>Description:</strong> {ideas.description}</p>
+                <p className={styles.leftText}><strong>Description:</strong> <HtmlRenderer htmlString={ideas.description.full} /></p>
                 <p className={styles.leftText}><strong>Version:</strong> {version}</p>
               </div>
             </div>
