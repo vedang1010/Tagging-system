@@ -5,7 +5,8 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import HtmlRenderer from "../utils/HtmlRenderer"
-
+import { useNavigate } from 'react-router-dom';
+// import { RiArrowGoBackFill } from "react-icons/ri";
 const Review2 = () => {
   const {objectId, reviewId} = useParams();
   const [rating1, setRating1] = useState(0);
@@ -19,7 +20,7 @@ const Review2 = () => {
   const [status, setStatus] = useState('pending')
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
-  
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
 
   try{
@@ -173,6 +174,7 @@ const Review2 = () => {
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
+      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
       <h1 className={styles.heading}>Review Component</h1>
       {page === 'review' ? (
         <>
