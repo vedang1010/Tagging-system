@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-
+import HtmlRenderer from '../../../utils/HtmlRenderer';
 const Description = ({component}) => {
     const [isExpanded, setIsExpanded] = useState(false);
     
@@ -37,7 +37,8 @@ const Description = ({component}) => {
       short:component.description.short,
       full: (
         <>
-        { component.description.full}
+        <HtmlRenderer htmlString={component.description.full} />
+        
         </>
       )
     };
