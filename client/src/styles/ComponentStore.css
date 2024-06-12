@@ -47,11 +47,11 @@
   top: 0;
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .left-right-grid {
     display: none;
   }
-}
+} */
 
 .component-card {
   margin: 10px;

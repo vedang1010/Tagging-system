@@ -42,7 +42,15 @@ function App() {
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           <Navbar />
-          <Grid container spacing={0} className='outer-grid'>
+          <Grid container spacing={0} className='outer-grid' sx={{
+            
+            '@media (max-width:900px)': {
+          width: '100%',
+        },
+            '@media (min-width:900px)': {
+          width: '89%',
+        },
+          }} >
             {/* <Box p={3} mt={8}> */}
             <Routes>
               <Route

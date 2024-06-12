@@ -168,6 +168,7 @@ const Review2 = () => {
   }
 
   
+
   //ideas.contributors[ideas.contributors.length - 1];
 
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
