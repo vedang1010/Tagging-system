@@ -48,12 +48,26 @@ useEffect(() => {
   fetchIdeas();
 }, []); 
 
+useEffect(() => {
+  if (error) {
+    Swal.fire({
+      title: "Error",
+      text: error.message,
+      icon: "error",
+    });
+  }
+}, [error]);
+
 if (loading) {
   return <div>Loading...</div>;
 }
 
 if (error) {
-  return <div>Error: {error.message}</div>;
+  return <div>{Swal.fire({
+    title: "Oops!",
+    text: error.message,
+    icon: "error",
+  })}</div>;
 }
 
   return (
