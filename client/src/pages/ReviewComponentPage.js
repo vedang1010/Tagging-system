@@ -62,13 +62,6 @@ if (loading) {
   return <div>Loading...</div>;
 }
 
-if (error) {
-  return <div>{Swal.fire({
-    title: "Oops!",
-    text: error.message,
-    icon: "error",
-  })}</div>;
-}
 
   return (
     <div className={styles.ReviewPage}>   

@@ -3,6 +3,7 @@ import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -19,7 +20,7 @@ const Review = () => {
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
   const user = JSON.parse(localStorage.getItem('user'));
-
+  const navigate = useNavigate();
   try{
     useEffect(() => {
         //console.log(objectId);
@@ -150,6 +151,7 @@ const Review = () => {
 
   return (
     <div className={styles.formContainer}>
+      <button onClick={() => navigate(-1)}>go back</button>
       <h1 className={styles.heading}>Review Idea </h1>
       {page === 'review' ? (
         <>
