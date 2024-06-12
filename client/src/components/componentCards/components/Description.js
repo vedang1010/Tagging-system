@@ -34,10 +34,10 @@ const Description = ({component}) => {
     //   )
     // };
     const description = {
-      short:component.description.short,
+      short:<HtmlRenderer htmlString={component.description.short} />,
       full: (
         <>
-        <HtmlRenderer htmlString={component.description.full} />
+        {<HtmlRenderer htmlString={component.description.full} />}
         
         </>
       )
@@ -50,7 +50,7 @@ const Description = ({component}) => {
     return (
       <section className="description">
         <h2>Description</h2>
-        <p>{description.short}</p>
+        {description.short}
   
         {isExpanded && description.full}
   
