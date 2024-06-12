@@ -3,8 +3,8 @@ import styles from '../styles/Review.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
-
-
+import { useNavigate } from 'react-router-dom';
+import HtmlRenderer from "../utils/HtmlRenderer"
 
 
 const Review = () => {
@@ -19,7 +19,7 @@ const Review = () => {
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
   const user = JSON.parse(localStorage.getItem('user'));
-
+  const navigate = useNavigate();
   try{
     useEffect(() => {
         //console.log(objectId);
@@ -146,10 +146,10 @@ const Review = () => {
     return <div>No idea found</div>;
   }
 
-  const { name, type, details, language, version, dependencies, input, output } = ideas;
-
+ 
   return (
     <div className={styles.formContainer}>
+      {/* <button onClick={() => navigate(-1)}>go back</button> */}
       <h1 className={styles.heading}>Review Idea </h1>
       {page === 'review' ? (
         <>
@@ -159,7 +159,7 @@ const Review = () => {
           <div className={styles.details}>
           <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
           <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
-          <p className={styles.leftText} id={styles.leftdown}><strong>Description : </strong> {ideas.description}</p>
+          <p className={styles.leftText} id={styles.leftdown}><strong>Description : </strong> <HtmlRenderer htmlString={ideas.description.full} /></p>
           </div>
         </div>
       <div className={styles.details}>

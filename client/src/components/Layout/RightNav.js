@@ -4,7 +4,7 @@ import { Box, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
 const RightNav = () => {
   return (
-    <Box className="right-nav">
+    <Box className="right-nav" display={'flex'} flexDirection={'column'}>
       <Typography variant="h6" component="div">
         Filters
       </Typography>
