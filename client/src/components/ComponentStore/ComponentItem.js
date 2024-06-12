@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 
 const ComponentItem = ({ component }) => {
   return (
-    <Card className="component-card" >
+    <Card className="component-card" sx={{margin:'1rem 2rem'}} >
       {component.preview && component.preview[0] && (
         <CardMedia
           component="img"
