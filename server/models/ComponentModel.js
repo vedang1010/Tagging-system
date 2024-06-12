@@ -20,10 +20,7 @@ const contributorSchema = new Schema({
         type: String,
         required: true
     },
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }
+    
 });
 
 // Define the TagsComponent schema
