@@ -32,7 +32,6 @@ const fetchComponent = async(req,res)=>{
     }
 }
 
-
 const postData = async(req,res)=>{
     try{
         console.log("fetchIdea");
@@ -137,5 +136,30 @@ const insertDummyData = async (req, res) => {
     }
 };
 
+const updateFrequency = async (req, res) => {
+    const component_id = req.params.id; // Accessing the parameter from req.params
+    console.log(component_id)
+    try {
+        // Find the component by ID and increment its frequency by 1
+        const updatedComponent = await Component.findByIdAndUpdate(
+            component_id,
+            { $inc: { frequency: 1 } }, // Increment the frequency field by 1
+            { new: true } // Return the updated document
+        );
+        console.log(updatedComponent)
+        // Check if the component was found and updated
+        if (!updatedComponent) {
+            return res.status(404).json({ message: 'Component not found' });
+        }
+        // return updatedComponent
+        // Return the updated component
+        res.status(200).json(updatedComponent);
+    } catch (error) {
+        // Handle any errors that occurred during the update
+        res.status(500).json({ message: 'Error updating frequency', error });
+    }
+};
 
-module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData}
+
+
+module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData,updateFrequency}

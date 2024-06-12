@@ -34,8 +34,8 @@ console.log(id);
   return (
     <div className="app">
 
-      <Header />
-      <button onClick={() => fetchComponent(id)} className='button'>try</button>
+      {/* <Header /> */}
+      {/* <button onClick={() => fetchComponent(id)} className='button'>try</button> */}
       <div className="main-content">
       {component ? <Content component={component} /> : <div>Loading...</div>}
         {/* <Sidebar /> */}
