@@ -7,6 +7,9 @@ import Footer from '../components/Footer'
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 const ComponentCard = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
+
   const { id } = useParams();
 console.log(id);
   const [component, setComponent] = useState(null);
@@ -15,7 +18,7 @@ console.log(id);
     try {
       console.log("help");
 
-      const response = await axios.get(`http://127.0.0.1:5000/api/componentCard/fetchComponent/${componentId}`);
+      const response = await axios.get(`${SERVER_URL}api/componentCard/fetchComponent/${componentId}`);
       console.log("help2");
 
       console.log(response)

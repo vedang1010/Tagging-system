@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import Swal from "sweetalert2";
 // require('dotenv').config();
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const Login = ({ onLogin }) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Optionally, you can verify the token with an API call to the server
+      axios.get('/api/user/verifyToken')
+        .then(response => {
+          console.log('Token is valid');
+          // Optionally, set user data in state
+        })
+        .catch(error => {
+          console.error('Token is invalid or expired', error);
+          localStorage.removeItem('token'); // Remove invalid token
+        });
+    }
+  }, []);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('');
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +34,9 @@ const Login = ({ onLogin }) => {
       //console.log(response.data.email+ " " + response.data.token);
       //const data = response.json();
       //console.log(data.email+ " " + data.token);
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+
       localStorage.setItem('user', JSON.stringify(response.data.email));
 
       setAlertMessage('Login successful');

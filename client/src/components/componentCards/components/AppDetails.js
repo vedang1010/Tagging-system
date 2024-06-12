@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import axios from "axios"
 const AppDetails = ({component}) => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
+
     const [details, setDetails] = useState({
       imageUrl: 'https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000',
       appName: component.name,
@@ -14,7 +17,7 @@ const AppDetails = ({component}) => {
       try {
         console.log("help");
   
-        const response = await axios.get(`http://127.0.0.1:5000/api/componentCard/updateFrequency/${id}`);
+        const response = await axios.get(`${SERVER_URL}api/componentCard/updateFrequency/${id}`);
         console.log(id);
   
         console.log(response)

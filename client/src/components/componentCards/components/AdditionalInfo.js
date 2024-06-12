@@ -12,6 +12,9 @@ const AdditionalInfo = ({ component }) => {
   // const [tags, setTags] = useState([
   //   'Social', 'Networking', 'Professional', 'T2', 'T3', 'T4', 'Social3', 'Social35', 'Socialfrf', 'Socialrr', 'Socialfrde', 'Socialrrrerr', 'Socialrrrerreedf', 'Socialrrrerrrtrf', 'Socialrrrerrfred'
   // ]);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
+
   const [installationInfo, setInstallationInfo] = useState('Get this app while signed in...');
   const [supportedLanguages, setSupportedLanguages] = useState('English, Spanish, French, German');
   const [license, setLicense] = useState(component.license);
@@ -31,7 +34,7 @@ const AdditionalInfo = ({ component }) => {
     try {
       console.log("help");
 // update this link later
-      const response = await axios.get(`http://127.0.0.1:5000/api/componentCard/updateFrequency/${id}`);
+      const response = await axios.get(`${SERVER_URL}api/componentCard/updateFrequency/${id}`);
       console.log(id);
 
       console.log(response)
