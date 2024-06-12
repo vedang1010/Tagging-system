@@ -1,7 +1,7 @@
 // src/components/ComponentStore/SearchBar.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, IconButton, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
+import { TextField, IconButton, List, ListItem, ListItemText, CircularProgress, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/system';
 import ComponentItem from './ComponentItem';
@@ -59,13 +59,19 @@ const SearchBar = ({ setShowSearchResults }) => {
       {loading ? (
         <CircularProgress />
       ) : (
-        <List>
+        <Container sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection:'row',
+          justifyContent: 'left',
+         
+        }}>
           {results.map((result) => (
-            <ListItem key={result._id} button>
+            
               <ComponentItem component={result} />
-            </ListItem>
+            
           ))}
-        </List>
+        </Container>
       )}
     </div>
   );

@@ -166,13 +166,7 @@ const Review2 = () => {
     return <div>error.msg</div>;
   }
 
-  if (!ideas) {
-    return <div>{Swal.fire({
-      title: "Loading...",
-      
-      icon: "warning",
-    })}</div>;
-  }
+  
 
   //ideas.contributors[ideas.contributors.length - 1];
 

@@ -17,6 +17,7 @@ const SearchComponents = async (req, res) => {
         const searchQuery  = req.query.q;
         console.log(searchQuery)
         const components = await Component.find({ name: { $regex: searchQuery, $options: 'i' } });
+        console.log(components);
         res.status(200).json(components);
     } catch (err) {
         res.status(404).json({ message: err.message });
