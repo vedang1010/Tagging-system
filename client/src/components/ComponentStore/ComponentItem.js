@@ -1,10 +1,11 @@
 // src/components/ComponentStore/ComponentItem.js
 import React from 'react';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import HtmlRenderer from '../../utils/HtmlRenderer';
 
 const ComponentItem = ({ component }) => {
   return (
-    <Card className="component-card" >
+    <Card className="component-card" sx={{margin:'1rem 2rem', width:'20rem'}} >
       {component.preview && component.preview[0] && (
         <CardMedia
           component="img"
@@ -18,7 +19,7 @@ const ComponentItem = ({ component }) => {
           {component.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {component.description}
+        <HtmlRenderer htmlString={component.description.short} />
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Likes: {component.likes}

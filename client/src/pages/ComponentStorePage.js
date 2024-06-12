@@ -15,7 +15,7 @@ const ComponentStorePage = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} lg={9} md={12} >
+        <Grid item xs={12}  md={10}  sm={12}>
           <SearchBar setShowSearchResults={setShowSearchResults} />
           {!showSearchResults && (
             <>
@@ -24,7 +24,7 @@ const ComponentStorePage = () => {
             </>
           )}
         </Grid>
-        <Grid item xs={12} lg={3} className='left-right-grid'>
+        <Grid item xs={12} md ={2}  className='left-right-grid'>
           <RightNav />
         </Grid>
       </Grid>
