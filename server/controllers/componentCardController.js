@@ -92,36 +92,40 @@ const insertComponent = async (req, res) => {
 const insertDummyData = async (req, res) => {
     const dummyComponent = {
         _id: new mongoose.Types.ObjectId(),
-        name: "Component C",
-        idea: "An innovative idea for component A",
+        name: "Component M",
+        idea: "An innovative idea for component M",
         taglist: ["tag1", "tag2"],
         contributors: [
             {
                 id: new mongoose.Types.ObjectId(),
                 date: new Date("2023-06-05T08:00:00.000Z"),
                 version: 1,
-                link: "http://example.com/component-a/v1"
+                link: "http://example.com/component-a/v1",
+                _id: new mongoose.Types.ObjectId()
             },
             {
                 id: new mongoose.Types.ObjectId(),
                 date: new Date("2023-06-05T09:00:00.000Z"),
                 version: 2,
-                link: "http://example.com/component-a/v2"
+                link: "http://example.com/component-a/v2",
+                _id: new mongoose.Types.ObjectId()
             }
         ],
-        type: "software",
+        type: "DTS",
         frequency: 5,
-        stars: 10,
+        stars: 4.9,
         likes: 100,
-        description: "This is a description of component A.",
-        sys_requirements: "System requirements for component A",
+        description: {
+            short: "<p>This is a short description of component A.</p>",
+            full: "<p>This is a detailed description of component A. It goes into more depth about the features and capabilities of the component, including technical specifications and use cases.</p>"
+        },
+        sys_requirements: "<p>Requirement 1</p><p>Requirement 2</p><p>Requirement 3</p>",
         dependencies: "Dependencies for component A",
         license: "MIT",
         status1: "Pending",
         status2: "Pending",
         preview: ["http://example.com/preview1", "http://example.com/preview2"]
     };
-    console.log(dummyComponent._id);
 
     const newComponent = new Component(dummyComponent);
 
@@ -132,5 +136,6 @@ const insertDummyData = async (req, res) => {
         res.status(500).json({ message: 'Error inserting dummy data', error });
     }
 };
+
 
 module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData}

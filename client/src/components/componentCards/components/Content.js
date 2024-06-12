@@ -24,7 +24,7 @@ const Content = ({ component }) => {
           <AppDetails component={component}/>
         </main>
         <main className="">
-        <ImageGallery images={images} />
+        {/* <ImageGallery images={images} /> */}
 
           {/* <Screenshots /> */}
         </main>
