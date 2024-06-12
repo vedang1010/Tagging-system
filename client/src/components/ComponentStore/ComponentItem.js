@@ -1,6 +1,7 @@
 // src/components/ComponentStore/ComponentItem.js
 import React from 'react';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import HtmlRenderer from '../../utils/HtmlRenderer';
 
 const ComponentItem = ({ component }) => {
   return (
@@ -18,7 +19,7 @@ const ComponentItem = ({ component }) => {
           {component.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {component.description.short}
+        <HtmlRenderer htmlString={component.description.short} />
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Likes: {component.likes}
