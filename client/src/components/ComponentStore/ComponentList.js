@@ -23,7 +23,7 @@ const ComponentList = () => {
   const componentsByCategory = {
     DTS: [
       {
-        id: '666042d68170c800922258c5', title: 'DTS Component 1', description: 'Description of DTS component 1', publisher: 'Dummy Publisher 3',
+        id: '66693aede01afec0ab853b59', title: 'DTS Component 1', description: 'Description of DTS component 1', publisher: 'Dummy Publisher 3',
         imageUrl: 'https://dummyimage.com/300x200/000/fff',
       },
       {
