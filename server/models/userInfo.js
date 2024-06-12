@@ -29,7 +29,11 @@ const userInfoSchema = new Schema({
         type:Number,         // 1. fucntional_review
                              // 2. Technical_review
                              // 3. Legal_review
-    }
+    },
+    // UserName :{
+    //     type: String,
+    //     required: true,
+    // }
 
 
 

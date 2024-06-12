@@ -5,6 +5,7 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import HtmlRenderer from "../utils/HtmlRenderer"
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 
 const Review = () => {
@@ -150,6 +151,7 @@ const Review = () => {
   return (
     <div className={styles.formContainer}>
       {/* <button onClick={() => navigate(-1)}>go back</button> */}
+      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
       <h1 className={styles.heading}>Review Idea </h1>
       {page === 'review' ? (
         <>

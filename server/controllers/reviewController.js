@@ -10,36 +10,37 @@ const fetchIdea = async(req,res)=>{
         const objectId = req.params.id;
         console.log(objectId);
         try {
-            const component = await Component.findById(objectId);
-            console.log(component);
-    
-            const contributors = component.contributors;
-            console.log("contributors: ", contributors);
+            const component = await Component.findById(objectId).populate("contributors.id");
+            console.log("new Component "+component);
+            const contributorsInfo = component.contributors.map(contributor => contributor.id);
+            console.log(contributorsInfo); 
+            // const contributors = component.contributors;
+            // console.log("contributors: ", contributors);
     
             if(!component){
                 return res.status(404).json({ message: 'Component not found' });
             }
 
-            const contributorsInfo = [];
+            // const contributorsInfo = [];
     
-            for (let i = 0; i < contributors.length; i++) {
-                try {
-                    const user = await UserInfo.findById(contributors[i].id);
-                    if(!user){
-                        return res.status(404).json({ message: 'User not found' });
-                    }
-                    else {
-                        console.log("user: ", user);
-                        contributorsInfo.push(user);
-                    }
-                } catch (error) {
-                    console.error("Error fetching user info: ", error);
-                    return res.status(500).json({ error: 'Internal Server Error' });
-                }
-            }
+            // for (let i = 0; i < contributors.length; i++) {
+            //     try {
+            //         const user = await UserInfo.findById(contributors[i].id);
+            //         if(!user){
+            //             return res.status(404).json({ message: 'User not found' });
+            //         }
+            //         else {
+            //             console.log("user: ", user);
+            //             contributorsInfo.push(user);
+            //         }
+            //     } catch (error) {
+            //         console.error("Error fetching user info: ", error);
+            //         return res.status(500).json({ error: 'Internal Server Error' });
+            //     }
+            // }
     
             
-            return res.status(200).json({ component, contributorsInfo });
+            return res.status(200).json({ component,contributorsInfo});
             
         } catch (error) {
             console.error("Error fetching component: ", error);
