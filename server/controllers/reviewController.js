@@ -100,7 +100,8 @@ const getAllIdeas = async (req, res) => {
                     const updatedComponent = {
                         ...component.toObject(), // Convert Mongoose document to plain object
                         name: compbyId.name,
-                        preview: compbyId.preview
+                        preview: compbyId.preview,
+                        type : compbyId.type,
                     };
 
                     console.log("Updated component:", updatedComponent);
@@ -149,14 +150,16 @@ const getAllComponents = async (req, res) => {
                         return res.status(400).json({ });; 
                     }
 
+                    console.log("Component with id ${id}", compbyId.type);
                     // Create a new object with the additional fields
                     const updatedComponent = {
                         ...component.toObject(), // Convert Mongoose document to plain object
                         name: compbyId.name,
-                        preview: compbyId.preview
+                        preview: compbyId.preview,
+                        type : compbyId.type,
                     };
 
-                    console.log("Updated component:", updatedComponent);
+                    console.log("Updated component:     7             ", updatedComponent);
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);

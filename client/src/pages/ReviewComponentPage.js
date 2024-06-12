@@ -82,6 +82,10 @@ if (error) {
                   <div className={styles.cardContent} >
                     {component.name}
                   </div>
+                  <hr></hr>
+                  <div className={styles.cardContent} >
+                    {component.type}
+                  </div>
                 </Link>
               </div>
             </li>
