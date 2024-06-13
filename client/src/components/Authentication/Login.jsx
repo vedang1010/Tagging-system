@@ -1,63 +1,52 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import Swal from "sweetalert2";
-// require('dotenv').config();
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const Login = ({ onLogin }) => {
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Optionally, you can verify the token with an API call to the server
-      axios.get('/api/user/verifyToken')
-        .then(response => {
-          console.log('Token is valid');
-          // Optionally, set user data in state
-        })
-        .catch(error => {
-          console.error('Token is invalid or expired', error);
-          localStorage.removeItem('token'); // Remove invalid token
-        });
-    }
-  }, []);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('');
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
-      //console.log(response.data.email+ " " + response.data.token);
-      //const data = response.json();
-      //console.log(data.email+ " " + data.token);
-      const { token } = response.data;
-      localStorage.setItem('token', token);
+      const { token, email: userEmail } = response.data;
 
-      localStorage.setItem('user', JSON.stringify(response.data.email));
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userEmail));
 
       setAlertMessage('Login successful');
+      setAlertSeverity('success');
       Swal.fire({
         title: "Login Successful",
-        text:"You've logged in successfully",
+        text: "You've logged in successfully",
         icon: "success",
       });
-      setAlertSeverity('success');
-      onLogin(); 
+
+      onLogin();
     } catch (error) {
       setAlertMessage(error.response.data.message);
       setAlertSeverity('error');
       Swal.fire({
         title: "Oops!",
-        text: error.response.data,
+        text: error.response.data.message,
         icon: "warning",
       });
-      console.error(error.response.data); 
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      onLogin();
+    }
+  }, [onLogin]);
 
   return (
     <Container maxWidth="xs">
@@ -101,19 +90,3 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
-
-
- // const [components, setComponents] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchComponents = async () => {
-  //     try {
-  //       const response = await axios.get('http://127.0.0.1:5000/api/components');
-  //       setComponents(response.data);
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //   };
-
-  //   fetchComponents();
-  // }, []);
