@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import Swal from "sweetalert2";
-// require('dotenv').config();
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,30 +15,38 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
-      //console.log(response.data.email+ " " + response.data.token);
-      //const data = response.json();
-      //console.log(data.email+ " " + data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.email));
+      const { token, email: userEmail } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userEmail));
 
       setAlertMessage('Login successful');
+      setAlertSeverity('success');
       Swal.fire({
         title: "Login Successful",
-        text:"You've logged in successfully",
+        text: "You've logged in successfully",
         icon: "success",
       });
-      setAlertSeverity('success');
-      onLogin(); 
+
+      onLogin();
     } catch (error) {
       setAlertMessage(error.response.data.message);
       setAlertSeverity('error');
       Swal.fire({
         title: "Oops!",
-        text: error.response.data,
+        text: error.response.data.message,
         icon: "warning",
       });
-      console.error(error.response.data); 
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      onLogin();
+    }
+  }, [onLogin]);
 
   return (
     <Container maxWidth="xs">
@@ -81,19 +90,3 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
-
-
- // const [components, setComponents] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchComponents = async () => {
-  //     try {
-  //       const response = await axios.get('http://127.0.0.1:5000/api/components');
-  //       setComponents(response.data);
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //   };
-
-  //   fetchComponents();
-  // }, []);
