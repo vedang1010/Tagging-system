@@ -283,4 +283,5 @@ const insertDummyUser = async (req, res) => {
 };
 
 
+
 module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData,updateFrequency,fetchUserInfo,insertDummyUser,fetchComponentByIds}

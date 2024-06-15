@@ -12,6 +12,7 @@ body {
 .app {
   display: flex;
   flex-direction: column;
+  width:100%;
   /* height: 100vh; */
 }
 
@@ -929,4 +930,141 @@ li{
 .contribution-list{
   display: flex;
   flex-direction: column;
+}
+/* Add styles for the comments section */
+.ratings {
+  font-family: Arial, sans-serif;
+  /* max-width: 600px; */
+  margin: 0 auto;
+}
+
+.comments-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.review {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.review-header {
+  font-weight: bold;
+}
+
+.review-body {
+  margin: 10px 0;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.review-action {
+  cursor: pointer;
+}
+
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-comment-form input,
+.add-comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-comment-form button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-comment-form button:hover {
+  background-color: #0056b3;
+}
+
+.read-more-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.read-more-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the modal */
+.modal {
+  display: block; /* Changed to block */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.open-modal-button{
+  display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
