@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
       const { token, email: userEmail } = response.data;
 
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userEmail));
+      localStorage.setItem('user', userEmail);
 
       setAlertMessage('Login successful');
       setAlertSeverity('success');

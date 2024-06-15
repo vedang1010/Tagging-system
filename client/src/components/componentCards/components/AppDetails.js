@@ -15,12 +15,12 @@ const AppDetails = ({component}) => {
     });
     async function updateFrequency(id){
       try {
-        console.log("help");
+        // console.log("help");
   
         const response = await axios.get(`${SERVER_URL}api/componentCard/updateFrequency/${id}`);
-        console.log(id);
+        // console.log(id);
   
-        console.log(response)
+        // console.log(response)
       } catch (error) {
         console.error(error.message);
       }
