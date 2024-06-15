@@ -27,7 +27,7 @@ const ComponentList = () => {
         imageUrl: 'https://dummyimage.com/300x200/000/fff',
       },
       {
-        id: 2, title: 'DTS Component 2', description: 'Description of DTS component 2', publisher: 'Dummy Publisher 3',
+        id: '666853df5a37c0dfb0acdc2d', title: 'DTS Component 2', description: 'Description of DTS component 2', publisher: 'Dummy Publisher 3',
         imageUrl: 'https://dummyimage.com/300x200/000/fff',
       },
       {

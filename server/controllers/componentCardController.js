@@ -1,9 +1,28 @@
 const  {Component}= require('../models/ComponentModel');
 const mongoose=require('mongoose')
+const {UserInfo} = require('../models/userInfo');
+
 // mongoose.connect('mongodb://localhost:27017/your_database_name', {
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true
 // });
+const fetchUserInfo= async (req, res) => {
+    try{
+        const userId = req.params.id;
+        console.log(" USeer id "+userId);
+        const response = await UserInfo.findById(userId);
+        console.log("response"+response)
+        if(!response){
+            console.log("Nothing found");
+            return res.status(500).json({error: 'Internal Server Error'})
+        }
+        // console.log(response)
+        return res.status(200).json(response);
+    } catch(error){
+        console.log(error);
+    }
+}
+
 const fetchIdea = async(req,res)=>{
     //const{Idea}=req.body;
     try{
@@ -11,6 +30,21 @@ const fetchIdea = async(req,res)=>{
         return res.json({msg: 'hello from fetcghIdeas'})
     } catch(error){
         console.log(error);
+    }
+}
+const fetchComponentByIds = async(req,res)=>{
+    const { ids } = req.body; // Assuming the array of IDs is sent in the request body
+
+    if (!Array.isArray(ids)) {
+      return res.status(400).json({ error: 'Invalid input. Expected an array of IDs.' });
+    }
+  
+    try {
+      const components = await Component.find({ _id: { $in: ids } });
+      return res.status(200).json(components);
+    } catch (error) {
+      console.error('Error fetching components:', error);
+      return res.status(500).json({ error: 'An error occurred while fetching components.' });
     }
 }
 
@@ -161,5 +195,92 @@ const updateFrequency = async (req, res) => {
 };
 
 
+const insertDummyUser = async (req, res) => {
+    try {
+        const data = [
+            {
+                email: "john.doe@example.com",
+                name: "John Doe",
+                imageUrl:"https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about:"This is my about",
+                designation: "Software Engineer",
+                points: 120,
+                dept: "Engineering",
+                group: "A",
+                subgroup: 1,
+                linkedinProfile: "https://www.linkedin.com/in/johndoe",
+                yearsOfExperience: 5,
+                skills: ["JavaScript", "React", "Node.js"],
+                location: "New York, USA",
+                ideasAccepted: 3,
+                ideasProposed: 10,
+                componentsAccepted: 5,
+                componentsProposed: 8,
+                experience: [
+                    {
+                        title: "Senior Developer",
+                        company: "Tech Corp",
+                        period: "Jan 2020 - Present",
+                        duration: "2 years"
+                    },
+                    {
+                        title: "Junior Developer",
+                        company: "Code Inc.",
+                        period: "Jan 2018 - Dec 2019",
+                        duration: "2 years"
+                    }
+                ],
+                contributions: [
+                    '66680c7d12f6b594ddc5f0d9','6668258265a68659390b87cc'
+                ]
+            },
+            {
+                email: "test@gmail.com",
+                name: "Jane Smith",
+                imageUrl:"https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about:"This is my about",
+                designation: "Product Manager",
+                points: 200,
+                dept: "Product",
+                group: "B",
+                subgroup: 2,
+                linkedinProfile: "https://www.linkedin.com/in/janesmith",
+                yearsOfExperience: 8,
+                skills: ["Product Management", "Agile", "Scrum"],
+                location: "San Francisco, USA",
+                ideasAccepted: 5,
+                ideasProposed: 15,
+                componentsAccepted: 7,
+                componentsProposed: 12,
+                experience: [
+                    {
+                        title: "Product Manager",
+                        company: "Innovate Ltd.",
+                        period: "Mar 2017 - Present",
+                        duration: "4 years"
+                    },
+                    {
+                        title: "Project Manager",
+                        company: "BuildIt Inc.",
+                        period: "Jan 2013 - Feb 2017",
+                        duration: "4 years"
+                    }
+                ],
+                contributions: [
+                    '6668258265a68659390b87cd',
+                    '6668258265a68659390b87ce',
+                    '666853df5a37c0dfb0acdc2d'
+                ]
+            }
+        ];
 
-module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData,updateFrequency}
+        const result = await UserInfo.insertMany(data);
+        res.status(201).json(result);
+    } catch (error) {
+        console.error('Error inserting dummy data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData,updateFrequency,fetchUserInfo,insertDummyUser,fetchComponentByIds}

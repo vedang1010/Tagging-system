@@ -7,8 +7,8 @@ import SystemRequirements from "./SystemRequirements"
 import AdditionalInfo from "./AdditionalInfo"
 import ImageGallery from './gallery';
 const Content = ({ component }) => {
-  console.log('component')
-  console.log(component)
+  // console.log('component')
+  // console.log(component)
   const images = [
     'image1.jpg',
     'image2.jpg',

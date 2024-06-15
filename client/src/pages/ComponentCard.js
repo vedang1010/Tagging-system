@@ -11,17 +11,17 @@ const ComponentCard = () => {
   // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
 
   const { id } = useParams();
-console.log(id);
+// console.log(id);
   const [component, setComponent] = useState(null);
 
   async function fetchComponent(componentId) {
     try {
-      console.log("help");
+      // console.log("help");
 
       const response = await axios.get(`${SERVER_URL}api/componentCard/fetchComponent/${componentId}`);
-      console.log("help2");
+      // console.log("help2");
 
-      console.log(response)
+      // console.log(response)
       setComponent(response.data[0]);
     } catch (error) {
       console.error(error.message);
@@ -29,8 +29,8 @@ console.log(id);
   }
 
   useEffect(() => {
-    console.log("id");
-    console.log(id);
+    // console.log("id");
+    // console.log(id);
 
     fetchComponent(id);
   }, [id]);
