@@ -131,67 +131,67 @@ const Profile = () => {
       }
     };
 
-    // const fetchContributions = async (id) => {
-    //   try {
-    //     const url = `${SERVER_URL}api/componentCard/fetchComponentByIds`;
-    //     const response = await axios.post(url, { ids: id });
-    //     console.log("contributions user:", response.data);
-    //     const fetchedContributions = response.data;
+    const fetchContributions = async (id) => {
+      try {
+        const url = `${SERVER_URL}api/componentCard/fetchComponentByIds`;
+        const response = await axios.post(url, { ids: id });
+        console.log("contributions user:", response.data);
+        const fetchedContributions = response.data;
 
-    //     // Ensure fetchedContributions is an array
-    //     const contributionsArray = Array.isArray(fetchedContributions) ? fetchedContributions : [];
+        // Ensure fetchedContributions is an array
+        const contributionsArray = Array.isArray(fetchedContributions) ? fetchedContributions : [];
 
-    //     // Initialize an empty array for the processed contributions
-    //     const tempArray = [];
+        // Initialize an empty array for the processed contributions
+        const tempArray = [];
 
-    //     // Use a for loop to process each contribution
-    //     for (let i = 0; i < contributionsArray.length; i++) {
-    //       const contribution = contributionsArray[i];
-    //       const activities = [];
-    //       const repositories = [];
+        // Use a for loop to process each contribution
+        for (let i = 0; i < contributionsArray.length; i++) {
+          const contribution = contributionsArray[i];
+          const activities = [];
+          const repositories = [];
 
-    //       if (contribution.idea) {
-    //         activities.push(contribution.idea);
-    //       } else {
-    //         activities.push('No activity yet for this period');
-    //       }
+          if (contribution.idea) {
+            activities.push(contribution.idea);
+          } else {
+            activities.push('No activity yet for this period');
+          }
 
-    //       if (contribution.repositories && contribution.repositories.length > 0) {
-    //         repositories.push(...contribution.repositories);
-    //       }
+          if (contribution.repositories && contribution.repositories.length > 0) {
+            repositories.push(...contribution.repositories);
+          }
 
-    //       // Assuming 'contribution' has a structure that matches the provided example, adapt as necessary
-    //       if (contribution.contributors && contribution.contributors.length > 0) {
-    //         for (let j = 0; j < contribution.contributors.length; j++) {
-    //           const contributor = contribution.contributors[j];
-    //           if (contributor.activityDetails) {
-    //             activities.push(...contributor.activityDetails);
-    //           }
-    //         }
-    //       }
+          // Assuming 'contribution' has a structure that matches the provided example, adapt as necessary
+          if (contribution.contributors && contribution.contributors.length > 0) {
+            for (let j = 0; j < contribution.contributors.length; j++) {
+              const contributor = contribution.contributors[j];
+              if (contributor.activityDetails) {
+                activities.push(...contributor.activityDetails);
+              }
+            }
+          }
 
-    //       // Add the processed contribution to the tempArray
-    //       tempArray.push({
-    //         period: contribution.contributors?.[contribution.contributors.length - 1]?.date || 'Unknown period',
-    //         activities,
-    //         repositories
-    //       });
-    //     }
+          // Add the processed contribution to the tempArray
+          tempArray.push({
+            period: contribution.contributors?.[contribution.contributors.length - 1]?.date || 'Unknown period',
+            activities,
+            repositories
+          });
+        }
 
-    //     // Print each object in `tempArray` as a JSON string
-    //     tempArray.forEach(item => console.log("hello", item));
-    //     console.log("baddy", tempArray);
-    //     // setUser({ contributions: tempArray });
-    //     // user.contributions=tempArray
-    //     console.log("fbfbv", user.contributions)
-    //     // console.log("fbfbv",user.contributions.length)
+        // Print each object in `tempArray` as a JSON string
+        tempArray.forEach(item => console.log("hello", item));
+        console.log("baddy", tempArray);
+        // setUser({ contributions: tempArray });
+        // user.contributions=tempArray
+        // console.log("fbfbv", user.contributions)
+        // console.log("fbfbv",user.contributions.length)
 
-    //     return tempArray;
-    //   } catch (error) {
-    //     console.error(`Error fetching user info: ${error.message}`);
-    //     return [];
-    //   }
-    // };
+        return tempArray;
+      } catch (error) {
+        console.error(`Error fetching user info: ${error.message}`);
+        return [];
+      }
+    };
 
     const fetchUserData = async () => {
       const userId = localStorage.getItem('user');
@@ -201,7 +201,8 @@ const Profile = () => {
         // console.log("Fetched user data:", userData);
         //fetch contributions and calculate badge
         // Construct anotherUser with the required fields
-        // const contri = fetchContributions(userData.contributions)
+        const contri =await fetchContributions(userData.contributions)
+        console.log("i sm contri",contri)
 
         const anotherUser = {
           name: userData.name,
@@ -226,7 +227,7 @@ const Profile = () => {
             accepted: userData.componentsAccepted,
             proposed: userData.componentsProposed,
           },
-          contributions:initialUser.contributions,
+          contributions:contri,
         };
         // console.log("Constructed user:", anotherUser);
         setUser(anotherUser);
