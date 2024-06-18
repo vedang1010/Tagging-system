@@ -19,7 +19,7 @@ const Review = () => {
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
-  const user = JSON.parse(localStorage.getItem('userEmail'));
+  const userEmail = localStorage.getItem('user');
   const navigate = useNavigate();
   try{
     useEffect(() => {
@@ -30,7 +30,7 @@ const Review = () => {
             setIdeas(idea);
             setIsLoading(false);
             setError(false);
-            console.log('User ID:', user);
+            console.log('User ID:', userEmail);
        })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -43,24 +43,25 @@ const Review = () => {
   }
 
 
-  try{
-    useEffect(()=>{
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
-        response =>{
-          const data = JSON.stringify(response.data);
-          console.log(data);
-          if(data.subgroup == 2) setTech(true);
-          else setTech(false);
-        }
-      ).catch((error) => {
-        console.log("Some error happened")
-        console.log(error);
-      })
-    },[])
-  }catch (error) {
-    console.error(error.message+ " over here 2");
+  // try{
+  //   useEffect(()=>{
+  //     console.log("user _id : " + userEmail)
+  //     axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
+  //       response =>{
+  //         const data = JSON.stringify(response.data);
+  //         console.log(data);
+  //         if(data.subgroup == 2) setTech(true);
+  //         else setTech(false);
+  //       }
+  //     ).catch((error) => {
+  //       console.log("Some error happened")
+  //       console.log(error);
+  //     })
+  //   },[])
+  // }catch (error) {
+  //   console.error(error.message+ " over here 2");
     
-  }
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
