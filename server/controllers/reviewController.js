@@ -13,7 +13,7 @@ const fetchIdea = async(req,res)=>{
             const component = await Component.findById(objectId).populate("contributors.id");
             console.log("new Component "+component);
             const contributorsInfo = component.contributors.map(contributor => contributor.id);
-            console.log(contributorsInfo); 
+            console.log("contributors" +contributorsInfo); 
             // const contributors = component.contributors;
             // console.log("contributors: ", contributors);
     

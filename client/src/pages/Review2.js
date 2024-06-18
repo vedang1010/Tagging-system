@@ -21,7 +21,7 @@ const Review2 = () => {
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('userEmail'));
+  const userEmail = localStorage.getItem('user');
 
   try{
     useEffect(() => {
@@ -56,26 +56,24 @@ const Review2 = () => {
 
   try{
     useEffect(()=>{
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+      console.log("USERRRR ID "+ userEmail);
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
         response =>{
           const data = JSON.stringify(response.data);
           console.log(data);
-          if(!data){
-            
-          }
           if(data.subgroup == 2) setTech(true);
           else setTech(false);
         }
       ).catch((error) => {
         console.log("Some error happened")
         console.log(error);
-       
       })
     },[])
   }catch (error) {
     console.error(error.message+ " over here 2");
     
   }
+
 
 
   const handleSubmit = (e) => {
