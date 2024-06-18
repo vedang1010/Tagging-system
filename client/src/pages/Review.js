@@ -19,11 +19,11 @@ const Review = () => {
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('userEmail'));
   const navigate = useNavigate();
   try{
     useEffect(() => {
-        //console.log(objectId);
+        console.log("object "+objectId);
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
             console.log(response.data);
             const idea = response.data.component  

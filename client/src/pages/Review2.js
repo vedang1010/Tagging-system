@@ -21,7 +21,7 @@ const Review2 = () => {
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('userEmail'));
 
   try{
     useEffect(() => {
