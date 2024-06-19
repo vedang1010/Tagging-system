@@ -1,23 +1,21 @@
 // upload idea and component
-const upload = require('../models/UploadModel');
+const {Component} = require('../models/ComponentModel');
 
 const uploadComponent = async (req, res) => {
-    const { componentName, domain, selectedTags, languages, libraries, shortdescription, largedescription, usagedescription, file, screenshot, entityType } = req.body;
+    const { componentName,  domain, selectedTags, shortdescription, largedescription, sysRequirements, file, screenshot } = req.body;
 
-    const newEntity = new upload({
-        componentName,
-        domain,
-        selectedTags,
-        languages,
-        libraries,
+    const newEntity = new Component({
+        name:componentName,
+        type:domain,
+        taglist:selectedTags,
         description: {
             short: shortdescription,
             full: largedescription,
-            usage: usagedescription
         },
-        file,
-        screenshot,
-        entityType
+        sys_requirements: sysRequirements,
+        file:file,
+        preview: screenshot,
+        
     });
     try {
         await newEntity.save();
@@ -27,4 +25,24 @@ const uploadComponent = async (req, res) => {
     }
 };
 
-module.exports = { uploadComponent };
+const uploadIdea = async (req, res) => {
+    const { ideaName,  domain, shortdescription, sysRequirements } = req.body;
+
+    const newEntity = new Component({
+        name:ideaName,
+        type:domain,
+        description: {
+            short: shortdescription,
+        },
+        sys_requirements: sysRequirements,
+        
+    });
+    try {
+        await newEntity.save();
+        res.status(201).json({ message: "Component uploaded successfully!" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+module.exports = { uploadComponent,uploadIdea };

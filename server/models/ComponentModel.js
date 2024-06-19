@@ -39,11 +39,11 @@ const tagsComponentSchema = new Schema({
 const componentSchema = new Schema({
     name: {
         type: String,
-        required: true
+        // required: true
     },
     idea: {
         type: String,
-        required: true
+        // required: true
     },
     taglist: [{
         type: String,
@@ -51,7 +51,7 @@ const componentSchema = new Schema({
     contributors: [contributorSchema],
     type: {
         type: String,
-        required: true
+        // required: true
     },
     frequency: {
         type: Number,
@@ -65,36 +65,41 @@ const componentSchema = new Schema({
     description: {
         short: {
             type: String,
-            required: true
+            // required: true
         },
         full: {
             type: String,
-            required: true
+            // required: true
         }
     },
     sys_requirements: {
         type: String,
-        required: true
-    },
-    dependencies: {
-        type: String,
-        required: true
+        // required: true
     },
     license: {
         type: String,
-        required: true
+        default: "Siemens",
+        // required: true
+    },
+    haveIssues: {
+        type: Boolean,
+        // required: true,
+        default: "false",
     },
     status1: {
         type: String,
-        required: true,
+        // required: true,
         default: "Pending"
     },
     status2: {
         type: String,
-        required: true,
+        // required: true,
         default: "Pending"
     },
     preview: [{
+        type: String,
+    }],
+    file: [{
         type: String,
     }],
     __v: {

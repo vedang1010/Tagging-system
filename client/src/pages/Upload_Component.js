@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Upload_File from "../utils/Upload_File";
 import Text_Editor from "../utils/Text_Editor";
-import axios from 'axios';
+import axios from "axios";
 import Swal from "sweetalert2";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
 
 function Upload_Component() {
   // tags of component
@@ -24,17 +23,16 @@ function Upload_Component() {
   // state variables
   const [componentName, setComponentName] = useState("");
   const [domain, setDomain] = useState("Other");
-  const [languages, setLanguages] = useState("");
-  const [libraries, setLibraries] = useState("");
   const [shortdescription, setShortDescription] = useState("");
   const [largedescription, setLargeDescription] = useState("");
-  const [usagedescription, setUsageDescription] = useState("");
+  const [sysRequirements, setSysRequirements] = useState("");
   const [file, setFile] = useState("");
   const [screenshot, setScreenshot] = useState("");
   // for tags
   const [searchInput, setSearchInput] = useState("");
   const [filteredTags, setFilteredTags] = useState(tags);
   const [selectedTags, setSelectedTags] = useState([]);
+  // const user = localStorage.getItem("user");
 
   // for showing filtered tags on search
   useEffect(() => {
@@ -71,8 +69,8 @@ function Upload_Component() {
   const getLargeDescription = (description) => {
     setLargeDescription(description);
   };
-  const getUsageDescription = (description) => {
-    setUsageDescription(description);
+  const getSysRequirements = (description) => {
+    setSysRequirements(description);
   };
 
   // upload the component
@@ -84,25 +82,25 @@ function Upload_Component() {
       componentName,
       domain,
       selectedTags,
-      languages,
-      libraries,
       shortdescription,
       largedescription,
-      usagedescription,
+      sysRequirements,
       file,
       screenshot,
     };
     // Log collected data (for debugging)
     // console.log("Form Data: ", formData);
     try {
-      const response = await axios.post(`${SERVER_URL}api/upload/uploadComponent`, formData);
-      console.log("Upload Success starttt")
+      const response = await axios.post(
+        `${SERVER_URL}api/upload/uploadComponent`,
+        formData
+      );
       Swal.fire({
         title: "Upload Successful",
         text: "Your component has been uploaded successfully",
         icon: "success",
       }).then(() => {
-        window.location.href = "http://localhost:3000/reviewidea";
+        window.location.href = "http://localhost:3000/";
       });
     } catch (error) {
       Swal.fire({
@@ -111,40 +109,39 @@ function Upload_Component() {
         icon: "error",
       });
     }
-
   };
 
   return (
     <>
-      <section className=" w-10/12 p-6 mx-auto  bg-zinc-900 rounded-lg shadow-md mt-20 mb-20">
-        <h1 className="text-4xl mb-10 font-bold text-white text-center">
+      <section className="text-lg w-10/12 p-6 mx-auto  bg-black rounded-lg shadow-md mt-20 mb-20">
+        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
           Upload Your Component
         </h1>
-        <form onSubmit={handleUpload}>
+        <form>
           <div className="grid grid-cols-1 gap-3 mt-2 sm:grid-cols-1">
             <div className="flex flex-col items-center">
-              <label className="text-white" htmlFor="component-name">
+              <label className="text-white text-xl" htmlFor="component-name">
                 Component Name
               </label>
               <input
                 id="component-name"
                 name="component-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-500 rounded-md focus:border-blue-900 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-2 mt-2 text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder="Component Name"
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
               />
             </div>
 
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col mt-4 items-center">
               <label className="text-white" htmlFor="select">
                 Select Component Domain
               </label>
               <select
                 id="select"
                 name="domain"
-                className="block  w-10/12 px-3 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-3 mt-2 text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
               >
@@ -155,13 +152,13 @@ function Upload_Component() {
               </select>
             </div>
 
-            <div className="container mx-auto px-4 w-11/12">
+            <div className="container mx-auto mt-4 px-4 w-11/12">
               <div className="mb-4">
-                <h2 className="text-xl m-4 text-white ">Select Your Tags #</h2>
+                <h2 className="m-4 text-white ">Select Your #Tags</h2>
                 <div className="form-group">
                   <input
                     type="search"
-                    className="form-control border rounded-lg p-2 w-4/5"
+                    className="form-control text-white bg-zinc-800 mb-3 rounded-lg p-2 w-4/5"
                     id="search"
                     placeholder="Search Your Tag..."
                     value={searchInput}
@@ -169,7 +166,7 @@ function Upload_Component() {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap bg-zinc-800 py-3 px-1 gap-2 rounded-2xl">
                 {selectedTags.map((tag) => (
                   <div
                     key={tag}
@@ -187,12 +184,12 @@ function Upload_Component() {
                 ))}
               </div>
 
-              <div className="searchable-container mt-10">
+              <div className="searchable-container mt-7">
                 {filteredTags.map((tag) => (
                   <div key={tag} className="inline-block mr-3 mb-2">
                     <button
                       type="button"
-                      className="px-6 py-2 bg-indigo-600 text-white rounded-full"
+                      className="px-5 py-1 bg-indigo-600 text-white rounded-full"
                       onClick={() => handleTagSelect(tag)}
                     >
                       {tag}
@@ -202,68 +199,38 @@ function Upload_Component() {
               </div>
             </div>
 
-            <div className="flex flex-col items-center">
-              <label className="text-white" htmlFor="email-address">
-                Languages Used
-              </label>
-              <input
-                id="Languages"
-                type="Languages"
-                name="Languages"
-                placeholder="Languages Used..."
-                className="block w-10/12 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
-                value={languages}
-                onChange={(e) => setLanguages(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col items-center">
-              <label className="text-white" htmlFor="email-address">
-                Libraries and Dependencies
-              </label>
-              <input
-                id="Libraries"
-                type="Libraries"
-                name="Libraries"
-                placeholder="Required Libraries and Dependencies... "
-                className="block w-10/12 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
-                value={libraries}
-                onChange={(e) => setLibraries(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col items-center">
+            <div className="flex mt-7 flex-col items-center">
               <label className="text-white" htmlFor="textarea">
-                Short Description 
+                Short Description
               </label>
-              <div className="w-10/12 mx-auto  bg-white ">
+              <div className="w-10/12 mx-auto text-black bg-white ">
                 <Text_Editor getDescription={getShortDescription} />
               </div>
             </div>
 
-            <div className="flex flex-col items-center">
+            <div className="flex  mt-7 flex-col items-center">
               <label className="text-white" htmlFor="textarea">
                 Long Description
               </label>
-              <div className="w-10/12 mx-auto  bg-white ">
+              <div className="w-10/12 mx-auto text-black bg-white ">
                 <Text_Editor getDescription={getLargeDescription} />
               </div>
             </div>
 
-            <div className="flex flex-col items-center">
+            <div className="flex  mt-7 flex-col items-center">
               <label className="text-white" htmlFor="textarea">
-                Usage Description
+                System Requirements : languages and libraries
               </label>
-              <div className="w-10/12 mx-auto  bg-white ">
-                <Text_Editor getDescription={getUsageDescription} />
+              <div className="w-10/12 mx-auto text-black bg-white ">
+                <Text_Editor getDescription={getSysRequirements} />
               </div>
             </div>
 
-            <div className="w-full max-w-md mx-auto">
-              <label className="block text-md mt-5 mb-2 font-medium text-white">
+            <div className="w-full mt-7 max-w-md mx-auto">
+              <label className="block text-md mt-5 mb-2 font-medium text-white text-center">
                 Upload Preview Screenshots
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+              <div className="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
                   <svg
                     className="mx-auto h-12 w-12 text-white"
@@ -288,30 +255,30 @@ function Upload_Component() {
               </div>
             </div>
 
-            <div className="w-full max-w-md mx-auto">
-              <label className="block text-md mt-5 mb-2 font-medium text-white">
+            <div className="w-full mt-7 max-w-md mx-auto">
+              <label className="block text-md mt-5 mb-2 font-medium text-white text-center">
                 Upload files and zips
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div className="space-y-1 text-center">
+              <div className="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="space-y-1">
                   <svg
+                    class="h-12 w-12 justify-center text-center text-gray-800 dark:text-white"
                     className="mx-auto h-12 w-12 text-white"
-                    class="h-12 w-12 text-gray-800 dark:text-white"
                     aria-hidden="true"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Zm-.293 9.293a1 1 0 0 1 0 1.414L9.414 14l1.293 1.293a1 1 0 0 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414l2-2a1 1 0 0 1 1.414 0Zm2.586 1.414a1 1 0 0 1 1.414-1.414l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L14.586 14l-1.293-1.293Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
 
                   {/* used cloudinary to upload file on cloud */}
                   <Upload_File handleOperation={handleFile} />
 
-                  <p className="text-xs text-white">PDF, ZIP ,Tar up to 5MB</p>
+                  <p className="text-xs text-white">PDF, ZIP, Tar up to 5MB</p>
                 </div>
               </div>
             </div>
@@ -319,8 +286,8 @@ function Upload_Component() {
 
           <div className="flex justify-center mt-14">
             <button
-              className="px-6 py-4 text-2xl leading-5 mb-5  text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-900 focus:outline-none focus:bg-gray-600"
-              type="submit"
+              className="px-6 py-4 text-2xl leading-5 mb-5  text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
+              onClick={handleUpload}
             >
               Upload Your Component
             </button>
