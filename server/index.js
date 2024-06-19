@@ -7,6 +7,7 @@ const userRoutes = require('./routes/auth')
 const reviewRoutes = require('./routes/review');
 const componentCardRoutes = require('./routes/componentCard');
 const ComponentStoreRoutes = require("./routes/ComponentStoreRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const commentsRoutes = require("./routes/comments");
 const app = express();
 
@@ -24,6 +25,8 @@ app.use('/api/componentCard',componentCardRoutes);
 app.use('/api/comments',commentsRoutes);
 
 app.use('/api/ComponentStore',ComponentStoreRoutes);
+
+app.use('/api/upload',uploadRoutes);    
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });
