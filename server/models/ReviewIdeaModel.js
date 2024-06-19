@@ -76,8 +76,8 @@ const reviewComponentSchema= new Schema({
         type: String,
         required: true,
         default: "Pending"
-    }
-})
+    },
+},});
 
 // module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)
 const ReviewIdea = mongoose.model('ReviewIdea', reviewIdeaSchema);

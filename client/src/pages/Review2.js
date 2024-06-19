@@ -16,8 +16,7 @@ const Review2 = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState("");
-  const [contri, setContri] = useState("");
-  const [status, setStatus] = useState('pending')
+  const [status, setStatus] = useState('pending');
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
   
@@ -37,11 +36,7 @@ const Review2 = () => {
         setVersion(version);
         setContri(contributors)
         // console.log(" idea"+idea);   
-        // console.log("version "+response.data.component.contributors[0].version);   
-        const length =  response.data.contributorsInfo.length;
-        const length2 = response.data.component.contributors.length;
-        const contributors = response.data.contributorsInfo[length-1].email;
-        const version = response.data.component.contributors[length2-1].version;
+        // console.log("version "+response.data.component.contributors[0].version);
         setVersion(version);
         setContri(contributors)
         // console.log(" idea"+idea);   
@@ -152,8 +147,7 @@ const Review2 = () => {
           
           objectId: objectId,
           reviewId: reviewId,
-          isTech : tech
-          isTech : tech
+          isTech : tech,
         });
         
         if (response.status !== 200) {

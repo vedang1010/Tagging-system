@@ -99,9 +99,12 @@ const Chunked = ({ handleOperation }) => {
 
   return (
     <>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={uploadFile} disabled={uploading}>
-        {uploading ? "Uploading..." : "Upload"}
+      <div className="display:flex justify-items:center">
+
+      
+      <input type="file" className="text-white" onChange={handleFileChange} />
+      <button className="px-3 py-1 bg-indigo-600 text-white rounded-full my-4 display: inline-block; hover:bg-indigo-900"  onClick={uploadFile} disabled={uploading}>
+        {uploading ? "Uploading..." : "Upload File"}
       </button>
       {/* {uploadComplete && cldResponse && (
         <div>
@@ -111,6 +114,7 @@ const Chunked = ({ handleOperation }) => {
           </span>
         </div>
       )} */}
+      </div>
     </>
   );
 };

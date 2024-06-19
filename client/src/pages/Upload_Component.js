@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Upload_File from "../utils/Upload_File";
 import Text_Editor from "../utils/Text_Editor";
+import axios from 'axios';
+import Swal from "sweetalert2";
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 
 function Upload_Component() {
   // tags of component
@@ -72,7 +76,7 @@ function Upload_Component() {
   };
 
   // upload the component
-  const handleUpload = (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
 
     // Collect all data
@@ -88,14 +92,31 @@ function Upload_Component() {
       file,
       screenshot,
     };
-
     // Log collected data (for debugging)
-    console.log("Form Data: ", formData);
+    // console.log("Form Data: ", formData);
+    try {
+      const response = await axios.post(`${SERVER_URL}api/upload/uploadComponent`, formData);
+      console.log("Upload Success starttt")
+      Swal.fire({
+        title: "Upload Successful",
+        text: "Your component has been uploaded successfully",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "http://localhost:3000/reviewidea";
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Upload Failed",
+        text: "There was an error uploading your component",
+        icon: "error",
+      });
+    }
+
   };
 
   return (
     <>
-      <section className=" w-10/12 p-6 mx-auto  bg-indigo-500 rounded-lg shadow-md mt-20 mb-20">
+      <section className=" w-10/12 p-6 mx-auto  bg-zinc-900 rounded-lg shadow-md mt-20 mb-20">
         <h1 className="text-4xl mb-10 font-bold text-white text-center">
           Upload Your Component
         </h1>
@@ -266,6 +287,7 @@ function Upload_Component() {
                 </div>
               </div>
             </div>
+
             <div className="w-full max-w-md mx-auto">
               <label className="block text-md mt-5 mb-2 font-medium text-white">
                 Upload files and zips
@@ -273,12 +295,9 @@ function Upload_Component() {
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
                   <svg
-                   className="mx-auto h-12 w-12 text-white"
-                    class="w-6 h-6 text-gray-800 dark:text-white"
+                    className="mx-auto h-12 w-12 text-white"
+                    class="h-12 w-12 text-gray-800 dark:text-white"
                     aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -298,9 +317,9 @@ function Upload_Component() {
             </div>
           </div>
 
-          <div className="flex justify-center mt-10">
+          <div className="flex justify-center mt-14">
             <button
-              className="px-6 py-2 leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-900 focus:outline-none focus:bg-gray-600"
+              className="px-6 py-4 text-2xl leading-5 mb-5  text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-900 focus:outline-none focus:bg-gray-600"
               type="submit"
             >
               Upload Your Component
