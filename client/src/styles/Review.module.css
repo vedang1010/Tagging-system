@@ -144,41 +144,13 @@ textarea {
 .downloadContainer svg {
   margin-right: 5px;
 }
-#leftdown {
-  padding-top: 20px;
-}
-
-.downloadContainer {
-  display: flex;
-  justify-content:right;
-  margin-top:20px;
-}
-
-.downloadContainer a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #000000;
-}
-
-.downloadContainer svg {
-  margin-right: 5px;
-}
 
 .detaillist {
   margin-bottom: 20px;
   margin-top: 20px;
 }
-.detaillist{
-  
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
 
 .detailtext {
-  padding: 20px;
-}
-.detailtext{
   padding: 20px;
 }
 
@@ -202,11 +174,11 @@ textarea {
   padding: 20px;
   margin-bottom: 20px;
 }
-
+/* 
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-}
+} */
 
 /* Responsive styles */
 @media (max-width: 768px) {

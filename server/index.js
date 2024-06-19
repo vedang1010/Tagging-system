@@ -8,6 +8,7 @@ const reviewRoutes = require('./routes/review');
 const componentCardRoutes = require('./routes/componentCard');
 const ComponentStoreRoutes = require("./routes/ComponentStoreRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const commentsRoutes = require("./routes/comments");
 const app = express();
 
 require('dotenv').config();
@@ -21,6 +22,7 @@ app.use('/api/user',userRoutes);
 app.use('/api/review',reviewRoutes);
 
 app.use('/api/componentCard',componentCardRoutes);
+app.use('/api/comments',commentsRoutes);
 
 app.use('/api/ComponentStore',ComponentStoreRoutes);
 

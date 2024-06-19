@@ -5,7 +5,8 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import HtmlRenderer from "../utils/HtmlRenderer"
-
+import { useNavigate } from 'react-router-dom';
+// import { RiArrowGoBackFill } from "react-icons/ri";
 const Review2 = () => {
   const {objectId, reviewId} = useParams();
   const [rating1, setRating1] = useState(0);
@@ -19,8 +20,8 @@ const Review2 = () => {
   const [status, setStatus] = useState('pending');
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
-  
-  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+  const userEmail = localStorage.getItem('user');
 
   try{
     useEffect(() => {
@@ -59,20 +60,17 @@ const Review2 = () => {
 
   try{
     useEffect(()=>{
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
+      console.log("USERRRR ID "+ userEmail);
+      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
         response =>{
           const data = JSON.stringify(response.data);
           console.log(data);
-          if(!data){
-            
-          }
           if(data.subgroup == 2) setTech(true);
           else setTech(false);
         }
       ).catch((error) => {
         console.log("Some error happened")
         console.log(error);
-       
       })
     },[])
   }catch (error) {
@@ -80,24 +78,6 @@ const Review2 = () => {
     
   }
 
-
-  try{
-    useEffect(()=>{
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
-        response =>{
-          const data = JSON.stringify(response.data);
-          console.log(data);
-          if(data.subgroup == 2) setTech(true);
-          else setTech(false);
-        }
-      ).catch((error) => {
-        console.log("Some error happened")
-        console.log(error);
-      })
-    },[])
-  }catch (error) {
-    console.error(error.message+ " over here 2");
-  }
 
 
   const handleSubmit = (e) => {
@@ -201,7 +181,7 @@ const Review2 = () => {
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.heading}>Review Component</h1>
+      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
       <h1 className={styles.heading}>Review Component</h1>
       {page === 'review' ? (
         <>

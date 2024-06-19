@@ -5,6 +5,7 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import HtmlRenderer from "../utils/HtmlRenderer"
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 
 const Review = () => {
@@ -18,18 +19,18 @@ const Review = () => {
   const [contri, setContri] = useState([]);
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const userEmail = localStorage.getItem('user');
   const navigate = useNavigate();
   try{
     useEffect(() => {
-        //console.log(objectId);
+        console.log("object "+objectId);
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
             console.log(response.data);
             const idea = response.data.component  
             setIdeas(idea);
             setIsLoading(false);
             setError(false);
-            console.log('User ID:', user);
+            console.log('User ID:', userEmail);
        })
       .catch((error)=>{
         console.log("Here is the error ",error);
@@ -42,24 +43,25 @@ const Review = () => {
   }
 
 
-  try{
-    useEffect(()=>{
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + user).then(
-        response =>{
-          const data = JSON.stringify(response.data);
-          console.log(data);
-          if(data.subgroup == 2) setTech(true);
-          else setTech(false);
-        }
-      ).catch((error) => {
-        console.log("Some error happened")
-        console.log(error);
-      })
-    },[])
-  }catch (error) {
-    console.error(error.message+ " over here 2");
+  // try{
+  //   useEffect(()=>{
+  //     console.log("user _id : " + userEmail)
+  //     axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
+  //       response =>{
+  //         const data = JSON.stringify(response.data);
+  //         console.log(data);
+  //         if(data.subgroup == 2) setTech(true);
+  //         else setTech(false);
+  //       }
+  //     ).catch((error) => {
+  //       console.log("Some error happened")
+  //       console.log(error);
+  //     })
+  //   },[])
+  // }catch (error) {
+  //   console.error(error.message+ " over here 2");
     
-  }
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -150,6 +152,7 @@ const Review = () => {
   return (
     <div className={styles.formContainer}>
       {/* <button onClick={() => navigate(-1)}>go back</button> */}
+      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
       <h1 className={styles.heading}>Review Idea </h1>
       {page === 'review' ? (
         <>

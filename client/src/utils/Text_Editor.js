@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Text_Editor({getDescription}) {
-    const [editorValue, setEditorValue] = useState('');
+function Text_Editor({ getDescription }) {
+  const [editorValue, setEditorValue] = useState('');
 
-    return (
-      <ReactQuill
-        value={editorValue}
-        onChange={(value) => {
-            setEditorValue(value);
-            getDescription(value);
-          }
-        }
-      />
-    );
+  return (
+    <ReactQuill
+      value={editorValue}
+      onChange={(value) => {
+        setEditorValue(value);
+        getDescription(value);
+      }}
+    />
+  );
 }
 
-export default Text_Editor
+export default Text_Editor;
