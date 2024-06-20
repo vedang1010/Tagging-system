@@ -6,13 +6,17 @@ function Text_Editor({ getDescription }) {
   const [editorValue, setEditorValue] = useState('');
 
   return (
-    <ReactQuill
-      value={editorValue}
-      onChange={(value) => {
-        setEditorValue(value);
-        getDescription(value);
-      }}
-    />
+    <div>
+      <ReactQuill
+        className='text-black'
+        placeholder='Write your text here...'
+        value={editorValue}
+        onChange={(value) => {
+          setEditorValue(value);
+          getDescription(value);
+        }}
+      />
+    </div>
   );
 }
 
