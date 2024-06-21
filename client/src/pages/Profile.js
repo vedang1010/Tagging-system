@@ -9,6 +9,7 @@ import Sidebar from '../components/profile/components/Sidebar';
 import UserInfo from '../components/profile/components/UserInfo';
 import ProgressCards from '../components/profile/components/ProgressCards';
 import Contributions from '../components/profile/components/Contributions';
+import MyComponents from '../components/profile/components/MyComponents';
 // import '../styles/Profile.css';
 import Footer from "../components/Footer"
 
@@ -102,10 +103,12 @@ const Profile = () => {
       },
     ],
   };
+  const [contributions, setContributions] = useState([]);
 
   const [user, setUser] = useState(initialUser);
   const [isEditing, setIsEditing] = useState(false);
   const [visibleContributions, setVisibleContributions] = useState(3);
+  const [selectedMenuItem, setSelectedMenuItem] = useState('dashboard');
 
   const navigate = useNavigate();
   const calculatePoints = (points) => {
@@ -140,6 +143,7 @@ const Profile = () => {
 
         // Ensure fetchedContributions is an array
         const contributionsArray = Array.isArray(fetchedContributions) ? fetchedContributions : [];
+        setContributions(contributionsArray)
 
         // Initialize an empty array for the processed contributions
         const tempArray = [];
@@ -179,8 +183,8 @@ const Profile = () => {
         }
 
         // Print each object in `tempArray` as a JSON string
-        tempArray.forEach(item => console.log("hello", item));
-        console.log("baddy", tempArray);
+        // tempArray.forEach(item => console.log("hello", item));
+        // console.log("baddy", tempArray);
         // setUser({ contributions: tempArray });
         // user.contributions=tempArray
         // console.log("fbfbv", user.contributions)
@@ -201,8 +205,8 @@ const Profile = () => {
         // console.log("Fetched user data:", userData);
         //fetch contributions and calculate badge
         // Construct anotherUser with the required fields
-        const contri =await fetchContributions(userData.contributions)
-        console.log("i sm contri",contri)
+        const contri = await fetchContributions(userData.contributions)
+        console.log("i sm contri", contri)
 
         const anotherUser = {
           name: userData.name,
@@ -227,7 +231,7 @@ const Profile = () => {
             accepted: userData.componentsAccepted,
             proposed: userData.componentsProposed,
           },
-          contributions:contri,
+          contributions: contri,
         };
         // console.log("Constructed user:", anotherUser);
         setUser(anotherUser);
@@ -237,6 +241,10 @@ const Profile = () => {
 
     fetchUserData();
   }, []);
+
+  const handleMenuItemClick = (menuItem) => {
+    setSelectedMenuItem(menuItem);
+  };
 
   const handleEditProfile = () => {
     setIsEditing(true);
@@ -286,44 +294,60 @@ const Profile = () => {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd', width: '100%' }}>
-        <Sidebar user={user} />
-        <Box sx={{ flexGrow: 1, padding: 3 }}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ xs: 'column', md: 'row' }}>
-            <Typography variant="h4">User Profile</Typography>
-            {/* <Box display="flex" alignItems="center" mt={{ xs: 2, md: 0 }}>
-              <IconButton>
-                <Badge badgeContent={10} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Box> */}
-          </Box>
-          <Paper elevation={3} sx={{ padding: 4, marginBottom: 3 }}>
-            <AvatarSection
-              user={user}
-              isEditing={isEditing}
-              handleEditProfile={handleEditProfile}
-              handleSaveProfile={handleSaveProfile}
-            />
-          </Paper>
-          <UserInfo
-            user={user}
-            isEditing={isEditing}
-            handleChange={handleChange}
-            handleJobChange={handleJobChange}
-            handleAddJob={handleAddJob}
-            handleRemoveJob={handleRemoveJob}
-          />
-          {!isEditing && (
+      <Sidebar user={user} onMenuItemClick={handleMenuItemClick} />
+      <Box sx={{ flexGrow: 1, padding: 3 }}>
+      {selectedMenuItem === 'dashboard' && (
             <>
-              <ProgressCards user={user} getProgressValue={getProgressValue} />
-              <Divider sx={{ marginY: 3 }} />
-              <Contributions
+              <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ xs: 'column', md: 'row' }}>
+                <Typography variant="h4">User Profile</Typography>
+              </Box>
+              <Paper elevation={3} sx={{ padding: 4, marginBottom: 3 }}>
+                <AvatarSection
+                  user={user}
+                  isEditing={isEditing}
+                  handleEditProfile={handleEditProfile}
+                  handleSaveProfile={handleSaveProfile}
+                />
+              </Paper>
+              <UserInfo
                 user={user}
-                visibleContributions={visibleContributions}
-                handleLoadMoreContributions={handleLoadMoreContributions}
+                isEditing={isEditing}
+                handleChange={handleChange}
+                handleJobChange={handleJobChange}
+                handleAddJob={handleAddJob}
+                handleRemoveJob={handleRemoveJob}
               />
+              {!isEditing && (
+                <>
+                  <ProgressCards user={user} getProgressValue={getProgressValue} />
+                  <Divider sx={{ marginY: 3 }} />
+                  <Contributions
+                    user={user}
+                    visibleContributions={visibleContributions}
+                    handleLoadMoreContributions={handleLoadMoreContributions}
+                  />
+                </>
+              )}
             </>
+          )}
+                    {selectedMenuItem === 'myComponents' && (
+            <MyComponents components={contributions} />
+          )}
+          {selectedMenuItem === 'settings' && (
+            <Box>
+              <Typography variant="h4" gutterBottom>
+                Settings
+              </Typography>
+              {/* Add Settings related content here */}
+            </Box>
+          )}
+          {selectedMenuItem === 'help' && (
+            <Box>
+              <Typography variant="h4" gutterBottom>
+                Help Center
+              </Typography>
+              {/* Add Help Center related content here */}
+            </Box>
           )}
         </Box>
       </Box>

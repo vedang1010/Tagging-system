@@ -1,59 +1,59 @@
-const  {Component}= require('../models/ComponentModel');
-const mongoose=require('mongoose')
-const {UserInfo} = require('../models/userInfo');
+const { Component } = require('../models/ComponentModel');
+const mongoose = require('mongoose')
+const { UserInfo } = require('../models/userInfo');
 
 // mongoose.connect('mongodb://localhost:27017/your_database_name', {
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true
 // });
-const fetchUserInfo= async (req, res) => {
-    try{
+const fetchUserInfo = async (req, res) => {
+    try {
         const userId = req.params.id;
-        console.log(" USeer id "+userId);
+        console.log(" USeer id " + userId);
         const response = await UserInfo.findById(userId);
-        console.log("response"+response)
-        if(!response){
+        console.log("response" + response)
+        if (!response) {
             console.log("Nothing found");
-            return res.status(500).json({error: 'Internal Server Error'})
+            return res.status(500).json({ error: 'Internal Server Error' })
         }
         // console.log(response)
         return res.status(200).json(response);
-    } catch(error){
+    } catch (error) {
         console.log(error);
     }
 }
 
-const fetchIdea = async(req,res)=>{
+const fetchIdea = async (req, res) => {
     //const{Idea}=req.body;
-    try{
+    try {
         console.log("fetchIdea");
-        return res.json({msg: 'hello from fetcghIdeas'})
-    } catch(error){
+        return res.json({ msg: 'hello from fetcghIdeas' })
+    } catch (error) {
         console.log(error);
     }
 }
-const fetchComponentByIds = async(req,res)=>{
+const fetchComponentByIds = async (req, res) => {
     const { ids } = req.body; // Assuming the array of IDs is sent in the request body
 
     if (!Array.isArray(ids)) {
-      return res.status(400).json({ error: 'Invalid input. Expected an array of IDs.' });
+        return res.status(400).json({ error: 'Invalid input. Expected an array of IDs.' });
     }
-  
+
     try {
-      const components = await Component.find({ _id: { $in: ids } });
-      return res.status(200).json(components);
+        const components = await Component.find({ _id: { $in: ids } });
+        return res.status(200).json(components);
     } catch (error) {
-      console.error('Error fetching components:', error);
-      return res.status(500).json({ error: 'An error occurred while fetching components.' });
+        console.error('Error fetching components:', error);
+        return res.status(500).json({ error: 'An error occurred while fetching components.' });
     }
 }
 
-const fetchComponent = async(req,res)=>{
-    try{
+const fetchComponent = async (req, res) => {
+    try {
         console.log("fetchComponent");
         const component_id = req.params.id; // Accessing the parameter from req.params
 
-        const compo = await Component.find({_id:component_id});
+        const compo = await Component.find({ _id: component_id });
 
         if (compo.length > 0) {
             console.log(compo);
@@ -61,16 +61,16 @@ const fetchComponent = async(req,res)=>{
             console.log('nothing found');
         }
         return res.json(compo)
-    } catch(error){
+    } catch (error) {
         console.log(error);
     }
 }
 
-const postData = async(req,res)=>{
-    try{
+const postData = async (req, res) => {
+    try {
         console.log("fetchIdea");
-        return res.json({msg: 'hello from getAllIdeas'})
-    } catch(error){
+        return res.json({ msg: 'hello from getAllIdeas' })
+    } catch (error) {
         console.log(error);
     }
 
@@ -201,8 +201,8 @@ const insertDummyUser = async (req, res) => {
             {
                 email: "john.doe@example.com",
                 name: "John Doe",
-                imageUrl:"https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
-                about:"This is my about",
+                imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about: "This is my about",
                 designation: "Software Engineer",
                 points: 120,
                 dept: "Engineering",
@@ -231,14 +231,14 @@ const insertDummyUser = async (req, res) => {
                     }
                 ],
                 contributions: [
-                    '66680c7d12f6b594ddc5f0d9','6668258265a68659390b87cc'
+                    '66680c7d12f6b594ddc5f0d9', '6668258265a68659390b87cc'
                 ]
             },
             {
                 email: "test@gmail.com",
                 name: "Jane Smith",
-                imageUrl:"https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
-                about:"This is my about",
+                imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about: "This is my about",
                 designation: "Product Manager",
                 points: 200,
                 dept: "Product",
@@ -284,4 +284,4 @@ const insertDummyUser = async (req, res) => {
 
 
 
-module.exports = {postData, fetchIdea, fetchComponent,insertComponent,insertDummyData,updateFrequency,fetchUserInfo,insertDummyUser,fetchComponentByIds}
+module.exports = { postData, fetchIdea, fetchComponent, insertComponent, insertDummyData, updateFrequency, fetchUserInfo, insertDummyUser, fetchComponentByIds }
