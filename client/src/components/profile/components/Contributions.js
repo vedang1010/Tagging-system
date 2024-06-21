@@ -5,8 +5,8 @@ import "../styles/Profile.css";
 
 const Contributions = ({ user, visibleContributions, handleLoadMoreContributions }) => {
   const contributionsToShow = [];
-  console.log('ddd',user.contributions)
-  console.log('dddf',user.contributions.length)
+  // console.log('ddd',user.contributions)
+  // console.log('dddf',user.contributions.length)
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
@@ -17,7 +17,7 @@ const Contributions = ({ user, visibleContributions, handleLoadMoreContributions
   for (let index = 0; index < user.contributions.length; index++) {
     if (index < visibleContributions) {
       const contribution = user.contributions[index];
-      console.log('ddd',user.contributions)
+      // console.log('ddd',user.contributions)
       contributionsToShow.push(
         <React.Fragment key={index}>
           <ListItem>
