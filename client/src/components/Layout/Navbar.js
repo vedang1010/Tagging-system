@@ -4,12 +4,12 @@ import {
   AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
 } from '@mui/material';
 import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
-
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Navbar.css'
 function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -30,6 +30,10 @@ function Navbar() {
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
+  };
+
+  const handleNotificationsClick = () => {
+    navigate('/notifications');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -63,7 +67,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent'].map((text, index) => (
+        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications'].map((text, index) => (
           <NavLink 
             to={`/${text.toLowerCase()}`} 
             key={index} 
@@ -97,7 +101,7 @@ function Navbar() {
             Navbar
           </Typography>
        
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleNotificationsClick}>
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>

@@ -9,6 +9,8 @@ const componentCardRoutes = require('./routes/componentCard');
 const ComponentStoreRoutes = require("./routes/ComponentStoreRoutes");
 const commentsRoutes = require("./routes/comments");
 const app = express();
+const http = require('http');
+const { Server } = require('socket.io');
 
 require('dotenv').config();
 
@@ -35,6 +37,16 @@ mongoose.connect(process.env.DATABASE_URL).then(()=>{
     console.error("Error connecting to MongoDB:", err);
   });
 
+// Create HTTP server
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+      origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+      methods: ["GET", "POST"],
+    },
+  });
+  
 
 app.use(express.json());
 
