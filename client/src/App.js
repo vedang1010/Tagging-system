@@ -23,7 +23,7 @@ import Notifications from "./pages/Notifications";
 
 import Navbar from "./components/Layout/Navbar";
 import './styles/App.css'
-
+import ModifyComponent from "./pages/ModifyComponent";
 
 
 
@@ -43,13 +43,13 @@ function App() {
           <CssBaseline />
           <Navbar />
           <Grid container spacing={0} className='outer-grid' sx={{
-            
+
             '@media (max-width:900px)': {
-          width: '100%',
-        },
+              width: '100%',
+            },
             '@media (min-width:900px)': {
-          width: '89%',
-        },
+              width: '89%',
+            },
           }} >
             {/* <Box p={3} mt={8}> */}
             <Routes>
@@ -100,6 +100,7 @@ function App() {
               <Route path="/reviewcomponent" element={isAuthenticated ? <ReviewComponentPage /> : <Navigate to="/" />} />
               <Route path="/review2/:objectId/:reviewId" element={isAuthenticated ? <Review2 /> : <Navigate to="/" />} />
               <Route path="/notifications" element={isAuthenticated ? <Notifications /> : <Navigate to="/" />} />
+              <Route path="/modify/:id" element={isAuthenticated ? <ModifyComponent /> : <Navigate to="/" />} />
             </Routes>
             {/* </Box> */}
           </Grid>

@@ -17,7 +17,7 @@ const Review2 = () => {
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState("");
-  const [status, setStatus] = useState('pending')
+  const [status, setStatus] = useState('pending');
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
   const navigate = useNavigate();
@@ -34,6 +34,10 @@ const Review2 = () => {
         const length2 = response.data.component.contributors.length;
         const contributors = response.data.contributorsInfo[length-1].email;
         const version = response.data.component.contributors[length2-1].version;
+        setVersion(version);
+        setContri(contributors)
+        // console.log(" idea"+idea);   
+        // console.log("version "+response.data.component.contributors[0].version);
         setVersion(version);
         setContri(contributors)
         // console.log(" idea"+idea);   
@@ -93,6 +97,9 @@ const Review2 = () => {
   // const handleStarClick2 = (index) => {
   //   setRating2(index + 1);
   // };
+  // const handleStarClick2 = (index) => {
+  //   setRating2(index + 1);
+  // };
 
   const handleReject = () => {
     //console.log('Rejected with remarks', { remarks, rating });
@@ -117,9 +124,10 @@ const Review2 = () => {
           remarks: remarks,
           rating1: rating1,
           
+          
           objectId: objectId,
           reviewId: reviewId,
-          isTech : tech
+          isTech : tech,
         });
         
         if (response.status !== 200) {
@@ -233,6 +241,7 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
+                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
                 <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
                 <div>
                   {[...Array(5)].map((star, index) => (

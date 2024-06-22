@@ -7,7 +7,9 @@ const userRoutes = require('./routes/auth')
 const reviewRoutes = require('./routes/review');
 const componentCardRoutes = require('./routes/componentCard');
 const ComponentStoreRoutes = require("./routes/ComponentStoreRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const commentsRoutes = require("./routes/comments");
+const modifyRoutes=require("./routes/modify")
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
@@ -23,9 +25,12 @@ app.use('/api/user',userRoutes);
 app.use('/api/review',reviewRoutes);
 
 app.use('/api/componentCard',componentCardRoutes);
+app.use('/api/modify',modifyRoutes);
 app.use('/api/comments',commentsRoutes);
 
 app.use('/api/ComponentStore',ComponentStoreRoutes);
+
+app.use('/api/upload',uploadRoutes);    
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });

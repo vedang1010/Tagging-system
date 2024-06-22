@@ -3,7 +3,7 @@ import { FaUser, FaCalendarAlt, FaFileArchive, FaTags, FaGlobe, FaExclamationCir
 import { Link } from 'react-router-dom';
 import "../../../styles/ComponentCard.css";
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const AdditionalInfo = ({ component }) => {
   const [contributedBy, setContributedBy] = useState([]);
   const [releaseDate, setReleaseDate] = useState(component.contributors[component.contributors.length - 1].date);
@@ -13,7 +13,7 @@ const AdditionalInfo = ({ component }) => {
   const [installationInfo, setInstallationInfo] = useState('Get this app while signed in...');
   const [supportedLanguages, setSupportedLanguages] = useState('English, Spanish, French, German');
   const [license, setLicense] = useState(component.license);
-
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchContributors = async () => {
       const contributors = await Promise.all(
@@ -28,6 +28,10 @@ const AdditionalInfo = ({ component }) => {
     fetchContributors();
   }, [component.contributors]);
 
+  const handleModifyClick = (id) => {
+    console.log(id)
+    navigate(`/modify/${id}`);
+  };
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
@@ -77,7 +81,7 @@ const AdditionalInfo = ({ component }) => {
       </div>
       <div className="button-group">
         <button className="raise-issue"><FaExclamationCircle /> Raise Issue</button>
-        <button className="modify-component"><FaEdit /> Modify Component</button>
+        <button className="modify-component"  onClick={() => handleModifyClick(component._id)}><FaEdit /> Modify Component</button>
       </div>
     </section>
   );
