@@ -117,11 +117,11 @@ const getAllIdeas = async (req, res) => {
             return res.status(200).json(updatedCompo);
         } else {
             console.log('nothing found');
-            return res.status(500).json({ msg: 'hello from getAllIdeas' });
+            return res.status(500).json({ msg: 'Nothing found' });
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Nothing found' });
     }
 };
 
@@ -158,6 +158,7 @@ const getAllComponents = async (req, res) => {
                         name: compbyId.name,
                         preview: compbyId.preview,
                         type : compbyId.type,
+                        
                     };
 
                     console.log("Updated component:     7             ", updatedComponent);
@@ -176,7 +177,7 @@ const getAllComponents = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Nothing Found to review' });
     }
 };
 

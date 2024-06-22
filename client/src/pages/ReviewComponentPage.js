@@ -80,6 +80,19 @@ if (loading) {
                   <div className={styles.cardContent} >
                     {component.type}
                   </div>
+                  <hr />
+                  <div 
+                    className={styles.cardContent} 
+                    style={{ color: component.status_legal === 'accepted' ? 'green' : 'red' }}
+                  >
+                    Legal Review: {component.status_legal}
+                  </div>
+                  <div 
+                    className={styles.cardContent} 
+                    style={{ color: component.status_tech === 'accepted' ? 'green' : 'red' }}
+                  >
+                    Tech Review: {component.status_tech}
+                  </div>
                 </Link>
               </div>
             </li>

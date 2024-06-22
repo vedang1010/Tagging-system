@@ -20,6 +20,7 @@ const Review2 = () => {
   const [status, setStatus] = useState('pending');
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const userEmail = localStorage.getItem('user');
 
@@ -134,6 +135,7 @@ const Review2 = () => {
           console.log(response.status);
          
         } else {
+          setSubmitted(true);
           console.log(response.status);
         }
 
@@ -159,12 +161,23 @@ const Review2 = () => {
   useEffect(() => {
     if (error) {
       Swal.fire({
-        title: "Error",
-        text: error.message,
+        title: "Sorry",
+        text: "No idea to review",
         icon: "error",
       });
     }
   }, [error]);
+
+  useEffect(() => {
+    if(submitted){
+      Swal.fire({
+      //position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+    });
+    navigate('/reviewcomponent');
+    }
+  },[submitted]);
   
   if (loading) {
     return <div>Loading ..</div>;
@@ -176,6 +189,7 @@ const Review2 = () => {
 
   
 
+  
   //ideas.contributors[ideas.contributors.length - 1];
 
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
@@ -202,13 +216,15 @@ const Review2 = () => {
                   <li className={styles.detailtext}><strong>System Requirements:</strong> {ideas.sys_requirements}</li>
                   <li className={styles.detailtext}><strong>Dependencies:</strong> {ideas.dependencies}</li>
                   <li className={styles.detailtext}><strong>License:</strong> {ideas.license}</li>
+
                 </ol>
               </p>
               <hr></hr>
-              <p><strong>Language Used:</strong> {ideas.language}</p>
+              
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
               <p><strong>Contributors :</strong>{contri}</p>
+             
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">

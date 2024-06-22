@@ -12,7 +12,7 @@ const commentsRoutes = require("./routes/comments");
 const modifyRoutes=require("./routes/modify")
 const app = express();
 const http = require('http');
-const { Server } = require('socket.io');
+//const { Server } = require('socket.io');
 
 require('dotenv').config();
 
@@ -43,14 +43,14 @@ mongoose.connect(process.env.DATABASE_URL).then(()=>{
   });
 
 // Create HTTP server
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-const io = new Server(server, {
-    cors: {
-      origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
-      methods: ["GET", "POST"],
-    },
-  });
+// const io = new Server(server, {
+//     cors: {
+//       origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+//       methods: ["GET", "POST"],
+//     },
+//   });
   
 
 app.use(express.json());
