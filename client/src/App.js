@@ -57,7 +57,12 @@ function App() {
                 path="/"
                 element={
                   isAuthenticated ? (
-                    <Navigate to="/home" />
+                    // If authenticated, redirect to stored location or home
+                    sessionStorage.getItem("location") ? (
+                      <Navigate to={sessionStorage.getItem("location")} />
+                    ) : (
+                      <Navigate to="/home" />
+                    )
                   ) : (
                     <Container>
                       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

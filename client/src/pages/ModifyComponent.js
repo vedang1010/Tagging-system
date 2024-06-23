@@ -9,6 +9,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ModifyComponent = () => {
     const { id } = useParams(); // Get the ID from the URL
+    sessionStorage.setItem("location",`/modify/${id}`)
 
     const tags = [
         "React",

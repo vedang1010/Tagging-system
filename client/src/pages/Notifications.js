@@ -12,6 +12,8 @@ const socket = socketIOClient('http://localhost:5000', {
 });
 
 const NotificationsPage = () => {
+  sessionStorage.setItem("location","/notifications")
+
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

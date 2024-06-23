@@ -11,6 +11,8 @@ const ComponentCard = () => {
   // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
 
   const { id } = useParams();
+  sessionStorage.setItem("location",`/component/${id}`)
+
 // console.log(id);
   const [component, setComponent] = useState(null);
 

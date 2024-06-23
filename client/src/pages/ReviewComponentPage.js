@@ -19,6 +19,8 @@ const images = [
 
 
 function ReviewComponentPage() {
+  sessionStorage.setItem("location","/reviewcomponent")
+
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
 const [isComponents, setIsComponents] = useState(false);

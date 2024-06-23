@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 // import { RiArrowGoBackFill } from "react-icons/ri";
 const Review2 = () => {
   const {objectId, reviewId} = useParams();
+  sessionStorage.setItem("location",`/review2/${objectId}/${reviewId}`)
+
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [remarks, setRemarks] = useState('');
