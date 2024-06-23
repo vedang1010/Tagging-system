@@ -26,9 +26,9 @@ const Review2 = () => {
 
   try{
     useEffect(() => {
-        console.log(" compoenent ",objectId);
+        //console.log(" compoenent ",objectId);
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
-        console.log(response.data);
+        //console.log(response.data);
 
         const idea = response.data.component  
         const length =  response.data.contributorsInfo.length;
@@ -49,7 +49,7 @@ const Review2 = () => {
 
       })
       .catch((error)=>{
-        console.log("Here is the error ",error);
+        //console.log("Here is the error ",error);
         setIsLoading(false);
         setError(error);
       })
@@ -61,17 +61,20 @@ const Review2 = () => {
 
   try{
     useEffect(()=>{
-      console.log("USERRRR ID "+ userEmail);
+      //console.log("USERRRR ID "+ userEmail);
       axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
         response =>{
-          const data = JSON.stringify(response.data);
-          console.log(data);
-          if(data.subgroup == 2) setTech(true);
+          const data = (response.data);
+          //console.log("data ",data);
+          //console.log(data.email);
+          if(data.subgroup == 2) {
+            //console.log(data.subgroup);
+            setTech(true);}
           else setTech(false);
         }
       ).catch((error) => {
-        console.log("Some error happened")
-        console.log(error);
+        //console.log("Some error happened")
+        //console.log(error);
       })
     },[])
   }catch (error) {
@@ -119,7 +122,7 @@ const Review2 = () => {
   const handleOnClick =async()=>{
      setPage('ratings');
      try {
-        console.log(reviewId," "+objectId);
+        //console.log(reviewId," "+objectId);
         const response = await axios.post("http://127.0.0.1:5000/api/review/status2", {
           status: status,
           remarks: remarks,
@@ -132,11 +135,11 @@ const Review2 = () => {
         });
         
         if (response.status !== 200) {
-          console.log(response.status);
+          //console.log(response.status);
          
         } else {
           setSubmitted(true);
-          console.log(response.status);
+          //console.log(response.status);
         }
 
         
@@ -257,8 +260,8 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
-                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
+                <span style={{ fontWeight: 'bold' }}>{tech == true ? 'Functional Review' : 'Legal Review'}</span>
+                
                 <div>
                   {[...Array(5)].map((star, index) => (
                     <span

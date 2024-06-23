@@ -4,7 +4,9 @@ import styles from '../styles/ReviewComponentPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
+import socketIOClient from 'socket.io-client';
 
+const socket = socketIOClient('http://localhost:5000');
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
 const images = [
