@@ -18,7 +18,8 @@ const contributorSchema = new Schema({
     },
     link: {
         type: String,
-        required: true
+        default:"",
+    
     },
     
 });
@@ -55,20 +56,26 @@ const componentSchema = new Schema({
     },
     frequency: {
         type: Number,
+        default:0,
     },
     stars: {
         type: Number,
+        default:0,
     },
     likes: {
         type: Number,
+        default:0,
     },
     description: {
         short: {
+            
             type: String,
+            default:"",
             // required: true
         },
         full: {
             type: String,
+            default:"",
             // required: true
         }
     },
@@ -119,8 +126,9 @@ const tagSchema = new Schema({
 // Create models
 const Component = mongoose.model('Component', componentSchema);
 const Tag = mongoose.model('Tag', tagSchema);
-
+const Contributor=mongoose.model('Contributor',contributorSchema)
 module.exports = {
     Component,
-    Tag
+    Tag,
+    Contributor
 };

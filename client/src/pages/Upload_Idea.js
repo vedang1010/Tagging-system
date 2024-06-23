@@ -11,6 +11,7 @@ function Upload_Idea() {
   const [domain, setDomain] = useState("");
   const [shortdescription, setShortDescription] = useState("");
   const [sysRequirements, setSysRequirements] = useState("");
+  const [contributorId, setContributorId] = useState("");
 
   const getSysRequirements = (description) => {
     setSysRequirements(description);
@@ -18,10 +19,16 @@ function Upload_Idea() {
   const getShortDescription = (description) => {
     setShortDescription(description);
   };
+useEffect(()=>{
+  const user=localStorage.getItem("userId")
+
+setContributorId(user)
+},[])
 
   //upload the idea
   const handleUpload = async (e) => {
     e.preventDefault();
+
 
     // Collect all data
     const formData = {
@@ -29,6 +36,7 @@ function Upload_Idea() {
       domain,
       sysRequirements,
       shortdescription,
+      contributorId,
     };
     // Log collected data (for debugging)
     // console.log("Form Data: ", formData);
@@ -37,12 +45,23 @@ function Upload_Idea() {
         `${SERVER_URL}api/upload/uploadIdea`,
         formData
       );
+      const componentId=response.data.newEntity._id
+      const userData={
+        contributorId,
+        componentId,
+      }
+      console.log(componentId)
+      const response2 = await axios.put(
+        `${SERVER_URL}api/componentCard/updateUserContributions`,
+        userData
+      );
+      console.log("user status",response2)
       Swal.fire({
         title: "Upload Successful",
         text: "Your idea has been uploaded successfully",
         icon: "success",
       }).then(() => {
-        window.location.href = "http://localhost:3000/";
+        // window.location.href = "http://localhost:3000/home";
       });
     } catch (error) {
       Swal.fire({

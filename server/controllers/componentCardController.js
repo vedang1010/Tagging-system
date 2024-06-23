@@ -6,6 +6,7 @@ const { UserInfo } = require('../models/userInfo');
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true
 // });
+
 const fetchUserInfo = async (req, res) => {
     try {
         const userId = req.params.id;
@@ -193,6 +194,30 @@ const updateFrequency = async (req, res) => {
         res.status(500).json({ message: 'Error updating frequency', error });
     }
 };
+const updateUserContributions = async (req, res) => {
+    const {contributorId,componentId} = req.body; // Accessing the parameter from req.params
+    console.log("user id",contributorId)
+    console.log(componentId)
+    try {
+        // Find the component by ID and increment its frequency by 1
+        const updatedUser = await UserInfo.findByIdAndUpdate(
+            contributorId,
+            { $addToSet: { contributions: componentId } },
+            { new: true } // Return the updated document
+        );
+        console.log(updatedUser)
+        // Check if the component was found and updated
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        // return updatedComponent
+        // Return the updated component
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        // Handle any errors that occurred during the update
+        res.status(500).json({ message: 'Error updating user contributions', error });
+    }
+};
 
 
 const insertDummyUser = async (req, res) => {
@@ -284,4 +309,4 @@ const insertDummyUser = async (req, res) => {
 
 
 
-module.exports = { postData, fetchIdea, fetchComponent, insertComponent, insertDummyData, updateFrequency, fetchUserInfo, insertDummyUser, fetchComponentByIds }
+module.exports = { postData, fetchIdea, fetchComponent, insertComponent, insertDummyData, updateFrequency, fetchUserInfo, insertDummyUser, fetchComponentByIds,updateUserContributions }

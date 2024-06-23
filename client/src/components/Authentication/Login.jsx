@@ -11,6 +11,18 @@ const Login = ({ onLogin }) => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('');
 
+  
+  const getUserInfo = async (id) => {
+    try {
+      const url = `${SERVER_URL}api/review/fetchUserInfo/${id}`;
+      const response = await axios.get(url);
+      console.log(response.data);
+      // console.log("Profile user:", response.data[0].name);
+      return response.data; // Assuming response.data contains a user object with an 'email' field
+    } catch (error) {
+      console.error(`Error fetching user info: ${error.message}`);
+    }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -19,6 +31,13 @@ const Login = ({ onLogin }) => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', userEmail);
+      const response2=await getUserInfo(userEmail)
+      const uid=response2._id
+      // console.log(response2)
+      // console.log(uid)
+
+      
+      localStorage.setItem('userId',uid);
 
       setAlertMessage('Login successful');
       setAlertSeverity('success');
