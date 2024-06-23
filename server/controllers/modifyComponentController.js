@@ -1,5 +1,5 @@
 const { Component } = require('../models/ComponentModel'); // Import Component model
-
+const {Notifications} = require('../models/Notification');
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
     const updatedData = req.body; // Updated component data from req.body
@@ -12,10 +12,21 @@ const updateComponent = async (req, res) => {
             { new: true } // Return the updated document
         );
 
+
         // Check if the component was found and updated
         if (!updatedComponent) {
             return res.status(404).json({ message: 'Component not found' });
         }
+        
+        const desc = `Component ${componentId} has been modified`;
+        const notification = new Notifications({
+            id: id,
+            desc,
+            date: new Date()
+        });
+
+        await notification.save();
+        global.io.emit('modifyComponent', notification);
 
         // Return the updated component
         res.status(200).json(updatedComponent);

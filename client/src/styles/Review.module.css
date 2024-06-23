@@ -1,6 +1,6 @@
 .formContainer {
   max-width: 100%;
-  padding-left: 3vw;
+  /* padding-left: 1vw; */
   background-color: #ffffff;
   /* //max-height: 1750px; */
   max-height: 100vh; /* Adjusted to be viewport height */
@@ -9,7 +9,7 @@
 
 .heading {
   text-align: center;
-  color: #333;
+  color: #333; 
   font-weight: bold;
   margin-bottom: 2vh;
 }

@@ -1,6 +1,8 @@
 const {ReviewIdea, ReviewComponent}= require('../models/ReviewIdeaModel');
 const {Component,Tag} = require('../models/ComponentModel');
 const {UserInfo} = require('../models/userInfo');
+const {Notifications} = require('../models/Notification');
+const {io} = require('../index');
 
 
 const fetchIdea = async(req,res)=>{
@@ -117,11 +119,11 @@ const getAllIdeas = async (req, res) => {
             return res.status(200).json(updatedCompo);
         } else {
             console.log('nothing found');
-            return res.status(500).json({ msg: 'hello from getAllIdeas' });
+            return res.status(500).json({ msg: 'Nothing found' });
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Nothing found' });
     }
 };
 
@@ -158,6 +160,7 @@ const getAllComponents = async (req, res) => {
                         name: compbyId.name,
                         preview: compbyId.preview,
                         type : compbyId.type,
+                        
                     };
 
                     console.log("Updated component:     7             ", updatedComponent);
@@ -176,7 +179,7 @@ const getAllComponents = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Nothing Found to review' });
     }
 };
 
@@ -205,10 +208,19 @@ const updateStatus1 = async(req, res) => {
         reviewIdea.status = status;
         reviewIdea.Remarks = remarks;
         reviewIdea.funct_stars = ratings;
+        const desc = `${component.name} idea has been ${reviewIdea.status} by Functional review Team`;
 
-        
+        const notification = new Notifications({
+            id: id,
+            desc,
+            date: new Date()
+        });
+
+        await notification.save();
         await component.save();
         await reviewIdea.save();
+
+        global.io.emit('statusUpdate', notification);
 
         return res.status(200).json({msg : 'hello'})
     }catch(error){
@@ -259,6 +271,15 @@ const updateStatus2 = async(req, res) => {
         else if(reviewComponent.status_tech=='Pending' || reviewComponent.status_legal=='Pending') component.status2 = 'Pending';
         else component.status2 = 'rejected';
 
+        const desc = `${component.name} Component has been ${status} by ${isTech ? 'Technical Review Team' : 'Legal Review Team'}`
+
+        const notification = new Notifications({
+            id: id,
+            desc,
+            date: new Date()
+        });
+
+        await notification.save();
         
         await component.save();
        
@@ -275,7 +296,7 @@ const fetchUserInfo= async (req, res) => {
     try{
         const userId = req.params.user;
         console.log(" USeer id "+userId);
-        const response = await UserInfo.find({
+        const response = await UserInfo.findOne({
             email : userId
         });
         if(!response){
