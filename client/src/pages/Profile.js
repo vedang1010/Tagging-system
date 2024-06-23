@@ -127,10 +127,10 @@ const Profile = () => {
     const getUserInfo = async (id) => {
       try {
         const url = `${SERVER_URL}api/review/fetchUserInfo/${id}`;
-        // console.log(url);
         const response = await axios.get(url);
+        console.log(response.data);
         // console.log("Profile user:", response.data[0].name);
-        return response.data[0]; // Assuming response.data contains a user object with an 'email' field
+        return response.data; // Assuming response.data contains a user object with an 'email' field
       } catch (error) {
         console.error(`Error fetching user info: ${error.message}`);
       }
@@ -207,6 +207,7 @@ const Profile = () => {
         // console.log("Fetched user data:", userData);
         //fetch contributions and calculate badge
         // Construct anotherUser with the required fields
+        console.log(userData)
         const contri = await fetchContributions(userData.contributions)
         console.log("i sm contri", contri)
 

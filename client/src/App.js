@@ -100,7 +100,7 @@ function App() {
               <Route path="/home" element={isAuthenticated ? <HomePage /> : <Navigate to="/" />} />
               <Route path="/reviewidea" element={isAuthenticated ? <ReviewPage /> : <Navigate to="/" />} />
               <Route path="/review1/:objectId/:reviewId" element={isAuthenticated ? <Review /> : <Navigate to="/" />} />
-              <Route path="/uploadcomponent" element={isAuthenticated ? <Upload_Component /> : <Navigate to="/" />} />
+              <Route path="/uploadcomponent/:id" element={isAuthenticated ? <Upload_Component /> : <Navigate to="/" />} />
               <Route path="/uploadIdea" element={isAuthenticated ? <Upload_Idea /> : <Navigate to="/" />} />
               <Route path="/reviewcomponent" element={isAuthenticated ? <ReviewComponentPage /> : <Navigate to="/" />} />
               <Route path="/review2/:objectId/:reviewId" element={isAuthenticated ? <Review2 /> : <Navigate to="/" />} />

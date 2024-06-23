@@ -109,6 +109,7 @@ const ModifyComponent = () => {
             sys_requirements: sysRequirements,
             preview: screenshot,
             status2:"Pending",
+            file:file,
             
             // Assuming 'file' is an array of file paths or URLs
             // file: file,
