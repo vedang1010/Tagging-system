@@ -67,7 +67,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications'].map((text, index) => (
+        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications','CurrentIssues'].map((text, index) => (
           <NavLink 
             to={`/${text.toLowerCase()}`} 
             key={index} 

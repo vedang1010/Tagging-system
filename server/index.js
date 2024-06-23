@@ -10,6 +10,7 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const commentsRoutes = require("./routes/comments");
 const modifyRoutes=require("./routes/modify");
 const notificationsRoutes = require("./routes/notification");
+const issuesRoutes = require('./routes/issuesRoutes');
 //const { createServer } = require('node:http');
 //const { Server } = require('socket.io');
 const http = require('http');
@@ -54,6 +55,7 @@ app.use('/api/ComponentStore',ComponentStoreRoutes);
 
 app.use('/api/upload',uploadRoutes);  
 app.use('/api/notification',notificationsRoutes);  
+app.use('/api/issues',issuesRoutes);  
 app.get('/', (req, res) => {
     res.send('Hello, Component Store!');
 });
