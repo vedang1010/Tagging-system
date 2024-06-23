@@ -51,8 +51,8 @@ const fetchIdeas = async () => {
 useEffect(() => {
   if (error) {
     Swal.fire({
-      title: "Error",
-      text: error.message,
+      title: "Sorry",
+      text: "No idea to review",
       icon: "error",
     });
   }
@@ -86,6 +86,7 @@ if (error) {
                    
                     {component.type}
                   </div>
+                  
                 </Link>
               </div>
             </li>

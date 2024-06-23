@@ -1,23 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const notification = new Schema({
-    date:{
-        type: Date,
-        default: Date.now
-    },
-    desc:{
-        type: String,
-        required: true
-    }
-})
 
-const notifications = new SchemaTypes({
+const notificationschema = new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'UserInfo'
     },
-    notification:[notification],
+    desc:{
+        type: String,
+        required: true
+    },
+    date:{
+        type: Date,
+        default: Date.now
+    }
 })
 
-module.export = mongoose.model('Notification',notifications);
+const Notifications = mongoose.model('Notification',notificationschema);
+module.exports = {Notifications}

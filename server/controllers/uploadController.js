@@ -20,6 +20,7 @@ const uploadComponent = async (req, res) => {
     try {
         await newEntity.save();
         res.status(201).json({ message: "Component uploaded successfully!" });
+        
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
