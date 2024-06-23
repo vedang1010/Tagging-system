@@ -10,12 +10,12 @@ const IssueCard = ({issue}) =>{
         // alert("Solving issue with id: ", issue._id); 
     }
     return (
-        <Card className="issue-card" style={{display:"flex" , flexDirection:"row" , justifyContent:"space-between", alignItems:"center", padding:'40px', boxShadow:"rgb(219, 218, 218) 3px 2px 17px 3px"}}>
+        <Card className="issue-card" style={{display:"flex" , flexDirection:"row" , justifyContent:"space-between", alignItems:"center", padding:'40px',margin:'25px 0px', boxShadow:"rgb(219, 218, 218) 3px 2px 17px 3px"}}>
             <div>
-            <h3>{issue.component_id.name} </h3>
+            <h3>{issue.component_name} </h3>
             <p>{issue.description}</p>
             </div>
-            <Link to={`/modify/${issue.component_id._id}`}>
+            <Link to={`/component/${issue.component_id}`}>
             <Button  className='issue-solve-btn' variant="contained" color='success'> Solve </Button>
             </Link>
         </Card>
