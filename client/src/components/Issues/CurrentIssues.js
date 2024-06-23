@@ -3,12 +3,15 @@ import { Container } from '@mui/material';
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import SearchBar from "./SearchBar";
+
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const CurrentIssues = () => {
 
     const [issues, setIssues] = useState([]);
+    const [showSearchResults, setShowSearchResults] = useState(false);
 
 
     useEffect(() => {
@@ -25,15 +28,15 @@ const CurrentIssues = () => {
         <>
             <Container maxWidth="md" >
 
-                <h1>
-                    This is current issues page.
-                </h1>
-                <Container maxWidth="md">
-                    {issues.map((issue, index) => (
-                        <IssueCard key={index} issue={issue} />
+                <SearchBar setShowSearchResults={setShowSearchResults} />
+                {!showSearchResults &&
+                    <Container maxWidth="md">
+                        {issues.map((issue, index) => (
+                            <IssueCard key={index} issue={issue} />
                         ))}
-                        
-                </Container>
+
+                    </Container>
+                }
             </Container>
 
 

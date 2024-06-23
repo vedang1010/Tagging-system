@@ -35,29 +35,48 @@ const raiseIssue = (req, res) => {
 
 const searchIssues = async (req, res) => {
     try {
-        const { searchQuery } = req.body;
-        console.log(searchQuery)
-        const components = await Component.find({ name: { $regex: searchQuery, $options: 'i' }, haveIssues: true });
-        console.log(components);
-        res.status(200).json(components);
-    } catch (err) {
+        const searchName = req.query.name;
+        const components = await Component.find({ name: new RegExp(searchName, 'i'), haveIssues:true });
+
+        const componentIds = components.map(component => component._id);
+
+        const issues = await Issue.find({ component_id: { $in: componentIds }, status:'pending' })
+            .populate('component_id', 'name') // Populate component_id with its name field
+            .exec();
+        console.log(issues);
+        const results = issues.map(issue => ({
+            issue_id: issue._id,
+            description: issue.description,
+            component_name: issue.component_id.name,
+            component_id: issue.component_id._id
+        }));
+
+        res.status(200).json(results);
+    }
+    catch (err) {
         res.status(404).json({ message: err.message });
     }
 }
 
 
 const getAllIssues = (req, res) => {
-    Issue.find({status:'pending'}).populate('component_id')
-    .exec()
+    Issue.find({ status: 'pending' }).populate('component_id','name')
+        .exec()
         .then(issues => {
-            
-            res.status(200).json(issues);
+            const results = issues.map(issue => ({
+                issue_id: issue._id,
+                description: issue.description,
+                component_name: issue.component_id.name,
+                component_id: issue.component_id._id
+            }));
+
+            res.status(200).json(results);
         })
         .catch(err => {
             res.status(404).json({ message: err.message });
         })
 }
-        
+
 
 
 
