@@ -13,6 +13,10 @@ const issueModel = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'UserInfo'
     },
+    description:{
+        type: String,
+        required: true
+    },
     date:{
         type: Date,
         default: Date.now
@@ -29,4 +33,4 @@ const issueModel = new Schema({
 
 })
 
-module.export = mongoose.model('Issue',issueModel);
+module.exports = mongoose.model('Issue',issueModel);
