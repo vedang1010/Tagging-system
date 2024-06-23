@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Upload_Idea() {
+  sessionStorage.setItem("location","/uploadidea")
+
   const [ideaName, setIdeaName] = useState("");
   const [domain, setDomain] = useState("");
   const [shortdescription, setShortDescription] = useState("");

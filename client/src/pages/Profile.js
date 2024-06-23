@@ -14,6 +14,8 @@ import MyComponents from '../components/profile/components/MyComponents';
 import Footer from "../components/Footer"
 
 const Profile = () => {
+  sessionStorage.setItem("location","/profile")
+
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 

@@ -11,6 +11,7 @@ import '../styles/ComponentStore.css'
 
 const ComponentStorePage = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
+sessionStorage.setItem("location","/componentstore")
 
   return (
     <>

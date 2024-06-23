@@ -10,6 +10,8 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 
 const Review = () => {
   const {objectId, reviewId} = useParams();
+  sessionStorage.setItem("location",`/review1/${objectId}/${reviewId}`)
+
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
   const [page, setPage] = useState('review'); 
