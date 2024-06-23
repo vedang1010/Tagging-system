@@ -53,7 +53,7 @@ const fetchComponent = async (req, res) => {
     try {
         console.log("fetchComponent");
         const component_id = req.params.id; // Accessing the parameter from req.params
-
+        console.log(component_id);
         const compo = await Component.find({ _id: component_id });
 
         if (compo.length > 0) {

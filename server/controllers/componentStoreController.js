@@ -13,7 +13,6 @@ const viewComponentStoreDashboard = async (req, res) => {
 
 const SearchComponents = async (req, res) => {
     try {
-        console.log("in search");
         const searchQuery  = req.query.q;
         console.log(searchQuery)
         const components = await Component.find({ name: { $regex: searchQuery, $options: 'i' } });
