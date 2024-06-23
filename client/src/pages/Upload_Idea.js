@@ -52,7 +52,7 @@ setContributorId(user)
       }
       console.log(componentId)
       const response2 = await axios.put(
-        `${SERVER_URL}api/componentCard/updateUserContributions`,
+        `${SERVER_URL}api/userinfo/updateUserContributions`,
         userData
       );
       console.log("user status",response2)
