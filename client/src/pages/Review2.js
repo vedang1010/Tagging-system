@@ -20,14 +20,15 @@ const Review2 = () => {
   const [status, setStatus] = useState('pending');
   const [tech, setTech] = useState('false');
   const [version, setVersion] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const userEmail = localStorage.getItem('user');
 
   try{
     useEffect(() => {
-        console.log(" compoenent ",objectId);
+        //console.log(" compoenent ",objectId);
         axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
-        console.log(response.data);
+        //console.log(response.data);
 
         const idea = response.data.component  
         const length =  response.data.contributorsInfo.length;
@@ -48,7 +49,7 @@ const Review2 = () => {
 
       })
       .catch((error)=>{
-        console.log("Here is the error ",error);
+        //console.log("Here is the error ",error);
         setIsLoading(false);
         setError(error);
       })
@@ -60,17 +61,20 @@ const Review2 = () => {
 
   try{
     useEffect(()=>{
-      console.log("USERRRR ID "+ userEmail);
+      //console.log("USERRRR ID "+ userEmail);
       axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
         response =>{
-          const data = JSON.stringify(response.data);
-          console.log(data);
-          if(data.subgroup == 2) setTech(true);
+          const data = (response.data);
+          //console.log("data ",data);
+          //console.log(data.email);
+          if(data.subgroup == 2) {
+            //console.log(data.subgroup);
+            setTech(true);}
           else setTech(false);
         }
       ).catch((error) => {
-        console.log("Some error happened")
-        console.log(error);
+        //console.log("Some error happened")
+        //console.log(error);
       })
     },[])
   }catch (error) {
@@ -118,7 +122,7 @@ const Review2 = () => {
   const handleOnClick =async()=>{
      setPage('ratings');
      try {
-        console.log(reviewId," "+objectId);
+        //console.log(reviewId," "+objectId);
         const response = await axios.post("http://127.0.0.1:5000/api/review/status2", {
           status: status,
           remarks: remarks,
@@ -131,10 +135,11 @@ const Review2 = () => {
         });
         
         if (response.status !== 200) {
-          console.log(response.status);
+          //console.log(response.status);
          
         } else {
-          console.log(response.status);
+          setSubmitted(true);
+          //console.log(response.status);
         }
 
         
@@ -159,12 +164,23 @@ const Review2 = () => {
   useEffect(() => {
     if (error) {
       Swal.fire({
-        title: "Error",
-        text: error.message,
+        title: "Sorry",
+        text: "No idea to review",
         icon: "error",
       });
     }
   }, [error]);
+
+  useEffect(() => {
+    if(submitted){
+      Swal.fire({
+      //position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+    });
+    navigate('/reviewcomponent');
+    }
+  },[submitted]);
   
   if (loading) {
     return <div>Loading ..</div>;
@@ -176,6 +192,7 @@ const Review2 = () => {
 
   
 
+  
   //ideas.contributors[ideas.contributors.length - 1];
 
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
@@ -202,13 +219,15 @@ const Review2 = () => {
                   <li className={styles.detailtext}><strong>System Requirements:</strong> {ideas.sys_requirements}</li>
                   <li className={styles.detailtext}><strong>Dependencies:</strong> {ideas.dependencies}</li>
                   <li className={styles.detailtext}><strong>License:</strong> {ideas.license}</li>
+
                 </ol>
               </p>
               <hr></hr>
-              <p><strong>Language Used:</strong> {ideas.language}</p>
+              
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
               <p><strong>Contributors :</strong>{contri}</p>
+             
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
@@ -241,8 +260,8 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
-                <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
+                <span style={{ fontWeight: 'bold' }}>{tech == true ? 'Functional Review' : 'Legal Review'}</span>
+                
                 <div>
                   {[...Array(5)].map((star, index) => (
                     <span

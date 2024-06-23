@@ -18,7 +18,7 @@ import ReviewPage from "./pages/ReviewPage";
 import Review from "./pages/Review";
 import ReviewComponentPage from "./pages/ReviewComponentPage";
 import Review2 from "./pages/Review2";
-
+import Notifications from "./pages/Notifications";
 // New imports
 
 import Navbar from "./components/Layout/Navbar";
@@ -99,6 +99,7 @@ function App() {
               <Route path="/uploadIdea" element={isAuthenticated ? <Upload_Idea /> : <Navigate to="/" />} />
               <Route path="/reviewcomponent" element={isAuthenticated ? <ReviewComponentPage /> : <Navigate to="/" />} />
               <Route path="/review2/:objectId/:reviewId" element={isAuthenticated ? <Review2 /> : <Navigate to="/" />} />
+              <Route path="/notifications" element={isAuthenticated ? <Notifications /> : <Navigate to="/" />} />
               <Route path="/modify/:id" element={isAuthenticated ? <ModifyComponent /> : <Navigate to="/" />} />
             </Routes>
             {/* </Box> */}

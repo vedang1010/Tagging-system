@@ -20,6 +20,7 @@ const Review = () => {
   const [status, setStatus] = useState('Pending')
   const [tech, setTech] = useState('false');
   const userEmail = localStorage.getItem('user');
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   try{
     useEffect(() => {
@@ -103,8 +104,11 @@ const Review = () => {
       
       if (response.status !== 200) {
         console.log(response.status);
+
       } else {
+        setSubmitted(true);
         console.log(response.status);
+        
       }
 
       
@@ -113,6 +117,7 @@ const Review = () => {
       console.error("Error occurred while sending the request:", error);
       
     }
+    
   }
   // const ideas = {
   //   name: 'Example Component',
@@ -134,7 +139,21 @@ const Review = () => {
         icon: "error",
       });
     }
+
   }, [error]);
+
+  useEffect(() => {
+    if(submitted){
+    Swal.fire({
+    //position: "top-end",
+    icon: "success",
+    title: "Your work has been saved",
+    
+   
+  });
+  navigate('/reviewidea');
+    }
+  },[submitted]);
   
   if (loading) {
     return <div>Loading...</div>;

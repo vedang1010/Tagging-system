@@ -41,7 +41,7 @@ const userData=null
       // console.log(url);
       const response = await axios.get(url);
       // console.log("Profile user:", response.data[0].name);
-      return response.data[0]; // Assuming response.data contains a user object with an 'email' field
+      return response.data; // Assuming response.data contains a user object with an 'email' field
     } catch (error) {
       console.error(`Error fetching user info: ${error.message}`);
     }
@@ -51,6 +51,7 @@ const userData=null
     const fetchUserData = async () => {
       const token = localStorage.getItem('user');
       if (token) {
+        console.log("token "+token);
         const userData = await getUserInfo(token);
         setNewComment((prevComment) => ({
           ...prevComment,
