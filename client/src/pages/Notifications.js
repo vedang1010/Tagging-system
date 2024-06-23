@@ -40,6 +40,13 @@ const NotificationsPage = () => {
         
         setNotifications((prevNotifications) => [notification, ...prevNotifications]);
       });
+
+      socket.on('modifyComponent', (notification) => {
+        
+        setNotifications((prevNotifications) => [notification, ...prevNotifications]);
+      });
+
+    
   
       return () => {
         socket.disconnect();
