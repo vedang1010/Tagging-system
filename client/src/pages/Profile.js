@@ -253,7 +253,19 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleSaveProfile = () => {
+  const handleSaveProfile =async () => {
+    // const id=localStorage.getItem('userId')
+    // const userData={
+    //   id,
+    //   user,
+    // }
+    // const response = await axios.post(
+    //   `${SERVER_URL}api/userinfo/updateUser`,
+    //   userData
+    // );
+    // console.log(user)
+    // console.log(response)
+
     setIsEditing(false);
   };
 

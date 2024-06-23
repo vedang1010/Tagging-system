@@ -11,6 +11,7 @@ const commentsRoutes = require("./routes/comments");
 const modifyRoutes=require("./routes/modify");
 const notificationsRoutes = require("./routes/notification");
 const issuesRoutes = require('./routes/issuesRoutes');
+const userInfoRoutes=require('./routes/userRoutes')
 //const { createServer } = require('node:http');
 //const { Server } = require('socket.io');
 const http = require('http');
@@ -44,6 +45,7 @@ app.use(cors());
 
 
 app.use('/api/user',userRoutes);
+app.use('/api/userinfo',userInfoRoutes);
 
 app.use('/api/review',reviewRoutes);
 
