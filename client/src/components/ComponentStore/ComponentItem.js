@@ -5,7 +5,7 @@ import HtmlRenderer from '../../utils/HtmlRenderer';
 
 const ComponentItem = ({ component }) => {
   return (
-    <Card className="component-card" sx={{margin:'1rem 2rem', width:'20rem'}} >
+    <Card className="component-card" sx={{margin:'1rem 2rem'}} >
       {component.preview && component.preview[0] && (
         <CardMedia
           component="img"

@@ -21,11 +21,11 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = () => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setDrawerOpen(open);
+    setDrawerOpen(!drawerOpen);
   };
 
   const handleDrawerClose = () => {
@@ -62,8 +62,8 @@ function Navbar() {
   const sideList = (
     <Box
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={toggleDrawer()}
+      onKeyDown={toggleDrawer()}
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
@@ -93,7 +93,7 @@ function Navbar() {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer(true)}
+              onClick={toggleDrawer()}
             >
               <MenuIcon />
             </IconButton>
@@ -122,7 +122,7 @@ function Navbar() {
       <Drawer 
         variant={isSmallScreen ? 'temporary' : 'permanent'}
         open={isSmallScreen ? drawerOpen : true}
-        onClose={toggleDrawer(false)}
+        onClose={toggleDrawer()}
         sx={{
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width:"13rem"},
         }}
