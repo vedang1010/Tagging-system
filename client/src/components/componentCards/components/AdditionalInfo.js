@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import "../../../styles/ComponentCard.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import RaiseIssue from '../components/RaiseIssue'
 const AdditionalInfo = ({ component }) => {
   const [contributedBy, setContributedBy] = useState([]);
   const [releaseDate, setReleaseDate] = useState(component.contributors[component.contributors.length - 1].date);
@@ -13,6 +14,8 @@ const AdditionalInfo = ({ component }) => {
   const [installationInfo, setInstallationInfo] = useState('Get this app while signed in...');
   const [supportedLanguages, setSupportedLanguages] = useState('English, Spanish, French, German');
   const [license, setLicense] = useState(component.license);
+  const [showIssue,setShowIssue] = useState(false);
+
   const navigate=useNavigate();
   useEffect(() => {
     const fetchContributors = async () => {
@@ -49,7 +52,11 @@ const AdditionalInfo = ({ component }) => {
       console.error(`Error fetching user info: ${error.message}`);
     }
   };
-
+  
+  const handleIssue = () => {
+    console.log("enterererekfn")
+    setShowIssue(!showIssue);
+  }
   return (
     <section className="additional-info">
       <h2>Additional Information</h2>
@@ -80,8 +87,11 @@ const AdditionalInfo = ({ component }) => {
         <div><FaExclamationCircle /> <strong>License:</strong> {license}</div>
       </div>
       <div className="button-group">
-        <button className="raise-issue"><FaExclamationCircle /> Raise Issue</button>
+        <button className="raise-issue" onClick={handleIssue}><FaExclamationCircle /> Raise Issue</button>
         <button className="modify-component"  onClick={() => handleModifyClick(component._id)}><FaEdit /> Modify Component</button>
+      </div>
+      <div className='mt-7'>
+        {showIssue && < RaiseIssue/>}
       </div>
     </section>
   );

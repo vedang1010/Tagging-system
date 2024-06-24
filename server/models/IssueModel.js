@@ -13,6 +13,14 @@ const issueModel = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'UserInfo'
     },
+    name:{
+        type: String,
+        required: true
+    },
+    description:{
+        type: String,
+        required: true
+    },
     date:{
         type: Date,
         default: Date.now
