@@ -220,7 +220,20 @@ section div{
   display: flex;
 }
 
-button.raise-issue,
+
+button.raise-issue{
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f00c0c;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 button.modify-component {
   display: flex;
   align-items: center;
@@ -239,7 +252,9 @@ button.modify-component svg {
   margin-right: 8px;
 }
 
-button.raise-issue:hover,
+button.raise-issue:hover{
+  background-color:#9d0202;
+}
 button.modify-component:hover {
   background-color: #0056b3;
 }

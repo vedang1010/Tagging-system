@@ -219,7 +219,7 @@ section div{
   display: flex;
 }
 
-button.raise-issue,
+
 button.modify-component {
   display: flex;
   align-items: center;

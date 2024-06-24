@@ -1,5 +1,6 @@
 // upload idea and component
 const {Component,Contributor} = require('../models/ComponentModel');
+const {Issue} = require('../models/IssueModel');
 const {ReviewIdea,ReviewComponent}=require('../models/ReviewIdeaModel')
 const uploadComponent = async (req, res) => {
     const { componentName,  domain, selectedTags, shortdescription, largedescription, sysRequirements, file, screenshot } = req.body;
@@ -108,4 +109,20 @@ const uploadIdea = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
-module.exports = { uploadComponent,uploadIdea,sendToReviewIdea ,sendToReviewComponent};
+const uploadIssue = async (req, res) => {
+    const {name,description,status} = req.body;
+
+    const newEntity = new Issue({
+        name:name,
+        description:description,
+        status:status,
+    });
+    try {
+        await newEntity.save();
+        res.status(201).json({ message: "Issue uploaded successfully!" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = { uploadComponent,uploadIdea,uploadIssue,sendToReviewIdea ,sendToReviewComponent};
