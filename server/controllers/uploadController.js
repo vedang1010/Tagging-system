@@ -50,12 +50,13 @@ const sendToReviewIdea = async (req, res) => {
     }
 };
 const sendToReviewComponent= async (req, res) => {
-    const {contributorId,id} = req.body; // Accessing the parameter from req.params
+    const {contributorId,id,modifyId} = req.body; // Accessing the parameter from req.params
     console.log("user id",contributorId)
     console.log(id)
     try {
         const newReview=new ReviewComponent({
             id:id,
+            modifyId:modifyId,
             contributor_id:contributorId,
         })
         

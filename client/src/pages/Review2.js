@@ -1,97 +1,106 @@
-import React,  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Review.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import HtmlRenderer from "../utils/HtmlRenderer"
-import { useNavigate } from 'react-router-dom';
-// import { RiArrowGoBackFill } from "react-icons/ri";
+import HtmlRenderer from "../utils/HtmlRenderer";
+
 const Review2 = () => {
-  const {objectId, reviewId} = useParams();
-  sessionStorage.setItem("location",`/review2/${objectId}/${reviewId}`)
+  const { objectId, reviewId } = useParams();
+  sessionStorage.setItem("location", `/review2/${objectId}/${reviewId}`);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [remarks, setRemarks] = useState('');
-  const [page, setPage] = useState('review'); 
+  const [page, setPage] = useState('review');
   const [ideas, setIdeas] = useState(null);
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [contri, setContri] = useState("");
   const [status, setStatus] = useState('pending');
-  const [tech, setTech] = useState('false');
+  const [tech, setTech] = useState(false);
   const [version, setVersion] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const userEmail = localStorage.getItem('user');
 
-  try{
-    useEffect(() => {
-        //console.log(" compoenent ",objectId);
-        axios.get("http://127.0.0.1:5000/api/review/fetchIdea/" + objectId).then(response =>{
-        //console.log(response.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Component ID: ", objectId);
 
-        const idea = response.data.component  
-        const length =  response.data.contributorsInfo.length;
-        const length2 = response.data.component.contributors.length;
-        const contributors = response.data.contributorsInfo[length-1].email;
-        const version = response.data.component.contributors[length2-1].version;
+        const response = await axios.get(`http://127.0.0.1:5000/api/review/fetchIdea/${objectId}`);
+        const idea = response.data.component;
+        const contributorsInfo = response.data.contributorsInfo;
+        const contributorsLength = contributorsInfo.length;
+        const componentContributorsLength = idea.contributors.length;
+        const contributors = contributorsInfo[contributorsLength - 1].email;
+        const version = idea.contributors[componentContributorsLength - 1].version;
+
         setVersion(version);
-        setContri(contributors)
-        // console.log(" idea"+idea);   
-        // console.log("version "+response.data.component.contributors[0].version);
-        setVersion(version);
-        setContri(contributors)
-        // console.log(" idea"+idea);   
-        // console.log("version "+response.data.component.contributors[0].version);   
+        setContri(contributors);
         setIdeas(idea);
         setIsLoading(false);
-        setError(false);
+        setError(null);
 
-      })
-      .catch((error)=>{
-        //console.log("Here is the error ",error);
+        const reviewResponse = await axios.get(`${SERVER_URL}api/review/getReviewById/${reviewId}`);
+        console.log("Review Response: ", reviewResponse.data.modifyId);
+
+        const modifyId = reviewResponse.data.modifyId;
+        const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
+        const modifyComponent = modifiedComponentResponse.data;
+
+        console.log("Original Idea: ", idea);
+        console.log("Modified Component: ", modifyComponent);
+
+        const updatedIdea = {
+          ...idea,
+          description: {
+            short: modifyComponent.description.short,
+            full: modifyComponent.description.full
+          },
+          file: modifyComponent.file,
+          preview: modifyComponent.preview,
+          sys_requirements: modifyComponent.sys_requirements,
+          taglist: modifyComponent.taglist,
+          type: modifyComponent.type,
+          contributors:[modifyComponent.contributors]
+        };
+
+        console.log("Updated Idea: ", updatedIdea);
+        setIdeas(updatedIdea);
+
+      } catch (error) {
+        console.error("Error: ", error.message);
         setIsLoading(false);
         setError(error);
-      })
-     },[objectId])
-  } catch (error) {
-    console.error(error.message+ " over here ");
-    
-  }
+      }
+    };
 
-  try{
-    useEffect(()=>{
-      //console.log("USERRRR ID "+ userEmail);
-      axios.get("http://127.0.0.1:5000/api/review/fetchUserInfo/" + userEmail).then(
-        response =>{
-          const data = (response.data);
-          //console.log("data ",data);
-          //console.log(data.email);
-          if(data.subgroup == 2) {
-            //console.log(data.subgroup);
-            setTech(true);}
-          else setTech(false);
-        }
-      ).catch((error) => {
-        //console.log("Some error happened")
-        //console.log(error);
-      })
-    },[])
-  }catch (error) {
-    console.error(error.message+ " over here 2");
-    
-  }
+    fetchData();
+  }, [objectId, reviewId, SERVER_URL]);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:5000/api/review/fetchUserInfo/${userEmail}`);
+        const data = response.data;
+        setTech(data.subgroup === 2);
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
 
+    fetchUserInfo();
+  }, [userEmail]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (page === 'review') {
       setPage('ratings');
     } else {
-      //console.log('Form submitted', { rating, remarks });
       setPage('review');
     }
   };
@@ -100,68 +109,34 @@ const Review2 = () => {
     setRating1(index + 1);
   };
 
-  // const handleStarClick2 = (index) => {
-  //   setRating2(index + 1);
-  // };
-  // const handleStarClick2 = (index) => {
-  //   setRating2(index + 1);
-  // };
-
   const handleReject = () => {
-    //console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
     setStatus('rejected');
-    
   };
 
   const handleAccept = () => {
-
     setPage('ratings');
-    setStatus('accepted');
-  }
+    setStatus('Accepted');
+  };
 
+  const handleOnClick = async () => {
+    try {
+      const response = await axios.post(`${SERVER_URL}api/review/status2`, {
+        status: status,
+        remarks: remarks,
+        rating1: rating1,
+        objectId: objectId,
+        reviewId: reviewId,
+        isTech: tech,
+      });
 
-  const handleOnClick =async()=>{
-     setPage('ratings');
-     try {
-        //console.log(reviewId," "+objectId);
-        const response = await axios.post("http://127.0.0.1:5000/api/review/status2", {
-          status: status,
-          remarks: remarks,
-          rating1: rating1,
-          
-          
-          objectId: objectId,
-          reviewId: reviewId,
-          isTech : tech,
-        });
-        
-        if (response.status !== 200) {
-          //console.log(response.status);
-         
-        } else {
-          setSubmitted(true);
-          //console.log(response.status);
-        }
-
-        
-      } catch (error) {
-        console.error("Error occurred while sending the request:", error);
-        
+      if (response.status === 200) {
+        setSubmitted(true);
       }
-  }
-
-  // const ideas = {
-  //   name: 'Example Component',
-  //   type: 'UI Element',
-  //   details: 'This is a detailed description of the component.',
-  //   tags: 'UI, Design, Example',
-  //   language: 'JavaScript',
-  //   version: '1.0.0',
-  //   dependencies: 'React, PropTypes',
-  //   input: 'Props',
-  //   output: 'UI Component'
-  // };
+    } catch (error) {
+      console.error("Error occurred while sending the request:", error);
+    }
+  };
 
   useEffect(() => {
     if (error) {
@@ -174,39 +149,38 @@ const Review2 = () => {
   }, [error]);
 
   useEffect(() => {
-    if(submitted){
+    if (submitted) {
       Swal.fire({
-      //position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
-    });
-    navigate('/reviewcomponent');
+        icon: "success",
+        title: "Your work has been saved",
+      });
+      navigate('/reviewcomponent');
     }
-  },[submitted]);
-  
+  }, [submitted, navigate]);
+
   if (loading) {
-    return <div>Loading ..</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>error.msg</div>;
+    return <div>{error.message}</div>;
   }
 
-  
 
-  
+
+
   //ideas.contributors[ideas.contributors.length - 1];
 
   //const { name, type, details, language, version, dependencies, input, output } = ideas;
   return (
     <div className={styles.formContainer}>
-      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
+      <RiArrowGoBackFill onClick={() => navigate(-1)} />
       <h1 className={styles.heading}>Review Component</h1>
       {page === 'review' ? (
         <>
           <div className={styles.detailsContainer}>
             <div className={` ${styles.imagePreview}`}>
-              <img src={ideas.preview} alt="Component Preview" className={styles.image} />
+              <img src={ideas.preview[0]} alt="Component Preview" className={styles.image} />
               <div className={styles.details}>
                 <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
                 <p className={styles.leftText}><strong>Type:</strong> {ideas.type}</p>
@@ -218,18 +192,19 @@ const Review2 = () => {
               <p>
                 <strong>Details:</strong>
                 <ol className={styles.detaillist} style={{ listStyleType: "upper-roman" }}>
-                  <li className={styles.detailtext}><strong>System Requirements:</strong> {ideas.sys_requirements}</li>
+                   
+                  <li className={styles.detailtext}><strong>System Requirements:</strong> <HtmlRenderer htmlString={ideas.sys_requirements} /></li>
                   <li className={styles.detailtext}><strong>Dependencies:</strong> {ideas.dependencies}</li>
                   <li className={styles.detailtext}><strong>License:</strong> {ideas.license}</li>
 
                 </ol>
               </p>
               <hr></hr>
-              
+
               <p><strong>Algorithm and time complexity:</strong> {ideas.algorithm}</p>
               <p><strong>Tags:</strong> {ideas.taglist.join(' ')}</p>
               <p><strong>Contributors :</strong>{contri}</p>
-             
+
               <div className={styles.downloadContainer}>
                 <a href="/path/to/download">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
@@ -263,7 +238,7 @@ const Review2 = () => {
               ></textarea>
               <div className={styles.ratingContainer}>
                 <span style={{ fontWeight: 'bold' }}>{tech == true ? 'Functional Review' : 'Legal Review'}</span>
-                
+
                 <div>
                   {[...Array(5)].map((star, index) => (
                     <span
@@ -290,6 +265,6 @@ const Review2 = () => {
       )}
     </div>
   );
-}  
+}
 
 export default Review2;

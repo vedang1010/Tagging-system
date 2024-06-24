@@ -76,6 +76,26 @@ const fetchIdea = async(req,res)=>{
 //     }
 // }
 
+const getReviewById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Find the review by ID
+      const review = await ReviewComponent.findById(id);
+  
+      // Check if the review was found
+      if (!review) {
+        return res.status(404).json({ message: 'Review not found' });
+      }
+  
+      // Return the found review
+      res.status(200).json(review);
+    } catch (error) {
+      // Handle any errors that occurred during the search
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving review', error });
+    }
+  };
 
 
 const getAllIdeas = async (req, res) => {
@@ -139,7 +159,7 @@ const getAllComponents = async (req, res) => {
             ]
             
         });
-
+// console.log("compo",compo)
         if (compo.length > 0) {
             //console.log("Original compo:", compo);
 
@@ -161,9 +181,10 @@ const getAllComponents = async (req, res) => {
                         preview: compbyId.preview,
                         type : compbyId.type,
                         
+                        
                     };
-
-                    console.log("Updated component:     7             ", updatedComponent);
+                    // console.log("modify id",compbyId)
+                    // console.log("Updated component:     7             ", updatedComponent);
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);
@@ -311,4 +332,4 @@ const fetchUserInfo= async (req, res) => {
 }
 console.log("Welcome2");
 
-module.exports = {getAllIdeas, fetchIdea, getAllComponents, updateStatus1, updateStatus2, fetchUserInfo}
+module.exports = {getAllIdeas, fetchIdea, getAllComponents, updateStatus1, updateStatus2, fetchUserInfo,getReviewById}

@@ -118,6 +118,7 @@ const ModifyComponent = () => {
       preview: screenshot,
       status2: "Pending",
             file:file,
+            userId:localStorage.getItem('userId')
 
       // Assuming 'file' is an array of file paths or URLs
       // file: file,
@@ -128,13 +129,15 @@ const ModifyComponent = () => {
             console.log("reached",id)
             if (id) {
                 console.log("reached if",id)
-                console.log(formData)
                 // Update existing component
-                await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+                const modify=await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+                // console.log("req",modify.data._id)
+                const modifyId=modify.data._id
                 const contributorId=localStorage.getItem('userId')
                 const userData={
                     contributorId,
                     id,
+                    modifyId,
                   }
                 const response=await axios.post(
                     `${SERVER_URL}api/upload/sendToReviewComponent`,
