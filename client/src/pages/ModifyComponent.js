@@ -122,6 +122,16 @@ const ModifyComponent = () => {
                 console.log(formData)
                 // Update existing component
                 await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+                const contributorId=localStorage.getItem('userId')
+                const userData={
+                    contributorId,
+                    id,
+                  }
+                const response=await axios.post(
+                    `${SERVER_URL}api/upload/sendToReviewComponent`,
+                    userData
+                  );
+                  console.log(response)
                 Swal.fire({
                     title: "Update Successful",
                     text: "Your component has been updated successfully",

@@ -4,10 +4,10 @@ import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, Ta
 import { useNavigate } from "react-router-dom"
 import HtmlRenderer from '../../../utils/HtmlRenderer';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: '#0a1324',
   color: theme.palette.common.white,
 }));
-
+// sx={{ backgroundColor: '#0a1324', color: '#fff' }} 
 const MyComponents = ({ components }) => {
   console.log(components);
   const naviagte = useNavigate()
