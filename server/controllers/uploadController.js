@@ -1,6 +1,6 @@
 // upload idea and component
 const {Component,Contributor} = require('../models/ComponentModel');
-
+const {ReviewIdea,ReviewComponent}=require('../models/ReviewIdeaModel')
 const uploadComponent = async (req, res) => {
     const { componentName,  domain, selectedTags, shortdescription, largedescription, sysRequirements, file, screenshot } = req.body;
 
@@ -26,6 +26,50 @@ const uploadComponent = async (req, res) => {
     }
 };
 
+const sendToReviewIdea = async (req, res) => {
+    const {contributorId,componentId} = req.body; // Accessing the parameter from req.params
+    console.log("user id",contributorId)
+    console.log(componentId)
+    try {
+        const newReview=new ReviewIdea({
+            id:componentId,
+            contributor_id:contributorId,
+        })
+        
+        console.log("newReview",newReview)
+        // Check if the component was found and updated
+        await newReview.save();
+
+        // return updatedComponent
+        // Return the updated component
+        res.status(200).json(newReview);
+    } catch (error) {
+        // Handle any errors that occurred during the update
+        res.status(500).json({ message: 'Error updating user contributions', error });
+    }
+};
+const sendToReviewComponent= async (req, res) => {
+    const {contributorId,id} = req.body; // Accessing the parameter from req.params
+    console.log("user id",contributorId)
+    console.log(id)
+    try {
+        const newReview=new ReviewComponent({
+            id:id,
+            contributor_id:contributorId,
+        })
+        
+        console.log("newReview",newReview)
+        // Check if the component was found and updated
+        await newReview.save();
+
+        // return updatedComponent
+        // Return the updated component
+        res.status(200).json(newReview);
+    } catch (error) {
+        // Handle any errors that occurred during the update
+        res.status(500).json({ message: 'Error updating user contributions', error });
+    }
+};
 
 const uploadIdea = async (req, res) => {
     const { ideaName, domain, shortdescription, sysRequirements, contributorId } = req.body;
@@ -64,4 +108,4 @@ const uploadIdea = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
-module.exports = { uploadComponent,uploadIdea };
+module.exports = { uploadComponent,uploadIdea,sendToReviewIdea ,sendToReviewComponent};

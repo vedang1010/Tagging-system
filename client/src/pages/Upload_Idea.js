@@ -56,6 +56,13 @@ setContributorId(user)
         userData
       );
       console.log("user status",response2)
+
+      //Send to Review Idea
+      const reviewResponse= await axios.post(
+        `${SERVER_URL}api/upload/sendToReviewIdea`,
+        userData
+      );
+      console.log(reviewResponse)
       Swal.fire({
         title: "Upload Successful",
         text: "Your idea has been uploaded successfully",
