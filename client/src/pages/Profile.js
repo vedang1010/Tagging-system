@@ -29,12 +29,15 @@ const Profile = () => {
     designation: 'Senior Developer',
     department: 'DTS',
     location: 'Pune',
+    group:'A',
+    subgroup:2,
     joined: 'January 2021',
     twitter: '@abc',
     linkedin: 'linkedin.com/in/abc',
     experience: 4,
     about: 'Senior Developer at DTS, with a passion for UX Design and Research.',
     skills: ['UX Design', 'UX Research'],
+    contributionIds:[],
     jobDetails: [
       {
         title: 'Sr. Interior Designer',
@@ -53,10 +56,12 @@ const Profile = () => {
     },
     contributions: [
       {
+        id:'1223',
         period: 'June 2024',
         activity: 'No activity yet for this period',
       },
       {
+        id:'1223',
         period: 'May 2024',
         activities: [
           'Created 1 commit in 1 repository',
@@ -67,6 +72,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'April 2024',
         activities: [
           'Created 125 commits in 4 repositories',
@@ -81,6 +87,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'March 2024',
         activities: [
           'Created 85 commits in 3 repositories',
@@ -93,6 +100,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'February 2024',
         activities: [
           'Created 65 commits in 2 repositories',
@@ -220,7 +228,9 @@ const Profile = () => {
           designation: userData.designation,
           department: userData.dept,
           location: userData.location,
-
+          group:userData.group,
+          contributionIds:userData.contributions,
+          subgroup:userData.subgroup,
           linkedin: userData.linkedinProfile,
           experience: userData.yearsOfExperience,
           about: userData.about,
@@ -254,17 +264,17 @@ const Profile = () => {
   };
 
   const handleSaveProfile = async () => {
-    // const id=localStorage.getItem('userId')
-    // const userData={
-    //   id,
-    //   user,
-    // }
-    // const response = await axios.post(
-    //   `${SERVER_URL}api/userinfo/updateUser`,
-    //   userData
-    // );
-    // console.log(user)
-    // console.log(response)
+    const id=localStorage.getItem('userId')
+    const userData={
+      id,
+      user,
+    }
+    const response = await axios.post(
+      `${SERVER_URL}api/userinfo/updateUser`,
+      userData
+    );
+    console.log(user)
+    console.log(response)
 
     setIsEditing(false);
   };
