@@ -4,12 +4,12 @@ import {
   AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
 } from '@mui/material';
 import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
-
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Navbar.css'
 function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -21,15 +21,19 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = () => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setDrawerOpen(open);
+    setDrawerOpen(!drawerOpen);
   };
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
+  };
+
+  const handleNotificationsClick = () => {
+    navigate('/notifications');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -58,12 +62,13 @@ function Navbar() {
   const sideList = (
     <Box
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={toggleDrawer()}
+      onKeyDown={toggleDrawer()}
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home','UploadComponent','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent','RaiseIssue'].map((text, index) => (
+        {['Home','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications','CurrentIssues'].map((text, index) => (
+
           <NavLink 
             to={`/${text.toLowerCase()}`} 
             key={index} 
@@ -88,7 +93,7 @@ function Navbar() {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer(true)}
+              onClick={toggleDrawer()}
             >
               <MenuIcon />
             </IconButton>
@@ -97,7 +102,7 @@ function Navbar() {
             Navbar
           </Typography>
        
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleNotificationsClick}>
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
@@ -117,7 +122,7 @@ function Navbar() {
       <Drawer 
         variant={isSmallScreen ? 'temporary' : 'permanent'}
         open={isSmallScreen ? drawerOpen : true}
-        onClose={toggleDrawer(false)}
+        onClose={toggleDrawer()}
         sx={{
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width:"13rem"},
         }}

@@ -45,7 +45,7 @@ const AdditionalInfo = ({ component }) => {
 
   const getUsername = async (id) => {
     try {
-      const url = `${SERVER_URL}api/componentCard/fetchUserInfo/${id}`;
+      const url = `${SERVER_URL}api/userinfo/fetchUserInfo/${id}`;
       const response = await axios.get(url);
       return response.data.email; // Assuming response.data contains a user object with an 'email' field
     } catch (error) {

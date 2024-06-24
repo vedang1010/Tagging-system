@@ -1,10 +1,10 @@
 // src/components/ComponentStore/SearchBar.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, IconButton, List, ListItem, ListItemText, CircularProgress, Container } from '@mui/material';
+import { TextField, IconButton, CircularProgress, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/system';
-import ComponentItem from './ComponentItem';
+import IssueCard from './IssueCard';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -29,7 +29,7 @@ const SearchBar = ({ setShowSearchResults }) => {
 
     setLoading(true);
     try {
-      const response = await axios.get(`${SERVER_URL}api/ComponentStore/SearchComponents?q=${query}`);
+      const response = await axios.get(`${SERVER_URL}api/issues/searchIssues?name=${query}`);
       setResults(response.data);
       setShowSearchResults(true); // Show search results
     } catch (error) {
@@ -44,11 +44,14 @@ const SearchBar = ({ setShowSearchResults }) => {
       <SearchContainer>
         <TextField
           variant="outlined"
-          placeholder="Search components..."
+          placeholder="Search Issues..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           fullWidth
-          sx={{margin:"5px"}}
+          
+          sx={{ padding:'7px' }}
+          // md={{ width: '300px' }}
+          // lg={{ width: '1200px' }}
         />
         <IconButton onClick={handleSearch} color="primary">
           <SearchIcon />
@@ -56,17 +59,11 @@ const SearchBar = ({ setShowSearchResults }) => {
       </SearchContainer>
       {loading ? (
         <CircularProgress />
-      ) : (
-        <Container sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          flexDirection:'row',
-          justifyContent: 'left',
-         
-        }}>
-          {results.map((result) => (
+      ) : (<Container maxWidth="md">
+        
+          {results.map((issue,index) => (
             
-              <ComponentItem component={result} />
+              <IssueCard key={index} issue={issue} />
             
           ))}
         </Container>

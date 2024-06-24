@@ -8,7 +8,8 @@ import Swal from "sweetalert2";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ModifyComponent = () => {
-  const { id } = useParams(); // Get the ID from the URL
+    const { id } = useParams(); // Get the ID from the URL
+    sessionStorage.setItem("location",`/modify/${id}`)
 
   const tags = [
     "React",
@@ -116,39 +117,47 @@ const ModifyComponent = () => {
       sys_requirements: sysRequirements,
       preview: screenshot,
       status2: "Pending",
+            file:file,
 
       // Assuming 'file' is an array of file paths or URLs
       // file: file,
     };
     // console.log(formData);
 
-    try {
-      console.log("reached", id);
-      if (id) {
-        console.log("reached if", id);
-        console.log(formData);
-        // Update existing component
-        await axios.put(
-          `${SERVER_URL}api/modify/updateComponent/${id}`,
-          formData
-        );
-        Swal.fire({
-          title: "Update Successful",
-          text: "Your component has been updated successfully",
-          icon: "success",
-        }).then(() => {
-          // window.location.href = "http://localhost:3000/";
-        });
-      }
-    } catch (error) {
-      console.error("Error uploading or updating component:", error);
-      Swal.fire({
-        title: "Operation Failed",
-        text: "There was an error uploading or updating your component",
-        icon: "error",
-      });
-    }
-  };
+        try {
+            console.log("reached",id)
+            if (id) {
+                console.log("reached if",id)
+                console.log(formData)
+                // Update existing component
+                await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+                const contributorId=localStorage.getItem('userId')
+                const userData={
+                    contributorId,
+                    id,
+                  }
+                const response=await axios.post(
+                    `${SERVER_URL}api/upload/sendToReviewComponent`,
+                    userData
+                  );
+                  console.log(response)
+                Swal.fire({
+                    title: "Update Successful",
+                    text: "Your component has been updated successfully",
+                    icon: "success",
+                }).then(() => {
+                    // window.location.href = "http://localhost:3000/";
+                });
+            } 
+        } catch (error) {
+            console.error("Error uploading or updating component:", error);
+            Swal.fire({
+                title: "Operation Failed",
+                text: "There was an error uploading or updating your component",
+                icon: "error",
+            });
+        }
+    };
 
   return (
     <>

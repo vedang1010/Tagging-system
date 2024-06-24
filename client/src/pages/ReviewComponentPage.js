@@ -4,7 +4,9 @@ import styles from '../styles/ReviewComponentPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
+import socketIOClient from 'socket.io-client';
 
+const socket = socketIOClient('http://localhost:5000');
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
 const images = [
@@ -17,6 +19,8 @@ const images = [
 
 
 function ReviewComponentPage() {
+  sessionStorage.setItem("location","/reviewcomponent")
+
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
 const [isComponents, setIsComponents] = useState(false);
@@ -79,6 +83,19 @@ if (loading) {
                   <hr></hr>
                   <div className={styles.cardContent} >
                     {component.type}
+                  </div>
+                  <hr />
+                  <div 
+                    className={styles.cardContent} 
+                    style={{ color: component.status_legal === 'accepted' ? 'green' : 'red' }}
+                  >
+                    Legal Review: {component.status_legal}
+                  </div>
+                  <div 
+                    className={styles.cardContent} 
+                    style={{ color: component.status_tech === 'accepted' ? 'green' : 'red' }}
+                  >
+                    Tech Review: {component.status_tech}
                   </div>
                 </Link>
               </div>

@@ -5,7 +5,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
+
 function Upload_Component() {
+  sessionStorage.setItem("location","/uploadcomponent")
+
   // tags of component
   const tags = [
     "React",

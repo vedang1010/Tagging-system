@@ -37,4 +37,4 @@ const issueModel = new Schema({
 
 })
 
-module.export = mongoose.model('Issue',issueModel);
+module.exports = mongoose.model('Issue',issueModel);

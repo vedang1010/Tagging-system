@@ -14,6 +14,8 @@ import MyComponents from '../components/profile/components/MyComponents';
 import Footer from "../components/Footer"
 
 const Profile = () => {
+  sessionStorage.setItem("location", "/profile")
+
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 
@@ -27,12 +29,15 @@ const Profile = () => {
     designation: 'Senior Developer',
     department: 'DTS',
     location: 'Pune',
+    group:'A',
+    subgroup:2,
     joined: 'January 2021',
     twitter: '@abc',
     linkedin: 'linkedin.com/in/abc',
     experience: 4,
     about: 'Senior Developer at DTS, with a passion for UX Design and Research.',
     skills: ['UX Design', 'UX Research'],
+    contributionIds:[],
     jobDetails: [
       {
         title: 'Sr. Interior Designer',
@@ -51,10 +56,12 @@ const Profile = () => {
     },
     contributions: [
       {
+        id:'1223',
         period: 'June 2024',
         activity: 'No activity yet for this period',
       },
       {
+        id:'1223',
         period: 'May 2024',
         activities: [
           'Created 1 commit in 1 repository',
@@ -65,6 +72,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'April 2024',
         activities: [
           'Created 125 commits in 4 repositories',
@@ -79,6 +87,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'March 2024',
         activities: [
           'Created 85 commits in 3 repositories',
@@ -91,6 +100,7 @@ const Profile = () => {
         ]
       },
       {
+        id:'1223',
         period: 'February 2024',
         activities: [
           'Created 65 commits in 2 repositories',
@@ -125,10 +135,10 @@ const Profile = () => {
     const getUserInfo = async (id) => {
       try {
         const url = `${SERVER_URL}api/review/fetchUserInfo/${id}`;
-        // console.log(url);
         const response = await axios.get(url);
+        console.log(response.data);
         // console.log("Profile user:", response.data[0].name);
-        return response.data[0]; // Assuming response.data contains a user object with an 'email' field
+        return response.data; // Assuming response.data contains a user object with an 'email' field
       } catch (error) {
         console.error(`Error fetching user info: ${error.message}`);
       }
@@ -205,6 +215,7 @@ const Profile = () => {
         // console.log("Fetched user data:", userData);
         //fetch contributions and calculate badge
         // Construct anotherUser with the required fields
+        console.log(userData)
         const contri = await fetchContributions(userData.contributions)
         console.log("i sm contri", contri)
 
@@ -217,7 +228,9 @@ const Profile = () => {
           designation: userData.designation,
           department: userData.dept,
           location: userData.location,
-
+          group:userData.group,
+          contributionIds:userData.contributions,
+          subgroup:userData.subgroup,
           linkedin: userData.linkedinProfile,
           experience: userData.yearsOfExperience,
           about: userData.about,
@@ -250,7 +263,19 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleSaveProfile = () => {
+  const handleSaveProfile = async () => {
+    const id=localStorage.getItem('userId')
+    const userData={
+      id,
+      user,
+    }
+    const response = await axios.post(
+      `${SERVER_URL}api/userinfo/updateUser`,
+      userData
+    );
+    console.log(user)
+    console.log(response)
+
     setIsEditing(false);
   };
 
@@ -291,12 +316,12 @@ const Profile = () => {
 
   const getProgressValue = (accepted, proposed) => (accepted / proposed) * 100;
 
+
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd', width: '100%' }}>
-      <Sidebar user={user} onMenuItemClick={handleMenuItemClick} />
-      <Box sx={{ flexGrow: 1, padding: 3 }}>
-      {selectedMenuItem === 'dashboard' && (
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column-reverse', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd', width: '100%' }}>
+        <Box sx={{ flexGrow: 1, padding: 3 }}>
+          {selectedMenuItem === 'dashboard' && (
             <>
               <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ xs: 'column', md: 'row' }}>
                 <Typography variant="h4">User Profile</Typography>
@@ -330,7 +355,7 @@ const Profile = () => {
               )}
             </>
           )}
-                    {selectedMenuItem === 'myComponents' && (
+          {selectedMenuItem === 'myComponents' && (
             <MyComponents components={contributions} />
           )}
           {selectedMenuItem === 'settings' && (
@@ -350,6 +375,7 @@ const Profile = () => {
             </Box>
           )}
         </Box>
+        <Sidebar user={user} onMenuItemClick={handleMenuItemClick} />
       </Box>
       {/* <Footer/> */}
     </>

@@ -17,6 +17,8 @@ const images = [
 
 
 function ReviewPage() {
+  sessionStorage.setItem("location","/reviewidea")
+
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
 const [isComponents, setIsComponents] = useState(false);
@@ -51,8 +53,8 @@ const fetchIdeas = async () => {
 useEffect(() => {
   if (error) {
     Swal.fire({
-      title: "Error",
-      text: error.message,
+      title: "Sorry",
+      text: "No idea to review",
       icon: "error",
     });
   }
@@ -86,6 +88,7 @@ if (error) {
                    
                     {component.type}
                   </div>
+                  
                 </Link>
               </div>
             </li>

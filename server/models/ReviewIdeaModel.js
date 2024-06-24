@@ -34,7 +34,8 @@ const reviewComponentSchema= new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Component',
-        required: true
+        required: true,
+        unique:true
     },
     tech_stars:{
         type: Number,
@@ -43,10 +44,6 @@ const reviewComponentSchema= new Schema({
     legal_stars:{
         type: Number,
     },
-    Remarks_tech:{
-        type: String,
-    },
-    Remarks_legal:{
     Remarks_tech:{
         type: String,
     },
@@ -77,7 +74,7 @@ const reviewComponentSchema= new Schema({
         required: true,
         default: "Pending"
     },
-},});
+});
 
 // module.export=mongoose.model('ReviewIdea',reviewIdeaSchema,'ReviewComponent', reviewComponent)
 const ReviewIdea = mongoose.model('ReviewIdea', reviewIdeaSchema);
