@@ -28,10 +28,15 @@ const AvatarSection = ({ user, isEditing, handleEditProfile, handleSaveProfile }
         <Typography variant="h6" className="card-text">{user.badge}</Typography>
       </Box>
       {isEditing ? (
-        <Button variant="contained" color="primary" onClick={handleSaveProfile}>Save Profile</Button>
+        <Button variant="contained" sx={{ backgroundColor: '#0a1324', color: '#fff' }} onClick={handleSaveProfile}>Save Profile</Button>
       ) : (
-        <Button variant="contained" color="primary" onClick={handleEditProfile}>Edit Profile</Button>
-      )}
+        <Button 
+        variant="contained" 
+        sx={{ backgroundColor: '#0a1324', color: '#fff' }} 
+        onClick={handleEditProfile}
+      >
+        Edit Profile
+      </Button>      )}
     </Box>
   </Box>
 );

@@ -7,7 +7,7 @@ const Sidebar = ({ user, onMenuItemClick }) => (
   <Box
     sx={{
       width: { xs: '100%', md: '250px' },
-      backgroundColor: '#1e88e5',
+      backgroundColor: '#0a1324',
       color: '#fff',
       display: 'flex',
       flexDirection: 'column',

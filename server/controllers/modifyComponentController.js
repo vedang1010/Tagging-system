@@ -27,8 +27,8 @@ const updateComponent = async (req, res) => {
         // });
         // console.log("updated component")
 
-        await notification.save();
-        global.io.emit('modifyComponent', notification);
+        // await notification.save();
+        // global.io.emit('modifyComponent', notification);
 
         // Return the updated component
         res.status(200).json(updatedComponent);

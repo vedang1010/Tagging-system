@@ -14,7 +14,7 @@ import MyComponents from '../components/profile/components/MyComponents';
 import Footer from "../components/Footer"
 
 const Profile = () => {
-  sessionStorage.setItem("location","/profile")
+  sessionStorage.setItem("location", "/profile")
 
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -253,7 +253,7 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleSaveProfile =async () => {
+  const handleSaveProfile = async () => {
     // const id=localStorage.getItem('userId')
     // const userData={
     //   id,
@@ -306,12 +306,12 @@ const Profile = () => {
 
   const getProgressValue = (accepted, proposed) => (accepted / proposed) * 100;
 
+
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd', width: '100%' }}>
-      <Sidebar user={user} onMenuItemClick={handleMenuItemClick} />
-      <Box sx={{ flexGrow: 1, padding: 3 }}>
-      {selectedMenuItem === 'dashboard' && (
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column-reverse', md: 'row' }, minHeight: '100vh', backgroundColor: '#e3f2fd', width: '100%' }}>
+        <Box sx={{ flexGrow: 1, padding: 3 }}>
+          {selectedMenuItem === 'dashboard' && (
             <>
               <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ xs: 'column', md: 'row' }}>
                 <Typography variant="h4">User Profile</Typography>
@@ -345,7 +345,7 @@ const Profile = () => {
               )}
             </>
           )}
-                    {selectedMenuItem === 'myComponents' && (
+          {selectedMenuItem === 'myComponents' && (
             <MyComponents components={contributions} />
           )}
           {selectedMenuItem === 'settings' && (
@@ -365,6 +365,7 @@ const Profile = () => {
             </Box>
           )}
         </Box>
+        <Sidebar user={user} onMenuItemClick={handleMenuItemClick} />
       </Box>
       {/* <Footer/> */}
     </>

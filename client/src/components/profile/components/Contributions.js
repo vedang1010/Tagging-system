@@ -59,7 +59,7 @@ const Contributions = ({ user, visibleContributions, handleLoadMoreContributions
       </List>
       {visibleContributions < user.contributions.length && (
         <Box textAlign="center" mt={2}>
-          <Button variant="contained" color="primary" onClick={handleLoadMoreContributions}>
+          <Button variant="contained"  sx={{ backgroundColor: '#0a1324', color: '#fff' }}  onClick={handleLoadMoreContributions}>
             Load More Contributions
           </Button>
         </Box>
