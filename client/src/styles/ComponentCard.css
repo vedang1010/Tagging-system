@@ -282,8 +282,8 @@ button.modify-component:hover {
 } */
 
 .screenshots img {
-  width: 100px;
-  height: 100px;
+  /* width: auto;
+  height: auto; */
   border-radius: 5px;
   object-fit: cover;
   transition: transform 0.3s;
@@ -407,10 +407,10 @@ button.modify-component:hover {
     padding: 10px;
   }
 
-  .screenshots img {
+  /* .screenshots img {
     width: 80px;
     height: 80px;
-  }
+  } */
 
   .additional-info .info-grid {
     grid-template-columns: 1fr;

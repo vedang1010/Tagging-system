@@ -26,7 +26,7 @@ const Content = ({ component }) => {
         <main className="">
         {/* <ImageGallery images={images} /> */}
 
-          {/* <Screenshots /> */}
+          <Screenshots component={component} />
         </main>
         <main className="content">
           <Description  component={component}/>
