@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const{UserInfo}=require("../models/userInfo")
+const{UserInfo,ExperienceSchema}=require("../models/userInfo")
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.SECRET, { expiresIn: '3d' });
 };
@@ -147,15 +147,42 @@ const insertDummyUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id, user } = req.body; // Accessing the parameter from req.body
+
     try {
+        // Log the user details for debugging
+        console.log("user", user);
+        console.log("user", user.name);
+
+        // Create the update object with the new user data
+        const updateData = {
+            email: user.email,
+            name: user.name,
+            imageUrl: user.avatarUrl,
+            about: user.about,
+            designation: user.designation,
+            points: user.points,
+            dept: user.department,
+            group: user.group,
+            subgroup: user.subgroup,
+            linkedinProfile: user.linkedin,
+            yearsOfExperience: user.experience,
+            skills: user.skills,
+            location: user.location, // Assuming location is correctly formatted in user object
+            ideasAccepted: user.ideas.accepted,
+            ideasProposed: user.ideas.proposed,
+            componentsAccepted: user.components.accepted,
+            componentsProposed: user.components.proposed,
+            experience: user.jobDetails,
+            contributions: user.contributionIds, // Assuming user.contributionIds is correctly formatted in user object
+        };
+
         // Find the user by ID and update with new user data
-        console.log("user",user)
         const updatedUser = await UserInfo.findByIdAndUpdate(
             id,
-            user,
-            { new: true,overwrite:true } // Return the updated document
+            updateData,
+            { new: true, overwrite: true } // Return the updated document
         );
-        console.log("userid",id)
+        console.log("userid", id);
 
         // Check if the user was found and updated
         if (!updatedUser) {
@@ -170,4 +197,6 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: 'Error updating user', error });
     }
 };
+
+
 module.exports = { loginUser ,fetchUserInfo,updateUserContributions,insertDummyUser,updateUser};
