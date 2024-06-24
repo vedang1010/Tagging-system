@@ -48,9 +48,7 @@ const SearchBar = ({ setShowSearchResults }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           fullWidth
-          sx={{ maxWidth: 600 }}
-          md={{ width: '300px' }}
-          lg={{ width: '1200px' }}
+          sx={{margin:"5px"}}
         />
         <IconButton onClick={handleSearch} color="primary">
           <SearchIcon />
