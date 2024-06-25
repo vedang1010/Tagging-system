@@ -2,9 +2,9 @@ const { Component, Tag } = require('../models/ComponentModel'); // Import Compon
 const { Notifications } = require('../models/Notification');
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
-    console.log("componentId", componentId)
+    // console.log("componentId", componentId)
     const updatedData = req.body; // Updated component data from req.body
-    console.log("data", updatedData)
+    // console.log("data", updatedData)
     try {
         // Find the component by ID and update it with the new data
         const updatedComponent = await Component.findByIdAndUpdate(
@@ -16,7 +16,7 @@ const updateComponent = async (req, res) => {
         if (!updatedComponent) {
             return res.status(404).json({ message: 'Component not found' });
         }
-        await updateTagListDB(updatedData,componentId);
+        await updateTagListDB(updatedData, componentId);
         // console.log("updated component",updatedComponent)
 
         // const desc = `Component ${componentId} has been modified`;
@@ -39,7 +39,7 @@ const updateComponent = async (req, res) => {
     }
 };
 
-const updateTagListDB = (updatedData,componentId) => {
+const updateTagListDB = (updatedData, componentId) => {
     const tagList = updatedData.taglist;
 
     // for each tag update db
@@ -55,33 +55,29 @@ const updateTagListDB = (updatedData,componentId) => {
             const result1 = await Tag.findOne({ tag_name: tag }).exec();
 
             if (result1) {
-                console.log("Tag exists");
-                console.log(result1);
-                result1.components.forEach(async (comp) =>{
-                    if(comp.id == componentId){
-                        console.log("Component already exists in tag");
-                        }else{
-                            result1.components.push(components_array[0]);
-                        }
+                result1.components.forEach(async (comp) => {
+                    if (comp.id == componentId) {
+                    } 
+                    else {
+                        result1.components.push(components_array[0]);
+                    }
                 })
-                
+
                 await result1.save();
             }
             else {
-                console.log("tag does not exists");
-                const result2 = await Tag.create({tag_name:tag,components:components_array})
-                console.log(result2);
+                const result2 = await Tag.create({ tag_name: tag, components: components_array })
             }
-            return result1; 
+            return result1;
         })
     }
-    catch(err){
+    catch (err) {
         console.log("Error in updating tag list");
         console.log(err);
         return tagList;
     }
-        
-       
+
+
 
 
 }

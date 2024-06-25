@@ -2,10 +2,16 @@
 import React from 'react';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import HtmlRenderer from '../../utils/HtmlRenderer';
+import { useNavigate } from 'react-router-dom';
 
 const ComponentItem = ({ component }) => {
+  const navigate = useNavigate();
+  console.log(component);
+  const handleCardClick = (id) => {
+    navigate(`/component/${id}`);
+  };
   return (
-    <Card className="component-card" sx={{margin:'1rem 2rem'}} >
+    <Card className="component-card" sx={{margin:'1rem 2rem'}} onClick={() => handleCardClick(component._id)}>
       {component.preview && component.preview[0] && (
         <CardMedia
           component="img"
