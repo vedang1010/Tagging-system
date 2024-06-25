@@ -13,9 +13,11 @@ const viewComponentStoreDashboard = async (req, res) => {
 
 const SearchComponents = async (req, res) => {
     try {
-        const searchQuery  = req.query.q;
-        console.log(searchQuery)
-        const components = await Component.find({ name: { $regex: searchQuery, $options: 'i' } });
+        const {query,tags,dept} = req.body;
+        console.log(tags);
+        console.log(typeof(tags));
+        console.log(query)
+        const components = await Component.find({"$or": [{"taglist": {"$in": tags}},{"dept": {"$in" : dept} }, {"name": { $regex: query, $options: 'i' }}]});
         console.log(components);
         res.status(200).json(components);
     } catch (err) {
@@ -23,8 +25,24 @@ const SearchComponents = async (req, res) => {
     }
 }
 
+const getAllTags = async (req, res) => {
+    try {
+        Tag.find().then(result => {
+            console.log(result);
+            const tags = []
+            result.map(tag => {
+                tags.push(tag.tag_name);
+            })
+            res.status(200).json(tags);
+        })
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
 
 
-module.exports = { viewComponentStoreDashboard ,SearchComponents};
+
+
+module.exports = { viewComponentStoreDashboard, SearchComponents ,getAllTags};
 
 

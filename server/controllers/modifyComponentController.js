@@ -1,10 +1,10 @@
-// const { Component } = require('../models/ComponentModel'); // Import Component model
+const { Component, Tag } = require('../models/ComponentModel'); // Import Component model
 const { Notifications } = require('../models/Notification');
 const {ModifiedComponent,ModifiedContributor}=require('../models/ModifiedModel')
 
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
-    console.log("componentId", componentId)
+    // console.log("componentId", componentId)
     const updatedData = req.body; // Updated component data from req.body
     console.log("data", updatedData)
     try {
@@ -34,9 +34,9 @@ const updateComponent = async (req, res) => {
         if (!newComponent) {
             return res.status(404).json({ message: 'Component not found' });
         }
-        
+        await updateTagListDB(updatedData, componentId);
         // console.log("updated component",updatedComponent)
-        
+
         // const desc = `Component ${componentId} has been modified`;
         // const notification = new Notifications({
         //     id: id,
@@ -77,6 +77,50 @@ const getModifiedComponent = async (req, res) => {
       res.status(500).json({ message: 'Error retrieving review', error });
     }
   };
+
+const updateTagListDB = (updatedData, componentId) => {
+    const tagList = updatedData.taglist;
+
+    // for each tag update db
+    try {
+        tagList.forEach(async (tag) => {
+            const components_array = [{
+                id: componentId,
+                access: [
+                    "DTS", "SB", "MO"
+                ]
+            }];
+
+            const result1 = await Tag.findOne({ tag_name: tag }).exec();
+
+            if (result1) {
+                result1.components.forEach(async (comp) => {
+                    if (comp.id == componentId) {
+                    } 
+                    else {
+                        result1.components.push(components_array[0]);
+                    }
+                })
+
+                await result1.save();
+            }
+            else {
+                const result2 = await Tag.create({ tag_name: tag, components: components_array })
+            }
+            return result1;
+        })
+    }
+    catch (err) {
+        console.log("Error in updating tag list");
+        console.log(err);
+        return tagList;
+    }
+
+
+
+
+}
+
 
 module.exports = {
     updateComponent,getModifiedComponent
