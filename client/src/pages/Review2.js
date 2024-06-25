@@ -29,31 +29,34 @@ const Review2 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Component ID: ", objectId);
+        // console.log("Component ID: ", objectId);
 
-        const response = await axios.get(`http://127.0.0.1:5000/api/review/fetchIdea/${objectId}`);
+        const response = await axios.get(`${SERVER_URL}api/review/fetchIdea/${objectId}`);
         const idea = response.data.component;
         const contributorsInfo = response.data.contributorsInfo;
         const contributorsLength = contributorsInfo.length;
         const componentContributorsLength = idea.contributors.length;
-        const contributors = contributorsInfo[contributorsLength - 1].email;
         const version = idea.contributors[componentContributorsLength - 1].version;
-
-        setVersion(version);
+        const contributors = contributorsInfo[contributorsLength - 1].email;
         setContri(contributors);
+        setVersion(version);
         setIdeas(idea);
         setIsLoading(false);
         setError(null);
 
         const reviewResponse = await axios.get(`${SERVER_URL}api/review/getReviewById/${reviewId}`);
-        console.log("Review Response: ", reviewResponse.data.modifyId);
+        // console.log("Review Response: ", reviewResponse.data.modifyId);
 
         const modifyId = reviewResponse.data.modifyId;
         const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
         const modifyComponent = modifiedComponentResponse.data;
 
-        console.log("Original Idea: ", idea);
-        console.log("Modified Component: ", modifyComponent);
+        // console.log("Original Idea: ", idea);
+        // console.log("Modified Component: ", modifyComponent);
+        // const 
+        const fetchUser=await axios.get(`${SERVER_URL}api/userinfo/fetchUserInfo/${modifyComponent.contributors.id}`)
+        // console.log("user",fetchUser.data)
+        setContri(fetchUser.data.email)
 
         const updatedIdea = {
           ...idea,
@@ -69,7 +72,7 @@ const Review2 = () => {
           contributors:[modifyComponent.contributors]
         };
 
-        console.log("Updated Idea: ", updatedIdea);
+        // console.log("Updated Idea: ", updatedIdea);
         setIdeas(updatedIdea);
 
       } catch (error) {
@@ -85,7 +88,7 @@ const Review2 = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/api/review/fetchUserInfo/${userEmail}`);
+        const response = await axios.get(`${SERVER_URL}api/review/fetchUserInfo/${userEmail}`);
         const data = response.data;
         setTech(data.subgroup === 2);
       } catch (error) {
@@ -96,8 +99,14 @@ const Review2 = () => {
     fetchUserInfo();
   }, [userEmail]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
+    console.log("status",status)
+    if(status==='Accepted'){
+      console.log("ideas",ideas)
+      const modify = await axios.put(`${SERVER_URL}api/modify/updateComponentInDatabase/${objectId}`,ideas);
+
+    }
     if (page === 'review') {
       setPage('ratings');
     } else {
@@ -111,7 +120,7 @@ const Review2 = () => {
 
   const handleReject = () => {
     setPage('ratings');
-    setStatus('rejected');
+    setStatus('Rejected');
   };
 
   const handleAccept = () => {
@@ -225,7 +234,7 @@ const Review2 = () => {
       ) : (
         <div className={styles.card}>
           <div className={styles.cardContent}>
-            <h2>{page === 'reject' ? 'Reject Component' : 'Accept Component'}</h2>
+            <h2>{status === 'Rejected' ? 'Reject Component' : 'Accept Component'}</h2>
             <form onSubmit={handleSubmit}>
               <label htmlFor="remarks" className={styles.label}>Remarks:</label>
               <textarea
@@ -237,7 +246,7 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>{tech == true ? 'Functional Review' : 'Legal Review'}</span>
+                <span style={{ fontWeight: 'bold' }}>{tech === true ? 'Functional Review' : 'Legal Review'}</span>
 
                 <div>
                   {[...Array(5)].map((star, index) => (

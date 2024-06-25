@@ -14,7 +14,6 @@ const contributorSchema = new Schema({
     },
     version: {
         type: Number,
-        required: true
     },
     link: {
         type: String,
