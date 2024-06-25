@@ -95,7 +95,7 @@ setContributorId(user)
                 id="idea-name"
                 name="idea-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 placeholder="idea Name"
                 value={ideaName}
                 onChange={(e) => setIdeaName(e.target.value)}
@@ -109,7 +109,7 @@ setContributorId(user)
               <select
                 id="select"
                 name="domain"
-                className="block  w-10/12 px-3 py-2 mt-2 text-white bg-zinc-800  rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
               >
@@ -120,11 +120,12 @@ setContributorId(user)
               </select>
             </div>
 
+            <div>
             <div className="flex  mt-7 flex-col items-center">
               <label className="text-white" htmlFor="textarea">
                 System Requirements : languages and libraries
               </label>
-              <div className="w-10/12 mx-auto text-black bg-white ">
+              <div className="w-8/12 mx-auto text-black bg-white ">
                 <Text_Editor getDescription={getSysRequirements} />
               </div>
             </div>
@@ -133,10 +134,12 @@ setContributorId(user)
               <label className="text-white" htmlFor="textarea">
                 Short Description
               </label>
-              <div className="w-10/12 mx-auto text-black bg-white ">
+              <div className="w-8/12 mx-auto text-black bg-white ">
                 <Text_Editor getDescription={getShortDescription} />
               </div>
             </div>
+            </div>
+            
           </div>
 
           <div className="flex justify-center mt-10">

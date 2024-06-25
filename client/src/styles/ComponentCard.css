@@ -220,7 +220,20 @@ section div{
   display: flex;
 }
 
-button.raise-issue,
+
+button.raise-issue{
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f00c0c;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 button.modify-component {
   display: flex;
   align-items: center;
@@ -239,7 +252,9 @@ button.modify-component svg {
   margin-right: 8px;
 }
 
-button.raise-issue:hover,
+button.raise-issue:hover{
+  background-color:#9d0202;
+}
 button.modify-component:hover {
   background-color: #0056b3;
 }
@@ -267,8 +282,8 @@ button.modify-component:hover {
 } */
 
 .screenshots img {
-  width: 100px;
-  height: 100px;
+  /* width: auto;
+  height: auto; */
   border-radius: 5px;
   object-fit: cover;
   transition: transform 0.3s;
@@ -392,10 +407,10 @@ button.modify-component:hover {
     padding: 10px;
   }
 
-  .screenshots img {
+  /* .screenshots img {
     width: 80px;
     height: 80px;
-  }
+  } */
 
   .additional-info .info-grid {
     grid-template-columns: 1fr;

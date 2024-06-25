@@ -35,6 +35,7 @@ function Upload_Component() {
   const [searchInput, setSearchInput] = useState("");
   const [filteredTags, setFilteredTags] = useState(tags);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [customTagInput, setCustomTagInput] = useState("");
   // const user = localStorage.getItem("user");
 
   // for showing filtered tags on search
@@ -76,6 +77,12 @@ function Upload_Component() {
     setSysRequirements(description);
   };
 
+  const handleCustomTag = (e) => {
+    e.preventDefault();
+    handleTagSelect(customTagInput);
+    setCustomTagInput("");
+  };
+
   // upload the component
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -92,26 +99,26 @@ function Upload_Component() {
       screenshot,
     };
     // Log collected data (for debugging)
-    // console.log("Form Data: ", formData);
-    try {
-      const response = await axios.post(
-        `${SERVER_URL}api/upload/uploadComponent`,
-        formData
-      );
-      Swal.fire({
-        title: "Upload Successful",
-        text: "Your component has been uploaded successfully",
-        icon: "success",
-      }).then(() => {
-        window.location.href = "http://localhost:3000/";
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "Upload Failed",
-        text: "There was an error uploading your component",
-        icon: "error",
-      });
-    }
+    console.log("Form Data: ", formData);
+    // try {
+    //   const response = await axios.post(
+    //     `${SERVER_URL}api/upload/uploadComponent`,
+    //     formData
+    //   );
+    //   Swal.fire({
+    //     title: "Upload Successful",
+    //     text: "Your component has been uploaded successfully",
+    //     icon: "success",
+    //   }).then(() => {
+    //     window.location.href = "http://localhost:3000/";
+    //   });
+    // } catch (error) {
+    //   Swal.fire({
+    //     title: "Upload Failed",
+    //     text: "There was an error uploading your component",
+    //     icon: "error",
+    //   });
+    // }
   };
 
   return (
@@ -130,7 +137,7 @@ function Upload_Component() {
                 id="component-name"
                 name="component-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 placeholder="Component Name"
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
@@ -144,7 +151,7 @@ function Upload_Component() {
               <select
                 id="select"
                 name="domain"
-                className="block w-10/12 px-4 py-3 mt-2 text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none "
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
               >
@@ -156,12 +163,12 @@ function Upload_Component() {
             </div>
 
             <div className="container mx-auto mt-4 px-4 w-11/12">
-              <div className="mb-4">
-                <h2 className="m-4 text-white ">Select Your #Tags</h2>
+              <div className="mb-0">
+                <h2 className="m-4 text-white ">Select / Add Your #Tags</h2>
                 <div className="form-group">
                   <input
                     type="search"
-                    className="form-control text-white bg-zinc-800 mb-3 rounded-lg p-2 w-4/5"
+                    className="form-control text-white max-w-lg bg-zinc-800 mb-3 rounded-lg p-2 w-4/5 focus:outline-none"
                     id="search"
                     placeholder="Search Your Tag..."
                     value={searchInput}
@@ -169,30 +176,13 @@ function Upload_Component() {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap bg-zinc-800 py-3 px-1 gap-2 rounded-2xl">
-                {selectedTags.map((tag) => (
-                  <div
-                    key={tag}
-                    className=" bg-indigo-900 text-white px-5 py-1 rounded-full"
-                  >
-                    {tag}
-                    <button
-                      type="button"
-                      className="ml-3 text-lg"
-                      onClick={() => handleTagRemove(tag)}
-                    >
-                      &times;
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              <div className="searchable-container mt-7">
+              <div className="searchable-container mt-7 w-8/12 mx-auto">
+                {/* predefined tags */}
                 {filteredTags.map((tag) => (
                   <div key={tag} className="inline-block mr-3 mb-2">
                     <button
                       type="button"
-                      className="px-5 py-1 bg-indigo-600 text-white rounded-full"
+                      className="px-5 py-1 bg-blue-500 text-white rounded-full"
                       onClick={() => handleTagSelect(tag)}
                     >
                       {tag}
@@ -200,32 +190,70 @@ function Upload_Component() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="flex mt-7 flex-col items-center">
-              <label className="text-white" htmlFor="textarea">
-                Short Description
-              </label>
-              <div className="w-10/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getShortDescription} />
+              {/* custom tags */}
+              <div className="mt-4">
+                <input
+                  type="text"
+                  className="form-control text-white max-w-lg bg-zinc-800 mb-3 rounded-lg p-2 w-4/5 focus:outline-none"
+                  id="custom-tag"
+                  placeholder="Add Your Custom Tag..."
+                  value={customTagInput}
+                  onChange={(e) => setCustomTagInput(e.target.value)}
+                />
+                <button
+                  className="px-4 py-3 m-2 text-lg leading-5 mb-5  text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-800 focus:outline-none"
+                  onClick={(event)=>{handleCustomTag(event)}}
+                >
+                  Add Tag
+                </button>
+              </div>
+              <div className="max-w-2xl rounded-lg p-1 flex mx-auto">
+                {/* filtered tags */}
+                <div className="flex flex-wrap justify-center py-3 px-1 gap-2 rounded-2xl">
+                  {selectedTags.map((tag) => (
+                    <div
+                      key={tag}
+                      className=" bg-indigo-900 text-white px-5 py-1 rounded-full"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        className="ml-3 text-lg"
+                        onClick={() => handleTagRemove(tag)}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <div className="flex  mt-7 flex-col items-center">
-              <label className="text-white" htmlFor="textarea">
-                Long Description
-              </label>
-              <div className="w-10/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getLargeDescription} />
+            <div className="">
+              <div className="flex mt-7 flex-col items-center">
+                <label className="text-black" htmlFor="textarea">
+                  Short Description
+                </label>
+                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
+                  <Text_Editor getDescription={getShortDescription} />
+                </div>
               </div>
-            </div>
 
-            <div className="flex  mt-7 flex-col items-center">
-              <label className="text-white" htmlFor="textarea">
-                System Requirements : languages and libraries
-              </label>
-              <div className="w-10/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getSysRequirements} />
+              <div className="flex mt-7 flex-col items-center">
+                <label className="text-white" htmlFor="textarea">
+                  Long Description
+                </label>
+                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
+                  <Text_Editor getDescription={getLargeDescription} />
+                </div>
+              </div>
+
+              <div className="flex  mt-7 flex-col items-center">
+                <label className="text-white" htmlFor="textarea">
+                  System Requirements : languages and libraries
+                </label>
+                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
+                  <Text_Editor getDescription={getSysRequirements} />
+                </div>
               </div>
             </div>
 

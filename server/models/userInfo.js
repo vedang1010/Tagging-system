@@ -95,4 +95,5 @@ const userInfoSchema = new Schema({
 });
 
 const UserInfo = mongoose.model('UserInfo', userInfoSchema);
-module.exports = { UserInfo };
+const ExperienceSchema= mongoose.model('ExperienceSchema', experienceSchema);
+module.exports = { UserInfo,ExperienceSchema };

@@ -1,5 +1,6 @@
 // upload idea and component
 const {Component,Contributor} = require('../models/ComponentModel');
+const {Issue} = require('../models/IssueModel');
 const {ReviewIdea,ReviewComponent}=require('../models/ReviewIdeaModel')
 const uploadComponent = async (req, res) => {
     const { componentName,  domain, selectedTags, shortdescription, largedescription, sysRequirements, file, screenshot } = req.body;
@@ -49,12 +50,13 @@ const sendToReviewIdea = async (req, res) => {
     }
 };
 const sendToReviewComponent= async (req, res) => {
-    const {contributorId,id} = req.body; // Accessing the parameter from req.params
+    const {contributorId,id,modifyId} = req.body; // Accessing the parameter from req.params
     console.log("user id",contributorId)
     console.log(id)
     try {
         const newReview=new ReviewComponent({
             id:id,
+            modifyId:modifyId,
             contributor_id:contributorId,
         })
         
@@ -108,4 +110,20 @@ const uploadIdea = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
-module.exports = { uploadComponent,uploadIdea,sendToReviewIdea ,sendToReviewComponent};
+const uploadIssue = async (req, res) => {
+    const {name,description,status} = req.body;
+
+    const newEntity = new Issue({
+        name:name,
+        description:description,
+        status:status,
+    });
+    try {
+        await newEntity.save();
+        res.status(201).json({ message: "Issue uploaded successfully!" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = { uploadComponent,uploadIdea,uploadIssue,sendToReviewIdea ,sendToReviewComponent};

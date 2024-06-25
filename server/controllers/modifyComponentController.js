@@ -1,19 +1,37 @@
 const { Component, Tag } = require('../models/ComponentModel'); // Import Component model
 const { Notifications } = require('../models/Notification');
+const {ModifiedComponent,ModifiedContributor}=require('../models/ModifiedModel')
+
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
     // console.log("componentId", componentId)
     const updatedData = req.body; // Updated component data from req.body
-    // console.log("data", updatedData)
+    console.log("data", updatedData)
     try {
+        const newContributor=new ModifiedContributor({
+            id:updatedData.userId,
+        })
+        newContributor.save()
         // Find the component by ID and update it with the new data
-        const updatedComponent = await Component.findByIdAndUpdate(
-            componentId,
-            updatedData,
-            { new: true } // Return the updated document
-        );
+        const newComponent=new ModifiedComponent({
+            name:updatedData.name,
+            componentId:componentId,
+            taglist:updatedData.taglist,
+            type:updatedData.type,
+            description:updatedData.description,
+            sys_requirements:updatedData.sys_requirements,
+            preview:updatedData.preview,
+            file:updatedData.file,
+            contributors:newContributor,
+        })
+        newComponent.save();
+        // const updatedComponent = await Component.findByIdAndUpdate(
+        //     componentId,
+        //     updatedData,
+        //     { new: true } // Return the updated document
+        // );
         // Check if the component was found and updated
-        if (!updatedComponent) {
+        if (!newComponent) {
             return res.status(404).json({ message: 'Component not found' });
         }
         await updateTagListDB(updatedData, componentId);
@@ -31,13 +49,34 @@ const updateComponent = async (req, res) => {
         // global.io.emit('modifyComponent', notification);
 
         // Return the updated component
-        res.status(200).json(updatedComponent);
+        res.status(200).json(newComponent);
     } catch (error) {
         // Handle any errors that occurred during the update
         console.error('Error updating component:', error);
         res.status(500).json({ message: 'Error updating component', error });
     }
 };
+
+const getModifiedComponent = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Find the review by ID
+      const component = await ModifiedComponent.findById(id);
+  
+      // Check if the review was found
+      if (!component) {
+        return res.status(404).json({ message: 'Review not found' });
+      }
+  
+      // Return the found review
+      res.status(200).json(component);
+    } catch (error) {
+      // Handle any errors that occurred during the search
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving review', error });
+    }
+  };
 
 const updateTagListDB = (updatedData, componentId) => {
     const tagList = updatedData.taglist;
@@ -84,5 +123,5 @@ const updateTagListDB = (updatedData, componentId) => {
 
 
 module.exports = {
-    updateComponent
+    updateComponent,getModifiedComponent
 };

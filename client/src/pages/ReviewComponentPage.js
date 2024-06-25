@@ -34,6 +34,7 @@ const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
     const response = await axios.get('http://127.0.0.1:5000/api/review/getAllComponents');
+    // console.log(response.data)
     if(response.status === 200) {setIsComponents(true)}
     else setIsComponents(false);
 

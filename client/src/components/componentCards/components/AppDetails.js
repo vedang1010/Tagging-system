@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from "axios"
+import { saveAs } from 'file-saver';
+
 const AppDetails = ({component}) => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
@@ -13,6 +15,23 @@ const AppDetails = ({component}) => {
       category:component.type,
       downloadLink:component.contributors[component.contributors.length-1].link
     });
+    console.log(component.file)
+    const downloadFile = async (file) => {
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const blob = await response.blob();
+        saveAs(blob, file.name);
+      } catch (error) {
+        console.error('Error downloading the file:', error);
+      }
+    };
+  
+    const downloadAllFiles = () => {
+      console.log("reached")
+      component.file.forEach(file => downloadFile(file));
+    };
+  
     async function updateFrequency(id){
       try {
         // console.log("help");
@@ -52,7 +71,7 @@ const AppDetails = ({component}) => {
             </div>
           </div>
           {/* <button className="cta-button"  >Download Component</button> */}
-          <button className="cta-button" onClick={() => handleDownload(details.downloadLink)}>Download Component</button>
+          <button className="cta-button" onClick={downloadAllFiles}>Download Component</button>
 
         </div>
       </section>
