@@ -1,7 +1,6 @@
 const { Component, Tag } = require('../models/ComponentModel'); // Import Component model
 const { Notifications } = require('../models/Notification');
 const {ModifiedComponent,ModifiedContributor}=require('../models/ModifiedModel')
-const { Component } = require('../models/ComponentModel'); // Import Component model
 
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
