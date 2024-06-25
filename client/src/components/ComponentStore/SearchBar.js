@@ -1,5 +1,5 @@
 // src/components/ComponentStore/SearchBar.js
-import React, { useState } from 'react';
+import React, { useEffect, useState , forwardRef, useImperativeHandle} from 'react';
 import axios from 'axios';
 import { TextField, IconButton, List, ListItem, ListItemText, CircularProgress, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +19,10 @@ const SearchContainer = styled('div')(({ theme }) => ({
   // },
 }));
 
-const SearchBar = ({ setShowSearchResults }) => {
+const SearchBar = forwardRef(({ setShowSearchResults,tags,dept },ref) => {
+  useImperativeHandle(ref,()=>({
+    handleSearch
+  }));
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -29,7 +32,7 @@ const SearchBar = ({ setShowSearchResults }) => {
 
     setLoading(true);
     try {
-      const response = await axios.get(`${SERVER_URL}api/ComponentStore/SearchComponents?q=${query}`);
+      const response = await axios.post(`${SERVER_URL}api/ComponentStore/SearchComponents`,{query,tags,dept});
       setResults(response.data);
       setShowSearchResults(true); // Show search results
     } catch (error) {
@@ -73,6 +76,6 @@ const SearchBar = ({ setShowSearchResults }) => {
       )}
     </div>
   );
-};
+});
 
 export default SearchBar;

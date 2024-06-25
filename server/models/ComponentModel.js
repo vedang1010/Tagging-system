@@ -129,5 +129,5 @@ const Contributor=mongoose.model('Contributor',contributorSchema)
 module.exports = {
     Component,
     Tag,
-    Contributor
+    Contributor,
 };
