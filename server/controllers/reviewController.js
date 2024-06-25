@@ -13,9 +13,9 @@ const fetchIdea = async(req,res)=>{
         console.log(objectId);
         try {
             const component = await Component.findById(objectId).populate("contributors.id");
-            console.log("new Component "+component);
+            //console.log("new Component "+component);
             const contributorsInfo = component.contributors.map(contributor => contributor.id);
-            console.log("contributors" +contributorsInfo); 
+            //console.log("contributors" +contributorsInfo); 
             // const contributors = component.contributors;
             // console.log("contributors: ", contributors);
     
@@ -100,14 +100,14 @@ const getReviewById = async (req, res) => {
 
 const getAllIdeas = async (req, res) => {
     try {
-        console.log("fetchIdea");
+        //console.log("fetchIdea");
 
         const compo = await ReviewIdea.find({
             status: 'Pending'
         });
 
         if (compo.length > 0) {
-            console.log("Original compo:", compo);
+           // console.log("Original compo:", compo);
 
             const updatedCompo = await Promise.all(compo.map(async (component) => {
                 try {
@@ -127,7 +127,7 @@ const getAllIdeas = async (req, res) => {
                         type : compbyId.type,
                     };
 
-                    console.log("Updated component:", updatedComponent);
+                    //console.log("Updated component:", updatedComponent);
                     return updatedComponent;
                 } catch (innerError) {
                     console.error("Error processing component:", component, innerError);
@@ -135,7 +135,7 @@ const getAllIdeas = async (req, res) => {
                 }
             }));
 
-            console.log("Updated compo:", updatedCompo);
+            //console.log("Updated compo:", updatedCompo);
             return res.status(200).json(updatedCompo);
         } else {
             console.log('nothing found');
@@ -149,7 +149,7 @@ const getAllIdeas = async (req, res) => {
 
 const getAllComponents = async (req, res) => {
     try {
-        console.log("fetch");
+        //console.log("fetch");
 
         const compo = await ReviewComponent.find({
             //status: 'Pending'
@@ -173,7 +173,7 @@ const getAllComponents = async (req, res) => {
                         return res.status(400).json({ });; 
                     }
 
-                    console.log("Component with id ${id}", compbyId.type);
+                    //console.log("Component with id ${id}", compbyId.type);
                     // Create a new object with the additional fields
                     const updatedComponent = {
                         ...component.toObject(), // Convert Mongoose document to plain object
@@ -207,41 +207,49 @@ const getAllComponents = async (req, res) => {
 const updateStatus1 = async(req, res) => {
     try{
         const data = req.body;
-        console.log(data);
+        //console.log(data);
         const status = data.status;
         const remarks = data.remarks;
         const ratings = data.ratings;
         const id = data.objectId;
         const id2 = data.reviewId;
 
-        const component= await Component.findById(id);
+        const component= await Component.findById(id).populate("contributors.id");;
         if (!component) {
             return res.status(404).json({ error: 'Component not found' });
         }
         else component.status1 = status;
-        
+        //console.log(" new user :"+component);
         const reviewIdea = await ReviewIdea.findById(id2)
         if (!reviewIdea) {
             console.log("review Idea");
             return res.status(404).json({ error: 'Component not found' });
         }
-        console.log(" reviee "+reviewIdea);
+        //console.log(" reviee "+reviewIdea);
         reviewIdea.status = status;
         reviewIdea.Remarks = remarks;
         reviewIdea.funct_stars = ratings;
+
+        const contributorsInfo = component.contributors.map(contributor => contributor.id);
+        
+        console.log("contributors" +contributorsInfo); 
+        const email = contributorsInfo[0].email
+        const socketId = getUser(email);
+        console.log(socketId);
         const desc = `${component.name} idea has been ${reviewIdea.status} by Functional review Team`;
 
         const notification = new Notifications({
             id: id,
             desc,
-            date: new Date()
+            date: new Date(),
+            email
         });
 
         await notification.save();
         await component.save();
         await reviewIdea.save();
 
-        global.io.emit('statusUpdate', notification);
+        global.io.to(socketId).emit('statusUpdate', notification);
 
         return res.status(200).json({msg : 'hello'})
     }catch(error){
@@ -253,7 +261,7 @@ const updateStatus1 = async(req, res) => {
 const updateStatus2 = async(req, res) => {
     try{
         const data = req.body;
-        console.log(data);
+       // console.log(data);
         const status = data.status;
         const remarks = data.remarks;
         const rating = data.rating1;
@@ -268,7 +276,7 @@ const updateStatus2 = async(req, res) => {
             console.log(" 2 review Idea");
             return res.status(404).json({ error: 'Component not found' });
         }
-        console.log(" reviee "+reviewComponent);
+        //console.log(" reviee "+reviewComponent);
         
 
         if(isTech){
@@ -303,7 +311,7 @@ const updateStatus2 = async(req, res) => {
         await notification.save();
         
         await component.save();
-       
+        global.io.emit('statusUpdate', notification);
 
         return res.status(200).json({msg : 'hello'})
     }catch(error){
@@ -316,7 +324,7 @@ const updateStatus2 = async(req, res) => {
 const fetchUserInfo= async (req, res) => {
     try{
         const userId = req.params.user;
-        console.log(" USeer id "+userId);
+        //console.log(" USeer id "+userId);
         const response = await UserInfo.findOne({
             email : userId
         });
@@ -324,7 +332,7 @@ const fetchUserInfo= async (req, res) => {
             console.log("Nothing found");
             return res.status(500).json({error: 'Internal Server Error'})
         }
-        console.log(response)
+        //console.log(response)
         return res.status(200).json(response);
     } catch(error){
         console.log(error);

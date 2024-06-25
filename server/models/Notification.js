@@ -14,7 +14,11 @@ const notificationschema = new Schema({
     date:{
         type: Date,
         default: Date.now
-    }
+    },
+    email :[{
+        type: String,
+        required : false
+    }]
 })
 
 const Notifications = mongoose.model('Notification',notificationschema);

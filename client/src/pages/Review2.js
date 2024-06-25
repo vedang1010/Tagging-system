@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Review.module.css';
+import styles from '../styles/Review2.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -49,28 +49,28 @@ const Review2 = () => {
         console.log("Review Response: ", reviewResponse.data.modifyId);
 
         const modifyId = reviewResponse.data.modifyId;
-        const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
-        const modifyComponent = modifiedComponentResponse.data;
+        // const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
+        // const modifyComponent = modifiedComponentResponse.data;
 
         console.log("Original Idea: ", idea);
-        console.log("Modified Component: ", modifyComponent);
+        //console.log("Modified Component: ", modifyComponent);
 
-        const updatedIdea = {
-          ...idea,
-          description: {
-            short: modifyComponent.description.short,
-            full: modifyComponent.description.full
-          },
-          file: modifyComponent.file,
-          preview: modifyComponent.preview,
-          sys_requirements: modifyComponent.sys_requirements,
-          taglist: modifyComponent.taglist,
-          type: modifyComponent.type,
-          contributors:[modifyComponent.contributors]
-        };
+        // const updatedIdea = {
+        //   ...idea,
+        //   description: {
+        //     short: modifyComponent.description.short,
+        //     full: modifyComponent.description.full
+        //   },
+        //   file: modifyComponent.file,
+        //   preview: modifyComponent.preview,
+        //   sys_requirements: modifyComponent.sys_requirements,
+        //   taglist: modifyComponent.taglist,
+        //   type: modifyComponent.type,
+        //   contributors:[modifyComponent.contributors]
+        // };
 
-        console.log("Updated Idea: ", updatedIdea);
-        setIdeas(updatedIdea);
+        // console.log("Updated Idea: ", updatedIdea);
+        // setIdeas(updatedIdea);
 
       } catch (error) {
         console.error("Error: ", error.message);

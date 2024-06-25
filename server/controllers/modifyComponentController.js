@@ -1,17 +1,41 @@
-// const { Component } = require('../models/ComponentModel'); // Import Component model
+ const { Component } = require('../models/ComponentModel'); // Import Component model
 const { Notifications } = require('../models/Notification');
 const {ModifiedComponent,ModifiedContributor}=require('../models/ModifiedModel')
+const {UserInfo} = require('../models/userInfo');
+const {sendNotification} = require('../index');
 
+console.log(sendNotification)
 const updateComponent = async (req, res) => {
     const componentId = req.params.id; // Accessing the parameter from req.params
-    console.log("componentId", componentId)
+    //console.log("componentId", componentId)
     const updatedData = req.body; // Updated component data from req.body
-    console.log("data", updatedData)
+    //console.log("data", updatedData)
     try {
         const newContributor=new ModifiedContributor({
             id:updatedData.userId,
         })
         newContributor.save()
+
+        //eturn the updated component
+            const component = await Component.findById(componentId).populate("contributors.id");
+            const contributorsInfo = component.contributors.map(contributor => contributor.id);
+            const emailList = contributorsInfo[0].email
+            console.log("email "+emailList);
+
+        // Send notification to the contributors
+            const desc =`Component ${componentId} has been modified`;
+            const notification = new Notifications({
+                id: componentId,
+                desc,
+                date: new Date(),
+                email : emailList,
+            });
+
+            const socketId = getUser(emailList)
+            console.log(socketId + " has been modified");
+            global.io.to(socketId).emit('modifyComponent',notification);
+
+
         // Find the component by ID and update it with the new data
         const newComponent=new ModifiedComponent({
             name:updatedData.name,
@@ -35,20 +59,9 @@ const updateComponent = async (req, res) => {
             return res.status(404).json({ message: 'Component not found' });
         }
         
-        // console.log("updated component",updatedComponent)
-        
-        // const desc = `Component ${componentId} has been modified`;
-        // const notification = new Notifications({
-        //     id: id,
-        //     desc,
-        //     date: new Date()
-        // });
-        // console.log("updated component")
 
-        // await notification.save();
-        // global.io.emit('modifyComponent', notification);
-
-        // Return the updated component
+        await notification.save();
+        //console.log("New Component:", newComponent);
         res.status(200).json(newComponent);
     } catch (error) {
         // Handle any errors that occurred during the update
