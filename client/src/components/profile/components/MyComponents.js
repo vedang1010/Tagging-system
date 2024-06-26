@@ -16,6 +16,11 @@ const MyComponents = ({ components }) => {
     naviagte(`/modify/${id}`)
 
   }
+  const handleViewComponent = (id) => {
+    console.log(id)
+    naviagte(`/component/${id}`)
+
+  }
   return (
     <Box sx={{ padding: 2 }}>
       <Typography variant="h4" gutterBottom>
@@ -28,8 +33,8 @@ const MyComponents = ({ components }) => {
               <StyledTableCell>Component Name</StyledTableCell>
               <StyledTableCell>Description</StyledTableCell>
               <StyledTableCell>Status 1</StyledTableCell>
-              <StyledTableCell>Upload Component</StyledTableCell>
               <StyledTableCell>Status 2</StyledTableCell>
+              <StyledTableCell>Component</StyledTableCell>
               <StyledTableCell>Rating</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -39,14 +44,23 @@ const MyComponents = ({ components }) => {
                 <TableCell>{component.name}</TableCell>
                 <TableCell>{<HtmlRenderer htmlString={component.description.short} />}</TableCell>
                 <TableCell>{component.status1}</TableCell>
+                <TableCell>{component.status2}</TableCell>
+
                 <TableCell>
-                  {component.status1 === 'Accepted' && (
-                    <Button onClick={() => handleUploadComponent(component._id)}>
-                      Upload Component
+                  {component.status2 === 'Accepted' ? (
+                    <Button onClick={() => handleViewComponent(component._id)}>
+                      View Component
                     </Button>
+                  ) : component.status1 === 'Accepted' ? (
+                    <Button onClick={() => handleUploadComponent(component._id)}>
+                       Upload Component
+                    </Button>
+                  ) : (
+                    <></>
                   )}
                 </TableCell>
-                <TableCell>{component.status2}</TableCell>
+
+
                 <TableCell>{component.stars}</TableCell>
               </TableRow>
             ))}

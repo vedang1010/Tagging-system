@@ -43,10 +43,11 @@ const reviewComponentSchema= new Schema({
     },
     tech_stars:{
         type: Number,
-        
+        default:0,
     },
     legal_stars:{
         type: Number,
+        default:0,
     },
     Remarks_tech:{
         type: String,
@@ -61,7 +62,7 @@ const reviewComponentSchema= new Schema({
     status1 :{
         type: String,
         required: true,
-        default: "Pending"
+        default: "Accepted"
     },
     // status2 :{
     //     type: String,

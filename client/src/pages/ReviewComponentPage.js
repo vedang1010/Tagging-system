@@ -89,13 +89,13 @@ if (loading) {
                   <hr />
                   <div 
                     className={styles.cardContent} 
-                    style={{ color: component.status_legal === 'accepted' ? 'green' : 'red' }}
+                    style={{ color: component.status_legal === 'Accepted' ? 'green' : 'red' }}
                   >
                     Legal Review: {component.status_legal}
                   </div>
                   <div 
                     className={styles.cardContent} 
-                    style={{ color: component.status_tech === 'accepted' ? 'green' : 'red' }}
+                    style={{ color: component.status_tech === 'Accepted' ? 'green' : 'red' }}
                   >
                     Tech Review: {component.status_tech}
                   </div>

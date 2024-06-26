@@ -83,14 +83,14 @@ const Review = () => {
   const handleReject = () => {
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
-    setStatus('rejected');
+    setStatus('Rejected');
     
   };
 
   const handleAccept =() =>{
     console.log('Rejected with remarks', { remarks, rating });
     setPage('ratings');
-    setStatus('accepted');
+    setStatus('Accepted');
   }
 
   const handleOnClick = async()=>{

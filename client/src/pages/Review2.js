@@ -13,6 +13,7 @@ const Review2 = () => {
 
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
+  const [reviewData, setreviewData] = useState(null);
   const [remarks, setRemarks] = useState('');
   const [page, setPage] = useState('review');
   const [ideas, setIdeas] = useState(null);
@@ -41,12 +42,13 @@ const Review2 = () => {
         setContri(contributors);
         setVersion(version);
         setIdeas(idea);
+        console.log("initial",ideas)
         setIsLoading(false);
         setError(null);
 
         const reviewResponse = await axios.get(`${SERVER_URL}api/review/getReviewById/${reviewId}`);
-        // console.log("Review Response: ", reviewResponse.data.modifyId);
-console.log("review",reviewResponse.data)
+        console.log("Review Response: ", reviewResponse.data);
+        setreviewData(reviewResponse.data)
         const modifyId = reviewResponse.data.modifyId;
         const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
         const modifyComponent = modifiedComponentResponse.data;
@@ -102,11 +104,32 @@ console.log("review",reviewResponse.data)
   const handleSubmit =async (e) => {
     e.preventDefault();
     console.log("status",status)
-    if(status==='Accepted'){
-      console.log("ideas",ideas)
-      const modify = await axios.put(`${SERVER_URL}api/modify/updateComponentInDatabase/${objectId}`,ideas);
-
+    console.log("review",reviewData)
+    console.log("ideas",ideas)
+    if(reviewData.status_legal=="Accepted"){
+      setRating2(reviewData.legal_stars)
     }
+    if(reviewData.status_technical=="Accepted"){
+      setRating2(reviewData.tech_stars)
+    }
+    if((reviewData.status_legal=="Accepted" || reviewData.status_technical=="Accepted") &&  status==='Accepted' ){
+      ideas.status2="Accepted"
+      
+      
+      ideas.stars=(rating1+rating2)/2
+      try {
+        const modify = await axios.put(`${SERVER_URL}api/modify/updateComponentInDatabase/${objectId}`, ideas);
+        console.log(modify);
+        // Handle the successful response here, if needed
+      } catch (error) {
+        console.error('Error updating component in database:', error);
+        // Handle the error appropriately, e.g., display a message to the user
+      }
+      
+    }
+    
+
+    
     if (page === 'review') {
       setPage('ratings');
     } else {
@@ -124,7 +147,7 @@ console.log("review",reviewResponse.data)
   };
 
   const handleAccept = () => {
-    console.log("info",ideas)
+    
     setPage('ratings');
     setStatus('Accepted');
   };
@@ -247,7 +270,7 @@ console.log("review",reviewResponse.data)
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
-                <span style={{ fontWeight: 'bold' }}>{tech === true ? 'Functional Review' : 'Legal Review'}</span>
+                <span style={{ fontWeight: 'bold' }}>{tech === true ? 'Technical Review' : 'Legal Review'}</span>
 
                 <div>
                   {[...Array(5)].map((star, index) => (

@@ -8,7 +8,7 @@ const AppDetails = ({component}) => {
   // const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
 
     const [details, setDetails] = useState({
-      imageUrl: 'https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000',
+      imageUrl: component.preview[0],
       appName: component.name,
       rating: component.stars+' ★',
       reviews:component.frequency+ ' views',
@@ -18,6 +18,7 @@ const AppDetails = ({component}) => {
     console.log(component.file)
     const downloadFile = async (file) => {
       try {
+        console.log("recahedddd")
         const response = await fetch(file);
         if (!response.ok) throw new Error('Network response was not ok');
         const blob = await response.blob();
@@ -28,7 +29,7 @@ const AppDetails = ({component}) => {
     };
   
     const downloadAllFiles = () => {
-      console.log("reached")
+      console.log("reached",component.file)
       component.file.forEach(file => downloadFile(file));
     };
   
