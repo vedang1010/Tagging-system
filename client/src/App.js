@@ -44,15 +44,7 @@ function App() {
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           {isAuthenticated && <Navbar />}
-          <Grid container spacing={0} className='outer-grid' sx={{
-
-            
-            '@media (min-width:900px)': {
-              width: '85%',
-            },
-          }} >
-            {/* <Box p={3} mt={8}> */}
-            <Routes>
+          <Routes>
               <Route
                 path="/"
                 element={
@@ -64,8 +56,8 @@ function App() {
                       <Navigate to="/home" />
                     )
                   ) : (
-                    <Container>
-                      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Container  sx={{height:'100vh', display:'flex',alignItems:'center',justifyContent:'center'}} >
+                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , }}>
                         {isLoginView ? (
                           <Login onLogin={() => setIsAuthenticated(true)} />
                         ) : (
@@ -93,7 +85,16 @@ function App() {
                   <Navigate to="/" />
                 )}
               />
+          </Routes>
+          {isAuthenticated && <Grid container spacing={0} className='outer-grid' sx={{
 
+            
+            '@media (min-width:900px)': {
+              width: '85%',
+            },
+          }} >
+            {/* <Box p={3} mt={8}> */}
+            <Routes>
               <Route path="/componentStore" element={isAuthenticated ? <ComponentStorePage /> : <Navigate to="/" />} />
               <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/" />} />
               <Route path="/component/:id" element={isAuthenticated ? <ComponentCard /> : <Navigate to="/" />} />
@@ -111,6 +112,7 @@ function App() {
             </Routes>
             {/* </Box> */}
           </Grid>
+}
         </Box>
       </Router>
     </>
