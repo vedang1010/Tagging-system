@@ -48,7 +48,7 @@ const Review2 = () => {
         // console.log("Review Response: ", reviewResponse.data.modifyId);
 
         const modifyId = reviewResponse.data.modifyId;
-       const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
+        const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
          const modifyComponent = modifiedComponentResponse.data;
 
         // console.log("Original Idea: ", idea);

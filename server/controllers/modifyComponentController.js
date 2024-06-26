@@ -23,7 +23,7 @@ const updateComponent = async (req, res) => {
             console.log("email "+emailList);
 
         // Send notification to the contributors
-            const desc =`Component ${componentId} has been modified`;
+            const desc =`${component.name} has been modified by ${emailListt}`;
             const notification = new Notifications({
                 id: componentId,
                 desc,

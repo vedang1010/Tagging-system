@@ -69,11 +69,12 @@ const insertDummyData = async () => {
 const postComment = async (req, res) => {
     const { title, body, author,date } = req.body;
     const componentId  = req.params.id;
-console.log(componentId)
+    //console.log(componentId)
     try {
         // Find the Comments document for the given componentId or create a new one if it doesn't exist
         let commentsDoc = await Comments.findOne({componentId: componentId });
         // const commentsDoc = await Comments.findOne({componentId: componentId });
+        console.log(title, body, author, date)
 
         if (!commentsDoc) {
             commentsDoc = new Comments({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import {
   AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
@@ -6,12 +6,30 @@ import {
 import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Navbar.css'
+import socket from '../../module/socket'
+
+
 function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [newNotifications, setnewNotificationsOpen] = useState(false);
+
+  useEffect(() => {
+    socket.on("statusUpdate", (data) => {
+      console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
+      setnewNotificationsOpen(true);
+    });
+
+    socket.on('modifyComponent', (data) => {
+      console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
+      setnewNotificationsOpen(true);
+    });
+
+    
+  }, [socket]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,7 +85,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{flexDirection:"column"}}>
-        {['Home','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications','CurrentIssues'].map((text, index) => (
+        {['Home','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent','CurrentIssues'].map((text, index) => (
 
           <NavLink 
             to={`/${text.toLowerCase()}`} 
@@ -103,9 +121,13 @@ function Navbar() {
           </Typography>
        
           <IconButton color="inherit" onClick={handleNotificationsClick}>
-            <Badge badgeContent={4} color="secondary">
+            {newNotifications ? (
+              <Badge variant="dot" color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            ) : (
               <NotificationsIcon />
-            </Badge>
+            )}
           </IconButton>
           <IconButton
             edge="end"
