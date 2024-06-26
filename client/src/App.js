@@ -46,11 +46,9 @@ function App() {
           <Navbar />
           <Grid container spacing={0} className='outer-grid' sx={{
 
-            '@media (max-width:900px)': {
-              width: '100%',
-            },
+            
             '@media (min-width:900px)': {
-              width: '89%',
+              width: '85%',
             },
           }} >
             {/* <Box p={3} mt={8}> */}
