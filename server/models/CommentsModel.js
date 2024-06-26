@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
     title: {
         type: String,
-        required: true,
+        //required: true,
     },
     body: {
         type: String,
@@ -16,7 +16,7 @@ const commentSchema = new Schema({
     },
     date: {
         type: String,
-        // default: Date.now,
+        default: Date.now,
     },
     likes: {
         type: Number,

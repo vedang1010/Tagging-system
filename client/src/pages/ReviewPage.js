@@ -4,14 +4,14 @@ import styles from '../styles/ReviewPage.module.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import HtmlRenderer from "../utils/HtmlRenderer"
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
-const images = [
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150'
-];
+// const images = [
+//   'https://via.placeholder.com/150',
+//   'https://via.placeholder.com/150',
+//   'https://via.placeholder.com/150'
+// ];
 
 
 
@@ -71,38 +71,40 @@ if (error) {
   return <div>Error: {error.message}</div>;
 }
 
-  return (
-    <div className={styles.ReviewPage}>
-      { isComponents ? 
+return (
+  <div className={styles.ReviewPage}>
+    {isComponents ? (
       <ul className={styles.list}>
-        {components.map((component, index) =>(
-            <li key={component._id} className={styles.Ideas}>
-              <div className={styles.card}>
-                <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
-                  <img src={component.preview[0]} alt={`Component ${index + 1}`} />
-                  <div className={styles.cardContent} >
-                    {component.name}
-                  </div>
-                  <hr></hr>
-                  <div className={styles.cardContent} >
-                   
-                    {component.type}
-                  </div>
-                  
-                </Link>
+      {components.map((component) => (
+        <li key={component._id} className={styles.Ideas}>
+          <div className={styles.card}>
+            <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
+              <div className={styles.leftSection}>
+                <div className={styles.cardContent}>
+                  <div className="mainTitle">{component.name}</div>
+                </div>
               </div>
-            </li>
-        ))}
-      </ul> :
-        Swal.fire({
-          title: "Sorry",
-          text:"No Ideas to Review",
-          icon: "error"
-        })
-
-}
-    </div>
-  );
-}
+              <div className={styles.rightSection}>
+                <div className={styles.cardContent}>
+                  <div className="subtitle">
+                    <HtmlRenderer htmlString={component.short_desc != null ? component.short_desc : " "} />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </li>
+      ))}
+    </ul>
+    ) : (
+      Swal.fire({
+        title: "Sorry",
+        text: "No Ideas to Review",
+        icon: "error",
+      })
+    )}
+  </div>
+);
+};
 
 export default ReviewPage;

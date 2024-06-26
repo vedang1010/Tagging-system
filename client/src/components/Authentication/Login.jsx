@@ -2,16 +2,40 @@ import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import Swal from "sweetalert2";
-
+import socket from "../../module/socket"
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+// const socket = socketIOClient('http://localhost:5000', {
+  
+//   cors: {
+//     origin: "*",
+   
+//   }
+// });
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('');
-
+  //const [user, setUser] = useState("");
   
+  
+  
+    //setSocket((socket));
+
+
+    // useEffect(() => {
+    //   if (email) {
+    //     const timer = setTimeout(() => {
+    //       console.log(email)
+    //       socket.emit('newUser', email);
+    //     }, 700); // Adjust debounce timeout as needed (e.g., 700ms)
+        
+    //     return () => clearTimeout(timer); // Clear timeout on cleanup
+    //   }
+    // }, [email]);
+
   const getUserInfo = async (id) => {
     try {
       const url = `${SERVER_URL}api/review/fetchUserInfo/${id}`;
@@ -48,6 +72,12 @@ const Login = ({ onLogin }) => {
         icon: "success",
       });
 
+      console.log(socket.id)
+      socket.emit('newUser', {
+          email : email,
+          socketId : socket.id}
+        );
+      
       onLogin();
     } catch (error) {
       setAlertMessage(error.response.data.message);
