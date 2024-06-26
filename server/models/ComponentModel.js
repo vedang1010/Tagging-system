@@ -14,7 +14,6 @@ const contributorSchema = new Schema({
     },
     version: {
         type: Number,
-        required: true
     },
     link: {
         type: String,
@@ -130,5 +129,5 @@ const Contributor=mongoose.model('Contributor',contributorSchema)
 module.exports = {
     Component,
     Tag,
-    Contributor
+    Contributor,
 };
