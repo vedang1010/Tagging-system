@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Divider, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import ComponentItem from './ComponentItem';
@@ -6,6 +6,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const StyledCard = styled('div')({
   backgroundColor: 'white',
   borderRadius: '8px',
@@ -17,146 +18,41 @@ const StyledCard = styled('div')({
   marginBottom: '16px', 
 });
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const ComponentList = () => {
   const navigate = useNavigate();
 
+  const [mostLiked, setMostLiked] = useState([]);
+  const [mostDownload, setMostDownload] = useState([]);
+  useEffect(() => {
+    const fetchMostLiked = async () => {
+      try {
+        // get all tags
+        const mostLiked_res = await axios.get(`${SERVER_URL}api/ComponentStore/getMostLiked`);
+        setMostLiked(mostLiked_res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const fetchMostDownload = async () => {
+      try {
+        // get all tags
+        const mostDownload_res = await axios.get(`${SERVER_URL}api/ComponentStore/getMostFrequent`);
+        setMostDownload(mostDownload_res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchMostLiked();
+    fetchMostDownload();
+
+  }, []);
+
   const componentsByCategory = {
-    DTS: [
-      {
-        id: '66693aede01afec0ab853b59', title: 'DTS Component 1', description: 'Description of DTS component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: '666853df5a37c0dfb0acdc2d', title: 'DTS Component 2', description: 'Description of DTS component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 3, title: 'DTS Component 1', description: 'Description of DTS component 3', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 4, title: 'DTS Component 2', description: 'Description of DTS component 4', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 5, title: 'DTS Component 1', description: 'Description of DTS component 5', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 6, title: 'DTS Component 2', description: 'Description of DTS component 6', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      
-    ],
-    SB: [
-      {
-        id: 3, title: 'SB Component 1', description: 'Description of SB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 4, title: 'SB Component 2', description: 'Description of SB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 3, title: 'SB Component 1', description: 'Description of SB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 4, title: 'SB Component 2', description: 'Description of SB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 3, title: 'SB Component 1', description: 'Description of SB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 4, title: 'SB Component 2', description: 'Description of SB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      
-    ],
-    MO: [
-      {
-        id: 5, title: 'MO Component 1', description: 'Description of MO component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 6, title: 'MO Component 2', description: 'Description of MO component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 5, title: 'MO Component 1', description: 'Description of MO component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 6, title: 'MO Component 2', description: 'Description of MO component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 5, title: 'MO Component 1', description: 'Description of MO component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 6, title: 'MO Component 2', description: 'Description of MO component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      
-    ],
-    DatabaseConnection: [
-      {
-        id: 7, title: 'DB Component 1', description: 'Description of DB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 8, title: 'DB Component 2', description: 'Description of DB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 7, title: 'DB Component 1', description: 'Description of DB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 8, title: 'DB Component 2', description: 'Description of DB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 7, title: 'DB Component 1', description: 'Description of DB component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 8, title: 'DB Component 2', description: 'Description of DB component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      
-    ],
-    Styling: [
-      {
-        id: 9, title: 'Styling Component 1', description: 'Description of Styling component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 10, title: 'Styling Component 2', description: 'Description of Styling component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 9, title: 'Styling Component 1', description: 'Description of Styling component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 10, title: 'Styling Component 2', description: 'Description of Styling component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 9, title: 'Styling Component 1', description: 'Description of Styling component 1', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      {
-        id: 10, title: 'Styling Component 2', description: 'Description of Styling component 2', publisher: 'Dummy Publisher 3',
-        imageUrl: 'https://dummyimage.com/300x200/000/fff',
-      },
-      
-    ],
-    
+    'Most Liked' : mostLiked,
+    'Most Download': mostDownload,
   };
 
   const sliderSettings = {
@@ -200,7 +96,7 @@ const ComponentList = () => {
           </div>
           <Slider {...sliderSettings}  >
             {components.map((component) => (
-              <StyledCard key={component.id}  onClick={() => handleCardClick(component.id)} >
+              <StyledCard key={component._id}   >
                 <ComponentItem component={component} />
               </StyledCard>
             ))}

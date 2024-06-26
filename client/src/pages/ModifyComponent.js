@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Upload_File from "../utils/Upload_File";
+import React, { useEffect, useState, useRef } from "react";
+// import Upload_File from "../utils/Upload_File";
 import Text_Editor from "../utils/Text_Editor";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Chunked from "../utils/Upload_File";
+import Loader from "../components/loader/Loader";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -38,6 +40,11 @@ const ModifyComponent = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [customTagInput, setCustomTagInput] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const chunkedFileRef = useRef();
+  const chunkedScreenshotRef = useRef();
 
   useEffect(() => {
     const filtered = tags.filter((tag) =>
@@ -105,6 +112,11 @@ const ModifyComponent = () => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    // Wait to upload files and screenshots
+    await chunkedFileRef.current.uploadFiles();
+    await chunkedScreenshotRef.current.uploadFiles();
 
     const formData = {
       name: componentName,
@@ -124,24 +136,31 @@ const ModifyComponent = () => {
       // file: file,
     };
     // console.log(formData);
-
+    console.log("form data is :", formData);
 
     try {
-      console.log("reached", id)
+      console.log("reached", id);
       if (id) {
-        console.log("reached if", id)
+        console.log("reached if", id);
         // Update existing component
-        const modify = await axios.post(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+        const modify = await axios.post(
+          `${SERVER_URL}api/modify/updateComponent/${id}`,
+          formData
+        );
         // console.log("req",modify.data._id)
-        const modifyId = modify.data._id
-        const contributorId = localStorage.getItem('userId')
+        const modifyId = modify.data._id;
+        const contributorId = localStorage.getItem("userId");
         const userData = {
           contributorId,
           id,
           modifyId,
-        }
-        const response = await axios.post(`${SERVER_URL}api/upload/sendToReviewComponent`,userData);
-        console.log(response)
+        };
+        const response = await axios.post(
+          `${SERVER_URL}api/upload/sendToReviewComponent`,
+          userData
+        );
+        console.log(response);
+        setLoading(false);
         Swal.fire({
           title: "Update Successful",
           text: "Your component has been updated successfully",
@@ -151,6 +170,7 @@ const ModifyComponent = () => {
         });
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error uploading or updating component:", error);
       Swal.fire({
         title: "Operation Failed",
@@ -162,21 +182,21 @@ const ModifyComponent = () => {
 
   return (
     <>
-      <section className="text-lg w-10/12 p-6 mx-auto  bg-black rounded-lg shadow-md mt-20 mb-20">
-        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
+      <section className="text-sm lg:text-lg xl:text-xl w-10/12 p-6 mx-auto  bg-black rounded-lg shadow-md mt-20 mb-20">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
           Upload Your Component
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-3 mt-2 sm:grid-cols-1">
             <div className="flex flex-col items-center">
-              <label className="text-white text-xl" htmlFor="component-name">
+              <label className="text-white" htmlFor="component-name">
                 Component Name
               </label>
               <input
                 id="component-name"
                 name="component-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
+                className="block w-full lg:w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 placeholder="Component Name"
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
@@ -190,7 +210,7 @@ const ModifyComponent = () => {
               <select
                 id="select"
                 name="domain"
-                className="block w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none "
+                className="block w-full lg:w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none "
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
               >
@@ -207,7 +227,7 @@ const ModifyComponent = () => {
                 <div className="form-group">
                   <input
                     type="search"
-                    className="form-control text-white max-w-lg bg-zinc-800 mb-3 rounded-lg p-2 w-4/5 focus:outline-none"
+                    className="form-control text-white w-full lg:max-w-lg bg-zinc-800 mb-3 rounded-lg p-2  focus:outline-none"
                     id="search"
                     placeholder="Search Your Tag..."
                     value={searchInput}
@@ -215,13 +235,16 @@ const ModifyComponent = () => {
                   />
                 </div>
               </div>
-              <div className="searchable-container mt-7 w-8/12 mx-auto">
+              <div className="w-full searchable-container mt-4 lg:mt-7 lg:w-10/12 mx-auto">
                 {/* predefined tags */}
                 {filteredTags.map((tag) => (
-                  <div key={tag} className="inline-block mr-3 mb-2">
+                  <div
+                    key={tag}
+                    className="inline-block mr-1 mb-1 lg:mr-2 lg:mb-2"
+                  >
                     <button
                       type="button"
-                      className="px-5 py-1 bg-blue-500 text-white rounded-full"
+                      className="px-2 py-1 text-xs lg:px-3 lg:py-1 lg:text-lg bg-blue-500 text-white rounded-lg"
                       onClick={() => handleTagSelect(tag)}
                     >
                       {tag}
@@ -233,14 +256,14 @@ const ModifyComponent = () => {
               <div className="mt-4">
                 <input
                   type="text"
-                  className="form-control text-white max-w-lg bg-zinc-800 mb-3 rounded-lg p-2 w-4/5 focus:outline-none"
+                  className="form-control text-white max-w-lg bg-zinc-800 mb-3 rounded-lg p-2 w-full lg:w-4/5 focus:outline-none"
                   id="custom-tag"
                   placeholder="Add Your Custom Tag..."
                   value={customTagInput}
                   onChange={(e) => setCustomTagInput(e.target.value)}
                 />
                 <button
-                  className="px-4 py-3 m-2 text-lg leading-5 mb-5  text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-800 focus:outline-none"
+                  className="px-2 py-1 lg:px-3 lg:py-2 m-2 leading-5 mb-5  text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-800 focus:outline-none"
                   onClick={(event) => {
                     handleCustomTag(event);
                   }}
@@ -248,18 +271,18 @@ const ModifyComponent = () => {
                   Add Tag
                 </button>
               </div>
-              <div className="max-w-2xl rounded-lg p-1 flex mx-auto">
+              <div className="w-full lg:w-10/12 rounded-lg flex justify-center mx-auto">
                 {/* filtered tags */}
-                <div className="flex flex-wrap justify-center py-3 px-1 gap-2 rounded-2xl">
+                <div className="flex flex-wrap justify-center px-2 py-1 text-xs lg:px-3 lg:py-1 lg:text-lg rounded-2xl">
                   {selectedTags.map((tag) => (
                     <div
                       key={tag}
-                      className=" bg-indigo-900 text-white px-5 py-1 rounded-full"
+                      className=" bg-indigo-900 text-white mr-1 mb-1 lg:mr-2 lg:mb-2 px-2 py-1 text-xs lg:px-3 lg:py-1 lg:text-lg rounded-lg "
                     >
                       {tag}
                       <button
                         type="button"
-                        className="ml-3 text-lg"
+                        className="ml-2 "
                         onClick={() => handleTagRemove(tag)}
                       >
                         &times;
@@ -270,12 +293,15 @@ const ModifyComponent = () => {
               </div>
             </div>
             <div className="">
-              <div className="flex mt-7 flex-col items-center">
+              <div className="flex mt-7 flex-col items-center ">
                 <label className="text-white" htmlFor="textarea">
                   Short Description
                 </label>
-                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
-                  <Text_Editor getDescription={getShortDescription} data={shortDescription} />
+                <div className="w-full mx-auto text-black bg-zinc-300 sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12">
+                  <Text_Editor
+                    getDescription={getShortDescription}
+                    data={shortDescription}
+                  />
                 </div>
               </div>
 
@@ -283,8 +309,11 @@ const ModifyComponent = () => {
                 <label className="text-white" htmlFor="textarea">
                   Long Description
                 </label>
-                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
-                  <Text_Editor getDescription={getLargeDescription} data={largeDescription} />
+                <div className="w-full mx-auto text-black bg-zinc-300 sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12">
+                  <Text_Editor
+                    getDescription={getLargeDescription}
+                    data={largeDescription}
+                  />
                 </div>
               </div>
 
@@ -292,8 +321,11 @@ const ModifyComponent = () => {
                 <label className="text-white" htmlFor="textarea">
                   System Requirements : languages and libraries
                 </label>
-                <div className="w-8/12 mx-auto text-black bg-zinc-300 ">
-                  <Text_Editor getDescription={getSysRequirements} data={sysRequirements} />
+                <div className="w-full mx-auto text-black bg-zinc-300 sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12">
+                  <Text_Editor
+                    getDescription={getSysRequirements}
+                    data={sysRequirements}
+                  />
                 </div>
               </div>
             </div>
@@ -320,7 +352,10 @@ const ModifyComponent = () => {
                   </svg>
 
                   {/* used cloudinary to upload file on cloud */}
-                  <Upload_File handleOperation={handleScreenshot} />
+                  <Chunked
+                    handleOperation={handleScreenshot}
+                    ref={chunkedScreenshotRef}
+                  />
 
                   <p className="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
                 </div>
@@ -348,7 +383,7 @@ const ModifyComponent = () => {
                   </svg>
 
                   {/* used cloudinary to upload file on cloud */}
-                  <Upload_File handleOperation={handleFile} />
+                  <Chunked handleOperation={handleFile} ref={chunkedFileRef} />
 
                   <p className="text-xs text-white">PDF, ZIP, Tar up to 5MB</p>
                 </div>
@@ -357,12 +392,15 @@ const ModifyComponent = () => {
           </div>
 
           <div className="flex justify-center mt-14">
-            <button
-              className="px-6 py-4 text-2xl leading-5 mb-5  text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
-              onClick={handleUpload}
-            >
-              Upload Your Component
-            </button>
+            <div>
+              <button
+                className="px-6 py-4 text-2xl leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
+                onClick={handleUpload}
+              >
+                Upload Your Component
+              </button>
+              <div className="my-6">{loading && <Loader />}</div>
+            </div>
           </div>
         </form>
       </section>

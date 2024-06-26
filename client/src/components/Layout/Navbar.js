@@ -162,8 +162,20 @@ function Navbar() {
         open={isSmallScreen ? drawerOpen : true}
         onClose={toggleDrawer()}
         sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width:"13rem" ,zIndex: 100},
-        }}
+          '& .MuiDrawer-paper': { boxSizing: 'border-box' ,zIndex: 100},
+          '@media (min-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '15%',
+            },
+          },
+            '@media (max-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '13rem',
+            },
+          }
+            
+        }
+        }
       >
         {sideList}
       </Drawer>
