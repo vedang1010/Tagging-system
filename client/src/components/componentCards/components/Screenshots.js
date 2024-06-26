@@ -39,7 +39,7 @@ const Screenshots = (component) => {
                     >
                       &times;
                     </span>
-                    <div className="fixed h-auto w-auto inset-14  mt-10 bg-black z-100 bg-opacity-20 flex items-center justify-center">
+                    <div className="fixed h-auto w-auto inset-14  mt-10 bg-black z-100 bg-opacity-40 flex items-center justify-center " style={{zIndex:1301}}>
                       <img
                         className="block"
                         src={image}
