@@ -82,6 +82,7 @@ return (
               <div className={styles.leftSection}>
                 <div className={styles.cardContent}>
                   <div className="mainTitle">{component.name}</div>
+                  <div className="mainTitle">{component.short_desc}</div>
                 </div>
               </div>
               <div className={styles.rightSection}>
