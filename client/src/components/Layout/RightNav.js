@@ -6,27 +6,8 @@ import CheckboxesTags from './CheckboxesTags';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-const RightNav = ({setResults,setDept,hanleApplyClick}) => {
-  const [tags,setTags] = useState([]);
-  useEffect(() => {
-    const fetchTags = async () => {
-      console.log('RightNav mounted');
-      try {
-        // get all tags
-        const tags_res = await axios.get(`${SERVER_URL}api/ComponentStore/getAllTags`);
-        setTags(tags_res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchTags();
-  }, []);
-  const dept = ['DTS','MO','SB'];
-
-
-
-
+const RightNav = ({setResults,setDept,hanleApplyClick,tags,dept}) => {
+  
   return (
     <Box className="right-nav" display={'flex'} flexDirection={'column'}>
       <Typography variant="h6" component="div">
@@ -34,7 +15,7 @@ const RightNav = ({setResults,setDept,hanleApplyClick}) => {
       </Typography>
       <CheckboxesTags  tags={tags} setResults={setResults} placeholder={"Tags"}/>
       <CheckboxesTags tags={dept} setResults={setDept} placeholder={"Department"}/>
-      <Button variant='contained'onClick={hanleApplyClick} sx={{width:'88%' , margin:'10px 0px' }} >Apply</Button>
+      <Button variant='contained'onClick={hanleApplyClick} sx={{width:'85%' , margin:'10px 0px' }} >Apply</Button>
     </Box>
   );
 };

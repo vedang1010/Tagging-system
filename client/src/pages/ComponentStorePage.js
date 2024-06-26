@@ -3,9 +3,14 @@ import React, { useState, useRef } from 'react';
 import RightNav from '../components/Layout/RightNav';
 import CustomCarousel from '../components/ComponentStore/Carousel';
 import ComponentList from '../components/ComponentStore/ComponentList';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import SearchBar from '../components/ComponentStore/SearchBar'
 import '../styles/ComponentStore.css'
+import BasicModal from '../components/ComponentStore/BasicModal';
+import axios from 'axios';
+
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 
 
@@ -27,11 +32,36 @@ const ComponentStorePage = () => {
     // }
   }
 
+
+
+
+  const [tags,setTags] = React.useState([]);
+  React.useEffect(() => {
+    const fetchTags = async () => {
+      console.log('RightNav mounted');
+      try {
+        // get all tags
+        const tags_res = await axios.get(`${SERVER_URL}api/ComponentStore/getAllTags`);
+        setTags(tags_res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchTags();
+  }, []);
+
+
+
+  const dept_arr = ['DTS','MO','SB'];
+
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} >
         <Grid item xs={12}  md={10}  sm={12}>
           <SearchBar setShowSearchResults={setShowSearchResults} tags={result} dept={dept} ref={SearchBarRef}/>
+
+          <BasicModal setResults={setResults} setDept={setDept} hanleApplyClick={hanleApplyClick} tags={tags} dept={dept_arr}/>
           {!showSearchResults && (
             <>
               <CustomCarousel />
@@ -39,8 +69,8 @@ const ComponentStorePage = () => {
             </>
           )}
         </Grid>
-        <Grid item xs={12} md ={2}  className='left-right-grid'>
-          <RightNav setResults={setResults} setDept={setDept} hanleApplyClick={hanleApplyClick}/>
+        <Grid item  md ={2}  className='left-right-grid'>
+          <RightNav setResults={setResults} setDept={setDept} hanleApplyClick={hanleApplyClick} tags={tags} dept={dept_arr}/>
         </Grid>
       </Grid>
     </>

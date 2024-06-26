@@ -39,7 +39,7 @@ const reviewComponentSchema= new Schema({
     modifyId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'ModifiedComponent',
-        required:true
+        //required:true
     },
     tech_stars:{
         type: Number,

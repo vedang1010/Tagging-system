@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import {
   AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
 } from '@mui/material';
 import { Menu as MenuIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Navbar.css';
+import '../../styles/Navbar.css'
+import socket from '../../module/socket'
+
 
 function Navbar() {
   const theme = useTheme();
@@ -13,7 +15,25 @@ function Navbar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const subgroup = localStorage.getItem('subgroup');
+  const [newNotifications, setnewNotificationsOpen] = useState(false);
+  const subgroup = localStorage.getItem("subgroup")
+
+  useEffect(() => {
+    socket.on("statusUpdate", (data) => {
+      console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
+      setnewNotificationsOpen(true)
+      console.log(newNotifications + " snewNotifications")
+    });
+
+    socket.on('modifyComponent', (data) => {
+      console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
+      setnewNotificationsOpen(true)
+      console.log(newNotifications + " snewNotifications")
+    });
+
+    
+  }, [socket]);
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +56,7 @@ function Navbar() {
 
   const handleNotificationsClick = () => {
     navigate('/notifications');
+    setnewNotificationsOpen(false)
   };
 
   const menuId = 'primary-search-account-menu';
@@ -66,7 +87,7 @@ function Navbar() {
     >
       <Toolbar />
       <List sx={{ flexDirection: "column" }}>
-        {['Home', 'UploadIdea', 'ComponentStore', 'Notifications', 'CurrentIssues','ReviewIdea','ReviewComponent'].map((text, index) => {
+        {['Home', 'UploadIdea', 'ComponentStore', 'CurrentIssues','ReviewIdea','ReviewComponent'].map((text, index) => {
           if (subgroup === 'user' && (text === 'ReviewIdea' || text === 'ReviewComponent')) {
             console.log("reached1")
 
@@ -116,9 +137,13 @@ function Navbar() {
             Navbar
           </Typography>
           <IconButton color="inherit" onClick={handleNotificationsClick}>
-            <Badge badgeContent={4} color="secondary">
+            {newNotifications ? (
+              <Badge variant="dot" color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            ) : (
               <NotificationsIcon />
-            </Badge>
+            )}
           </IconButton>
           <IconButton
             edge="end"
@@ -137,8 +162,20 @@ function Navbar() {
         open={isSmallScreen ? drawerOpen : true}
         onClose={toggleDrawer()}
         sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width:"13rem" ,zIndex: 100},
-        }}
+          '& .MuiDrawer-paper': { boxSizing: 'border-box' ,zIndex: 100},
+          '@media (min-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '15%',
+            },
+          },
+            '@media (max-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '13rem',
+            },
+          }
+            
+        }
+        }
       >
         {sideList}
       </Drawer>

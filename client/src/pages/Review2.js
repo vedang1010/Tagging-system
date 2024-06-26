@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Review.module.css';
+import styles from '../styles/Review2.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -51,7 +51,7 @@ const Review2 = () => {
         setreviewData(reviewResponse.data)
         const modifyId = reviewResponse.data.modifyId;
         const modifiedComponentResponse = await axios.get(`${SERVER_URL}api/modify/getModifiedComponent/${modifyId}`);
-        const modifyComponent = modifiedComponentResponse.data;
+         const modifyComponent = modifiedComponentResponse.data;
 
         // console.log("Original Idea: ", idea);
         // console.log("Modified Component: ", modifyComponent);
@@ -74,7 +74,7 @@ const Review2 = () => {
           contributors:[modifyComponent.contributors]
         };
 
-        // console.log("Updated Idea: ", updatedIdea);
+        console.log("Updated Idea: ", updatedIdea);
         setIdeas(updatedIdea);
 
       } catch (error) {
@@ -100,6 +100,23 @@ const Review2 = () => {
 
     fetchUserInfo();
   }, [userEmail]);
+
+  const handleDownloadAll = (files) => {
+    if (files && files.length > 0) {
+      files.forEach((fileUrl) => {
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.setAttribute('download', '');
+        link.setAttribute('target', '_blank'); // Open in a new tab
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    } else {
+      console.error('No files available for download');
+    }
+  };
+
 
   const handleSubmit =async (e) => {
     e.preventDefault();
@@ -239,7 +256,11 @@ const Review2 = () => {
               <p><strong>Contributors :</strong>{contri}</p>
 
               <div className={styles.downloadContainer}>
-                <a href="/path/to/download">
+                <a href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDownloadAll(ideas.file);
+                        }} >
                   <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
                     <path d="M12 7L12 14M12 14L15 11M12 14L9 11" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M16 17H12H8" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
@@ -270,6 +291,7 @@ const Review2 = () => {
                 className={styles.textarea}
               ></textarea>
               <div className={styles.ratingContainer}>
+
                 <span style={{ fontWeight: 'bold' }}>{tech === true ? 'Technical Review' : 'Legal Review'}</span>
 
                 <div>

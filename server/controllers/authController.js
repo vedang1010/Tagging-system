@@ -14,14 +14,19 @@ const sendOtp = async (req, res) => {
             throw Error('Invalid email');
         }
         const user = await User.findOne({ email });
+        
         if (user && !user.otp) {
             return res.status(400).json({ message: 'Email already in use' });
         }
 
+
         const otp = crypto.randomBytes(3).toString('hex');
         const otpExpiration = Date.now() + 3600000; // OTP valid for 1 hour
         
-        await User.findOneAndUpdate({ email }, { otp, otpExpiration }, { upsert: true, new: true });
+        const update = await User.findOneAndUpdate({ email }, { otp, otpExpiration }, { upsert: true, new: true });
+        if(!update){
+            return res.status(500).json({ message: 'Email already in use' });
+        }
 
         await sendMail(email, 'Your OTP Code', `Your OTP code is ${otp}`);
 

@@ -44,7 +44,7 @@ function RaiseIssue() {
   return (
     <>
       <section className="text-lg w-10/12 p-6 mx-auto bg-white  rounded-lg shadow-md mb-20">
-        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
+        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-600 text-center">
           Raise An Issue
         </h1>
         <form>
@@ -69,7 +69,7 @@ function RaiseIssue() {
                 Description about your issue
               </label>
               <div className="w-10/12 mx-auto text-black bg-zinc-200">
-                <Text_Editor getDescription={getIssueDescription} />
+                <Text_Editor getDescription={getIssueDescription} data={description} />
               </div>
             </div>
           </div>

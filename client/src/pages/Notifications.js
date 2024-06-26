@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import socketIOClient from 'socket.io-client';
+import socket from '../module/socket';
 import styles from '../styles/Notifications.module.css';
-//import notificationSound from '../assets/notification.mp3'; 
-const socket = socketIOClient('http://localhost:5000', {
-  transports: ['websocket'],
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
-  }
-});
 
 const NotificationsPage = () => {
-  sessionStorage.setItem("location","/notifications")
+  sessionStorage.setItem("location", "/notifications");
 
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const userEmail = localStorage.getItem('user');
+
+  const subgroup = localStorage.getItem('subgroup');
+  console.log("subgroup "+ subgroup)
   const fetchNotifications = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5000/api/notification/notifications');
@@ -33,30 +28,23 @@ const NotificationsPage = () => {
     }
   };
 
-  
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
-    useEffect(() => {
-      fetchNotifications();
-  
-      socket.on('statusUpdate', (notification) => {
-        
-        setNotifications((prevNotifications) => [notification, ...prevNotifications]);
-      });
+  useEffect(() => {
+    socket.on("statusUpdate", (data) => {
+      console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
+      setNotifications((prev) => [...prev, data]);
+    });
 
-      socket.on('modifyComponent', (notification) => {
-        
-        setNotifications((prevNotifications) => [notification, ...prevNotifications]);
-      });
-
-    
-  
-      return () => {
-        socket.disconnect();
-      };
-    }, []);
+    socket.on('modifyComponent', (data) => {
+      console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
+      setNotifications((prev) => [...prev, data]);
+    });
 
     
-  
+  }, [socket]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -66,11 +54,15 @@ const NotificationsPage = () => {
     return <div>Error: {error}</div>;
   }
 
+  const filteredNotifications = notifications.filter(notification => {
+    return !notification.email || notification.email.includes(userEmail) || subgroup=='technical' || subgroup=='legal' || subgroup=='functional';
+  });
+
   return (
     <div className={styles.notificationscontainer}>
       <h2 className={styles.notificationstitle}>Notifications <span role="img" aria-label="bell">🔔</span></h2>
       <div className={styles.notificationslist}>
-        {notifications.slice(0).reverse().map(notification => (
+        {filteredNotifications.slice(0).reverse().map(notification => (
           <div key={notification._id} className={styles.notificationitem}>
             <div className={styles.notificationdetails}>
               <p><strong>{notification.componentId}</strong> {notification.status}</p>
