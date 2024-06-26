@@ -10,10 +10,10 @@ const experienceSchema = new Schema({
         type: String,
         required: true,
     },
-    period: {
-        type: String,
-        required: true,
-    },
+    // period: {
+    //     type: String,
+    //     required: true,
+    // },
     duration: {
         type: String,
         required: true,
@@ -36,7 +36,7 @@ const userInfoSchema = new Schema({
     },
     about: {
         type: String,
-        required: true,
+        //required: true,
     },
     designation: {
         type: String,
@@ -44,7 +44,7 @@ const userInfoSchema = new Schema({
     },
     points: {
         type: Number,
-        default: 0, // changed from defaultValue to default
+        default: 0, 
     },
     dept: {
         type: String,
@@ -55,7 +55,7 @@ const userInfoSchema = new Schema({
         required: true, // A => reviewer, B => Consumer
     },
     subgroup: {
-        type: Number, // 1. functional_review, 2. Technical_review, 3. Legal_review
+        type: String, // 1. functional_review, 2. Technical_review, 3. Legal_review
     },
     linkedinProfile: {
         type: String,

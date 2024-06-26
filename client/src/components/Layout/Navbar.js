@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import {
-  AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
+  AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
 } from '@mui/material';
-import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
+import { Menu as MenuIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Navbar.css'
+import socket from '../../module/socket'
+
+
 function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const [newNotifications, setnewNotificationsOpen] = useState(false);
+  const subgroup = localStorage.getItem("subgroup")
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,13 +52,10 @@ function Navbar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      
     >
-      <div style={{display:"flex", flexDirection: "column"}}>
-
-
-      <Link to={'/profile'}><MenuItem onClick={handleMenuClose}>View Profile</MenuItem></Link>
-      <Link to={'/logout'}><MenuItem onClick={handleMenuClose}>Logout</MenuItem></Link>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Link to={'/profile'}><MenuItem onClick={handleMenuClose}>View Profile</MenuItem></Link>
+        <Link to={'/logout'}><MenuItem onClick={handleMenuClose}>Logout</MenuItem></Link>
       </div>
     </Menu>
   );
@@ -66,20 +67,35 @@ function Navbar() {
       onKeyDown={toggleDrawer()}
     >
       <Toolbar />
-      <List sx={{flexDirection:"column"}}>
-        {['Home','UploadIdea','ComponentStore','ReviewIdea', 'ReviewComponent', 'Notifications','CurrentIssues'].map((text, index) => (
+      <List sx={{ flexDirection: "column" }}>
+        {['Home', 'UploadIdea', 'ComponentStore', 'CurrentIssues','ReviewIdea','ReviewComponent'].map((text, index) => {
+          if (subgroup === 'user' && (text === 'ReviewIdea' || text === 'ReviewComponent')) {
+            console.log("reached1")
 
-          <NavLink 
-            to={`/${text.toLowerCase()}`} 
-            key={index} 
-            style={{ textDecoration: 'none', color: 'inherit' }}
-            onClick={isSmallScreen ? handleDrawerClose : null}
-          >
-            <ListItem button>
-              <ListItemText primary={text} />
-            </ListItem>
-          </NavLink>
-        ))}
+            return null; // Do not render these items based on subgroup
+          }
+
+          if  ((subgroup === 'functional' && text === 'ReviewComponent')) {
+            console.log("reached2")
+            return null; // Do not render these items based on subgroup
+          }
+          if ( (subgroup === 'technical' || subgroup === 'legal') && text === 'ReviewIdea') {
+            console.log("reached3")
+            return null; // Do not render these items based on subgroup
+          }
+          return (
+            <NavLink 
+              to={`/${text.toLowerCase()}`} 
+              key={index} 
+              style={{ textDecoration: 'none', color: 'inherit' }}
+              onClick={isSmallScreen ? handleDrawerClose : null}
+            >
+              <ListItem button>
+                <ListItemText primary={text} />
+              </ListItem>
+            </NavLink>
+          );
+        })}
       </List>
     </Box>
   );
@@ -101,11 +117,14 @@ function Navbar() {
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Navbar
           </Typography>
-       
           <IconButton color="inherit" onClick={handleNotificationsClick}>
-            <Badge badgeContent={4} color="secondary">
+            {newNotifications ? (
+              <Badge variant="dot" color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            ) : (
               <NotificationsIcon />
-            </Badge>
+            )}
           </IconButton>
           <IconButton
             edge="end"

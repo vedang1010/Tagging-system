@@ -34,8 +34,12 @@ const reviewComponentSchema= new Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Component',
-        required: true,
-        unique:true
+        required: true   
+     },
+    modifyId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'ModifiedComponent',
+        //required:true
     },
     tech_stars:{
         type: Number,

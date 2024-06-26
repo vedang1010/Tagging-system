@@ -10,8 +10,8 @@ import Loader from "../components/loader/Loader";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ModifyComponent = () => {
-    const { id } = useParams(); // Get the ID from the URL
-    sessionStorage.setItem("location",`/modify/${id}`)
+  const { id } = useParams(); // Get the ID from the URL
+  sessionStorage.setItem("location", `/modify/${id}`)
 
   const tags = [
     "React",
@@ -130,7 +130,7 @@ const ModifyComponent = () => {
       preview: screenshot,
       status2: "Pending",
       file: file,
-      userId: localStorage.getItem("userId"),
+      userId: localStorage.getItem('userId')
 
       // Assuming 'file' is an array of file paths or URLs
       // file: file,

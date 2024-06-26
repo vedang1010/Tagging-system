@@ -7,7 +7,9 @@ const Comments = ({ component }) => {
 
   const [reviews, setReviews] = useState([]);
   const [visibleReviews, setVisibleReviews] = useState(1);
- 
+  const userEmail = localStorage.getItem('user');
+  const data = JSON.stringify(userEmail).email;
+
 const userData=null
   const [newComment, setNewComment] = useState({
     rating: 0,
@@ -17,6 +19,7 @@ const userData=null
     date: new Date().toLocaleDateString(),
     likes: 0,
     dislikes: 0,
+    author : data
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,7 +58,7 @@ const userData=null
         const userData = await getUserInfo(token);
         setNewComment((prevComment) => ({
           ...prevComment,
-          author: userData.name || 'Anonymous',
+          author: userData.email || 'Anonymous',
         }));
       }
     };
@@ -78,17 +81,18 @@ const userData=null
       // console.log(url);
       const response = await axios.post(url,newComment);
       // const response = await axios.post(`/`, newComment);
-      const userData=await getUserInfo(localStorage.getItem('user'))
-
+      //const userData=await getUserInfo(localStorage.getItem('user'))
+      
       setReviews((prevReviews) => [...prevReviews, response.data]);
       setNewComment({
         rating: 0,
         title: '',
         body: '',
-        author:userData.name,
+        author:data,
         date: new Date().toLocaleDateString(),
         likes: 0,
         dislikes: 0,
+        
       });
       setIsModalOpen(false); // Close the modal after adding the comment
       fetchComments()
