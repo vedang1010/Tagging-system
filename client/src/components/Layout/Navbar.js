@@ -17,6 +17,22 @@ function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newNotifications, setnewNotificationsOpen] = useState(false);
   const subgroup = localStorage.getItem("subgroup")
+
+  useEffect(() => {
+    socket.on("statusUpdate", (data) => {
+      console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
+      setnewNotificationsOpen(true)
+    });
+
+    socket.on('modifyComponent', (data) => {
+      console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
+      setnewNotificationsOpen(true)
+    });
+
+    
+  }, [socket]);
+
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -143,8 +159,20 @@ function Navbar() {
         open={isSmallScreen ? drawerOpen : true}
         onClose={toggleDrawer()}
         sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width:"13rem" ,zIndex: 100},
-        }}
+          '& .MuiDrawer-paper': { boxSizing: 'border-box' ,zIndex: 100},
+          '@media (min-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '15%',
+            },
+          },
+            '@media (max-width: 900px)':{
+            '& .MuiDrawer-paper':{
+              width: '13rem',
+            },
+          }
+            
+        }
+        }
       >
         {sideList}
       </Drawer>

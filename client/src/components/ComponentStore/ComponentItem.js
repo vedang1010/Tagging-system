@@ -15,12 +15,12 @@ const ComponentItem = ({ component }) => {
       {component.preview && component.preview[0] && (
         <CardMedia
           component="img"
-          height="140"
           image={component.preview[0]} // Use the first preview image URL
           alt={component.name}
+          style={{height:'180px'}}
         />
       )}
-      <CardContent>
+      <CardContent style={{height:"180px"}}>
         <Typography gutterBottom variant="h5" component="div">
           {component.name}
         </Typography>

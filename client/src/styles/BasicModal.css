@@ -1,0 +1,43 @@
+
+@media (max-width : 900px){
+    .filter-btn{
+      left : 85vw;
+      top : 88vh;
+      z-index: 20;
+    }
+  }
+  @media (max-width : 600px){
+    .filter-btn{
+      left : 80vw;
+      top : 88vh;
+      z-index: 20;
+    }
+  }
+  @media (max-width : 500px){
+    .filter-btn{
+      left : 75vw;
+      top : 88vh;
+      z-index: 20;
+    }
+  }
+  @media (max-width : 430px){
+    .filter-btn{
+      left : 75vw;
+      top : 88vh;
+      z-index: 20;
+    }
+  }
+  @media (max-width : 0px){
+    .filter-btn{
+      left : 75vw;
+      top : 89vh;
+      z-index: 20;
+    }
+  }
+  @media (min-height : 850px){
+    .filter-btn{
+     
+      top : 80vh;
+      z-index: 20;
+    }
+  }

@@ -68,8 +68,9 @@ const SearchBar = forwardRef(({ setShowSearchResults,tags,dept },ref) => {
          
         }}>
           {results.map((result) => (
-            
+            <div style={{width:'21rem'}}>
               <ComponentItem component={result} />
+            </div>
             
           ))}
         </Container>
