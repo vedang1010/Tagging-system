@@ -55,7 +55,7 @@ const userInfoSchema = new Schema({
         required: true, // A => reviewer, B => Consumer
     },
     subgroup: {
-        type: Number, // 1. functional_review, 2. Technical_review, 3. Legal_review
+        type: String, // 1. functional_review, 2. Technical_review, 3. Legal_review
     },
     linkedinProfile: {
         type: String,

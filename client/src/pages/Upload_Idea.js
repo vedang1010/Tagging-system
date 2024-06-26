@@ -126,7 +126,7 @@ setContributorId(user)
                 System Requirements : languages and libraries
               </label>
               <div className="w-8/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getSysRequirements} />
+                <Text_Editor getDescription={getSysRequirements} data={sysRequirements} />
               </div>
             </div>
 
@@ -135,7 +135,7 @@ setContributorId(user)
                 Short Description
               </label>
               <div className="w-8/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getShortDescription} />
+                <Text_Editor getDescription={getShortDescription} data={shortdescription}/>
               </div>
             </div>
             </div>
