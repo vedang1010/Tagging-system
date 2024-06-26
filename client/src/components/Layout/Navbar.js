@@ -22,11 +22,13 @@ function Navbar() {
     socket.on("statusUpdate", (data) => {
       console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
       setnewNotificationsOpen(true)
+      console.log(newNotifications + " snewNotifications")
     });
 
     socket.on('modifyComponent', (data) => {
       console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
       setnewNotificationsOpen(true)
+      console.log(newNotifications + " snewNotifications")
     });
 
     
@@ -54,6 +56,7 @@ function Navbar() {
 
   const handleNotificationsClick = () => {
     navigate('/notifications');
+    setnewNotificationsOpen(false)
   };
 
   const menuId = 'primary-search-account-menu';
