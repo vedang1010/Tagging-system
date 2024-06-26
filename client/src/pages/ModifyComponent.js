@@ -143,7 +143,7 @@ const ModifyComponent = () => {
       if (id) {
         console.log("reached if", id);
         // Update existing component
-        const modify = await axios.put(
+        const modify = await axios.post(
           `${SERVER_URL}api/modify/updateComponent/${id}`,
           formData
         );
