@@ -133,6 +133,7 @@ const ModifyComponent = () => {
                 const modify=await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
                 // console.log("req",modify.data._id)
                 const modifyId=modify.data._id
+                console.log("ud",modifyId)
                 const contributorId=localStorage.getItem('userId')
                 const userData={
                     contributorId,

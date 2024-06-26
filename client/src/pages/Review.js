@@ -8,6 +8,7 @@ import HtmlRenderer from "../utils/HtmlRenderer"
 import { RiArrowGoBackFill } from "react-icons/ri";
 
 
+
 const Review = () => {
   const {objectId, reviewId} = useParams();
   sessionStorage.setItem("location",`/review1/${objectId}/${reviewId}`)
@@ -23,6 +24,8 @@ const Review = () => {
   const [tech, setTech] = useState('false');
   const userEmail = localStorage.getItem('user');
   const [submitted, setSubmitted] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [errors, setErrors] = useState({ rating: '', remarks: '' });
   const navigate = useNavigate();
   try{
     useEffect(() => {
@@ -113,6 +116,20 @@ const Review = () => {
         
       }
 
+      let formIsValid = true;
+    let newErrors = { rating: '', remarks: '' };
+
+    if (rating === 0) {
+      newErrors.rating = 'Rating is required';
+      formIsValid = false;
+    }
+    if (remarks.trim() === '') {
+      newErrors.remarks = 'Remarks are required';
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+
       
 
     } catch (error) {
@@ -121,6 +138,22 @@ const Review = () => {
     }
     
   }
+
+  const handleDownloadAll = (files) => {
+    if (files && files.length > 0) {
+      files.forEach((fileUrl) => {
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.setAttribute('download', '');
+        link.setAttribute('target', '_blank'); // Open in a new tab
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    } else {
+      console.error('No files available for download');
+    }
+  };
   // const ideas = {
   //   name: 'Example Component',
   //   type: 'UI Element',
@@ -172,60 +205,81 @@ const Review = () => {
  
   return (
     <div className={styles.formContainer}>
-      {/* <button onClick={() => navigate(-1)}>go back</button> */}
-      <RiArrowGoBackFill onClick={() => navigate(-1)}/>
-      <h1 className={styles.heading}>Review Idea </h1>
-      {page === 'review' ? (
-        <>
-      <div className={styles.detailsContainer}>
-        <div className={styles.imagePreview}>
-          <img src={ideas.preview} alt="Component Preview" className={styles.image} />
+    <RiArrowGoBackFill onClick={() => navigate(-1)} />
+    <h1 className={styles.heading}>Review Idea</h1>
+    {page === 'review' ? (
+      <>
+        <div className={styles.detailsContainer}>
+          <div className={styles.imagePreview}>
+           
+            <div className={styles.details}>
+              {ideas.name && (
+                <p className={styles.leftText}>
+                  <strong>Component Name:</strong>
+                  <HtmlRenderer htmlString={ideas.name} />
+                </p>
+              )}
+              {ideas.type && (
+                <p className={styles.leftText} id={styles.leftdown}>
+                  <strong>Type:</strong>
+                  <HtmlRenderer htmlString={ideas.type} />
+                </p>
+              )}
+              {ideas.description?.full && (
+                <p className={styles.leftText} id={styles.leftdown}>
+                  <strong>Description:</strong>
+                  <HtmlRenderer htmlString={ideas.description.full} />
+                </p>
+              )}
+            </div>
+          </div>
           <div className={styles.details}>
-          <p className={styles.leftText}><strong>Component Name:</strong> {ideas.name}</p>
-          <p className={styles.leftText} id={styles.leftdown}><strong>Type:</strong> {ideas.type}</p>
-          <p className={styles.leftText} id={styles.leftdown}><strong>Description : </strong> <HtmlRenderer htmlString={ideas.description.full} /></p>
+            <p>
+              <strong>Details:</strong>
+              <ol className={styles.detaillist} style={{ listStyleType: 'upper-roman' }}>
+                {ideas.sys_requirements && (
+                  <li className={styles.detailtext}>
+                    <strong>System Requirements:</strong>
+                    <HtmlRenderer htmlString={ideas.sys_requirements} />
+                  </li>
+                )}
+                {ideas.dependencies && (
+                  <li className={styles.detailtext}>
+                    <strong>Dependencies:</strong>
+                    <HtmlRenderer htmlString={ideas.dependencies} />
+                  </li>
+                )}
+                {ideas.license && (
+                  <li className={styles.detailtext}>
+                    <strong>License:</strong>
+                    <HtmlRenderer htmlString={ideas.license} />
+                  </li>
+                )}
+              </ol>
+            </p>
+            <div className={styles.downloadContainer}>
+            {/* <a href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDownloadAll(ideas.file);
+                        }}
+>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 7L12 14M12 14L15 11M12 14L9 11" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M16 17H12H8" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Download Files
+              </a> */}
+            </div>
           </div>
         </div>
-      <div className={styles.details}>
-          
-          <p>
-            <strong>Details:</strong>
-            <ol className={styles.detaillist}  style={{ listStyleType: "upper-roman" }}>
-              <li className={styles.detailtext}><strong >System Requirements : </strong>{ideas.sys_requirements}</li>
-              <li className={styles.detailtext}><strong>dependencies : </strong>{ideas.dependencies}</li>
-              <li className={styles.detailtext}><strong>license : </strong>{ideas.  license}</li>
-            </ol>
-            
-          
-          </p>
-          {/* <p><strong>Language Used:</strong> {ideas.language}</p> */}
-          <p><strong>Dependencies:</strong> {ideas.dependencies}</p>
-          
-          {/* <p>
-            <strong>Contributors:</strong> 
-            {ideas.contributor.array.map((element, index) => (
-              <span key={index}>{element}{index < ideas.contributor.array.length - 1 ? ', ' : ''}</span>
-            ))}
-        </p> */}
-          {/* <p><strong>Output:</strong> {ideas.output}</p> */}
-          <div className={styles.downloadContainer}>
-            <a href="/path/to/download">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24" fill="none">
-                <path d="M12 7L12 14M12 14L15 11M12 14L9 11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 17H12H8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-              Download Files
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className={styles.buttons}>
+        <div className={styles.buttons}>
           <button type="button" className={styles.cancel} onClick={handleReject}>Reject</button>
           <button type="button" className={styles.next} onClick={handleAccept}>Accept</button>
-          </div>
-        </>
-    ) : (
+        </div>
+      </>
+    ): (
       <div className={styles.card}>
       <div className={styles.cardContent}>
         <h2>{page === 'reject' ? 'Reject Component' : 'Accept Component'}</h2>
@@ -239,6 +293,8 @@ const Review = () => {
             onChange={(e) => setRemarks(e.target.value)}
             className={styles.textarea}
           ></textarea>
+          {hasSubmitted && errors.remarks && <div style={{ color: 'red' }}>{errors.remarks}</div>}
+
           <div className={styles.ratingContainer}>
             <span style={{ fontWeight: 'bold' }}>{tech ? 'Functional Review' : 'Legal Review'}</span>
             <div>
@@ -256,13 +312,13 @@ const Review = () => {
                 </span>
               ))}
             </div>
-            
+            {hasSubmitted && errors.rating && <div style={{ color: 'red' }}>{errors.rating}</div>}
           </div>
-        
-          <div className={styles.buttons}>
+
+         < div className={styles.buttons}>
             <button type="button" className={styles.cancel} onClick={() => setPage('review')}>Go Back</button>
             <button type="submit" className={styles.next} onClick={handleOnClick}>Submit</button>
-        </div>
+            </div>
         </form>
       </div>
     </div>
