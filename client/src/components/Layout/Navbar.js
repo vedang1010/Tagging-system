@@ -17,6 +17,22 @@ function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newNotifications, setnewNotificationsOpen] = useState(false);
   const subgroup = localStorage.getItem("subgroup")
+
+  useEffect(() => {
+    socket.on("statusUpdate", (data) => {
+      console.log(`${socket.id} statusUpdate:`, JSON.stringify(data, null, 2));
+      setnewNotificationsOpen(true)
+    });
+
+    socket.on('modifyComponent', (data) => {
+      console.log(`${socket.id} modifyComponent:`, JSON.stringify(data, null, 8));
+      setnewNotificationsOpen(true)
+    });
+
+    
+  }, [socket]);
+
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };

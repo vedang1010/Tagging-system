@@ -1,4 +1,4 @@
- const { Component } = require('../models/ComponentModel'); // Import Component model
+ const { Component ,Tag} = require('../models/ComponentModel'); // Import Component model
 const { Notifications } = require('../models/Notification');
 const {ModifiedComponent,ModifiedContributor}=require('../models/ModifiedModel')
 const {UserInfo} = require('../models/userInfo');
