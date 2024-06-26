@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Text_Editor from "../utils/Text_Editor";
 import axios from "axios";
 import Swal from "sweetalert2";
+import SystemRequirements from '../components/componentCards/components/SystemRequirements';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Upload_Idea() {
@@ -126,7 +127,7 @@ setContributorId(user)
                 System Requirements : languages and libraries
               </label>
               <div className="w-8/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getSysRequirements} data={sysRequirements} />
+                <Text_Editor getDescription={getSysRequirements} data={sysRequirements}/>
               </div>
             </div>
 
