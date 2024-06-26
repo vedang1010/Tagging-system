@@ -41,6 +41,7 @@ const Login = ({ onLogin }) => {
       const url = `${SERVER_URL}api/review/fetchUserInfo/${id}`;
       const response = await axios.get(url);
       console.log(response.data);
+      localStorage.setItem("subgroup", response.data.subgroup)
       // console.log("Profile user:", response.data[0].name);
       return response.data; // Assuming response.data contains a user object with an 'email' field
     } catch (error) {

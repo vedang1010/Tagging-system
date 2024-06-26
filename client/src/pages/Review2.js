@@ -90,7 +90,7 @@ const Review2 = () => {
       try {
         const response = await axios.get(`${SERVER_URL}api/review/fetchUserInfo/${userEmail}`);
         const data = response.data;
-        setTech(data.subgroup === 2);
+        setTech(data.subgroup === 'technical');
       } catch (error) {
         console.error("Error fetching user info:", error);
       }
@@ -141,6 +141,7 @@ const Review2 = () => {
   };
 
   const handleAccept = () => {
+    console.log("info",ideas)
     setPage('ratings');
     setStatus('Accepted');
   };

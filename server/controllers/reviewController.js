@@ -296,9 +296,9 @@ const updateStatus2 = async(req, res) => {
         if (!component) {
             return res.status(404).json({ error: 'Component not found' });
         }
-        else if(reviewComponent.status_tech=='accepted' && reviewComponent.status_legal=='accepted') component.status2 = 'accepted';
+        else if(reviewComponent.status_tech=='Accepted' && reviewComponent.status_legal=='Accepted') component.status2 = 'Accepted';
         else if(reviewComponent.status_tech=='Pending' || reviewComponent.status_legal=='Pending') component.status2 = 'Pending';
-        else component.status2 = 'rejected';
+        else component.status2 = 'Rejected';
 
         const desc = `${component.name} Component has been ${status} by ${isTech ? 'Technical Review Team' : 'Legal Review Team'}`
 

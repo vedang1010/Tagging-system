@@ -16,14 +16,15 @@ const updateComponent = async (req, res) => {
         })
         newContributor.save()
 
-        //eturn the updated component
+        //zReturn the updated component
             const component = await Component.findById(componentId).populate("contributors.id");
             const contributorsInfo = component.contributors.map(contributor => contributor.id);
-            const emailList = contributorsInfo[0].email
+            const length = contributorsInfo.length;
+            const emailList = contributorsInfo[length-1].email
             console.log("email "+emailList);
 
         // Send notification to the contributors
-            const desc =`${component.name} has been modified by ${emailListt}`;
+            const desc =`${component.name} has been modified by ${emailList}`;
             const notification = new Notifications({
                 id: componentId,
                 desc,

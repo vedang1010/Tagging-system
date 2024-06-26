@@ -210,51 +210,38 @@ const Review = () => {
     {page === 'review' ? (
       <>
         <div className={styles.detailsContainer}>
-          <div className={styles.imagePreview}>
-           
+         
             <div className={styles.details}>
-              {ideas.name && (
-                <p className={styles.leftText}>
-                  <strong>Component Name:</strong>
-                  <HtmlRenderer htmlString={ideas.name} />
-                </p>
-              )}
-              {ideas.type && (
-                <p className={styles.leftText} id={styles.leftdown}>
-                  <strong>Type:</strong>
-                  <HtmlRenderer htmlString={ideas.type} />
-                </p>
-              )}
-              {ideas.description?.full && (
-                <p className={styles.leftText} id={styles.leftdown}>
-                  <strong>Description:</strong>
-                  <HtmlRenderer htmlString={ideas.description.full} />
-                </p>
-              )}
+              <p className={styles.leftText}>
+                <strong>Component Name:</strong>
+                {ideas.name ? <HtmlRenderer htmlString={ideas.name} /> : 'None'}
+              </p>
+              <p className={styles.leftText} id={styles.leftdown}>
+                <strong>Type:</strong>
+                {ideas.type ? <HtmlRenderer htmlString={ideas.type} /> : 'None'}
+              </p>
+              <p className={styles.leftText} id={styles.leftdown}>
+                <strong>Description:</strong>
+                {ideas.description?.full ? <HtmlRenderer htmlString={ideas.description.full} /> : 'None'}
+              </p>
             </div>
-          </div>
+          
           <div className={styles.details}>
             <p>
               <strong>Details:</strong>
               <ol className={styles.detaillist} style={{ listStyleType: 'upper-roman' }}>
-                {ideas.sys_requirements && (
-                  <li className={styles.detailtext}>
-                    <strong>System Requirements:</strong>
-                    <HtmlRenderer htmlString={ideas.sys_requirements} />
-                  </li>
-                )}
-                {ideas.dependencies && (
-                  <li className={styles.detailtext}>
-                    <strong>Dependencies:</strong>
-                    <HtmlRenderer htmlString={ideas.dependencies} />
-                  </li>
-                )}
-                {ideas.license && (
-                  <li className={styles.detailtext}>
-                    <strong>License:</strong>
-                    <HtmlRenderer htmlString={ideas.license} />
-                  </li>
-                )}
+                <li className={styles.detailtext}>
+                  <strong>System Requirements:</strong>
+                  {ideas.sys_requirements ? <HtmlRenderer htmlString={ideas.sys_requirements} /> : 'None'}
+                </li>
+                <li className={styles.detailtext}>
+                  <strong>Dependencies:</strong>
+                  {ideas.dependencies ? <HtmlRenderer htmlString={ideas.dependencies} /> : 'None'}
+                </li>
+                <li className={styles.detailtext}>
+                  <strong>License:</strong>
+                  {ideas.license ? <HtmlRenderer htmlString={ideas.license} /> : 'None'}
+                </li>
               </ol>
             </p>
             <div className={styles.downloadContainer}>
