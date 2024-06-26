@@ -43,7 +43,7 @@ function App() {
       <Router>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
-          <Navbar />
+          {isAuthenticated && <Navbar />}
           <Grid container spacing={0} className='outer-grid' sx={{
 
             '@media (max-width:900px)': {

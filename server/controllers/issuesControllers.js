@@ -1,5 +1,5 @@
 //Issue (issue_id, component_id, description, reporter_id, date, resolver_id, status)
-const Issue = require('../models/IssueModel');
+const {Issue} = require('../models/IssueModel');
 const { Component } = require('../models/ComponentModel');
 
 const raiseIssue = (req, res) => {
