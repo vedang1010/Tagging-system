@@ -11,6 +11,8 @@ const NotificationsPage = () => {
   const [error, setError] = useState(null);
   const userEmail = localStorage.getItem('user');
 
+  const subgroup = localStorage.getItem('subgroup');
+  console.log("subgroup "+ subgroup)
   const fetchNotifications = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5000/api/notification/notifications');
@@ -53,7 +55,7 @@ const NotificationsPage = () => {
   }
 
   const filteredNotifications = notifications.filter(notification => {
-    return !notification.email || notification.email.includes(userEmail);
+    return !notification.email || notification.email.includes(userEmail) || subgroup=='technical' || subgroup=='legal' || subgroup=='functional';
   });
 
   return (

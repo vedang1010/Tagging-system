@@ -235,7 +235,7 @@ const updateStatus1 = async(req, res) => {
         console.log("contributors" +contributorsInfo); 
         const email = contributorsInfo[0].email
         const socketId = getUser(email);
-        console.log(socketId);
+        console.log(socketId + "socketId" + " " + email);
         const desc = `${component.name} idea has been ${reviewIdea.status} by Functional review Team`;
 
         const notification = new Notifications({
