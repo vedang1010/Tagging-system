@@ -121,7 +121,7 @@ function Navbar() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{ backgroundColor: '#0a1324' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#0a1324', zIndex:1300 }}>
         <Toolbar>
           {isSmallScreen && (
             <IconButton
@@ -162,7 +162,7 @@ function Navbar() {
         open={isSmallScreen ? drawerOpen : true}
         onClose={toggleDrawer()}
         sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box' ,zIndex: 100},
+          '& .MuiDrawer-paper': { boxSizing: 'border-box'},
           '@media (min-width: 900px)':{
             '& .MuiDrawer-paper':{
               width: '15%',
