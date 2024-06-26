@@ -38,80 +38,78 @@ const tagsComponentSchema = new Schema({
 // Define the Component schema
 const componentSchema = new Schema({
     name: {
-        type: String,
-        // required: true
+      type: String,
+      default: "", // Default value for name
     },
     idea: {
-        type: String,
-        // required: true
+      type: String,
+      default: "", // Default value for idea
     },
     taglist: [{
-        type: String,
+      type: String,
+      default: "", // Default value for each tag
     }],
-    contributors: [contributorSchema],
+    contributors: [contributorSchema], // Assuming contributorSchema has its own defaults
     type: {
-        type: String,
-        // required: true
+      type: String,
+      default: "", // Default value for type
     },
     frequency: {
-        type: Number,
-        default:0,
+      type: Number,
+      default: 0, // Default value for frequency
     },
     stars: {
-        type: Number,
-        default:0,
+      type: Number,
+      default: 0, // Default value for stars
     },
     likes: {
-        type: Number,
-        default:0,
+      type: Number,
+      default: 0, // Default value for likes
     },
     description: {
-        short: {
-            
-            type: String,
-            default:"",
-            // required: true
-        },
-        full: {
-            type: String,
-            default:"",
-            // required: true
-        }
+      short: {
+        type: String,
+        default: "", // Default value for short description
+      },
+      full: {
+        type: String,
+        default: "", // Default value for full description
+      }
     },
     sys_requirements: {
-        type: String,
-        // required: true
+      type: String,
+      default: "", // Default value for system requirements
     },
     license: {
-        type: String,
-        default: "Siemens",
-        // required: true
+      type: String,
+      default: "Siemens", // Default value for license
     },
     haveIssues: {
-        type: Boolean,
-        // required: true,
-        default: "false",
+      type: Boolean,
+      default: false, // Default value for haveIssues
     },
     status1: {
-        type: String,
-        // required: true,
-        default: "Pending"
+      type: String,
+      default: "Pending", // Default value for status1
     },
     status2: {
-        type: String,
-        // required: true,
-        default: "Pending"
+      type: String,
+      default: "Pending", // Default value for status2
     },
     preview: [{
-        type: String,
+      type: String,
+      default: "", // Default value for each preview URL
     }],
     file: [{
-        type: String,
+      type: String,
+      default: "", // Default value for each file URL
     }],
     __v: {
-        type: Number,
+      type: Number,
+      default: 0, // Default value for __v
     }
-});
+  });
+  
 
 // Define the Tag schema
 const tagSchema = new Schema({

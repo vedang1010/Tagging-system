@@ -17,18 +17,19 @@ const Screenshots = (component) => {
     <section className="">
       <h2>Screenshots Preview</h2>
       <div>
-        <div className="flex flex-wrap g-5 m-5">
-          {component.component.preview.map((imgurl, index) => (
-            <>
-              <img
-                key={index}
-                className="h-40 w-40 m-4"
-                src={imgurl}
-                alt={`Preview ${index}`}
-                onClick={() => {
-                  openModal(imgurl);
-                }}
-              ></img>
+      <div className="flex flex-wrap g-5 m-5">
+  {component.component.preview.map((imgurl, index) => (
+    // Use conditional rendering to skip the first image
+    index !== 0 && (
+      <React.Fragment key={index}>
+        <img
+          className="h-40 w-40 m-4"
+          src={imgurl}
+          alt={`Preview ${index}`}
+          onClick={() => {
+            openModal(imgurl);
+          }}
+        />
 
               <div className="z-100">
                 {modalVisibile && (
