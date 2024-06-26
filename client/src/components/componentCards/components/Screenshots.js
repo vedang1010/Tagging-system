@@ -17,41 +17,42 @@ const Screenshots = (component) => {
     <section className="">
       <h2>Screenshots Preview</h2>
       <div>
-      <div className="flex flex-wrap g-5 m-5">
-  {component.component.preview.map((imgurl, index) => (
-    // Use conditional rendering to skip the first image
-    index !== 0 && (
-      <React.Fragment key={index}>
-        <img
-          className="h-40 w-40 m-4"
-          src={imgurl}
-          alt={`Preview ${index}`}
-          onClick={() => {
-            openModal(imgurl);
-          }}
-        />
+        <div className="flex flex-wrap g-5 m-5">
+          {component.component.preview.map((imgurl, index) => (
+            // Use conditional rendering to skip the first image
+            index !== 0 && (
+              <React.Fragment key={index}>
+                <img
+                  className="h-40 w-40 m-4"
+                  src={imgurl}
+                  alt={`Preview ${index}`}
+                  onClick={() => {
+                    openModal(imgurl);
+                  }}
+                />
 
-              <div className="z-100">
-                {modalVisibile && (
-                  <>
-                    <span
-                      className="mt-10 fixed top-10 right-5 text-black text-5xl cursor-pointer"
-                      onClick={closeModal}
-                    >
-                      &times;
-                    </span>
-                    <div className="fixed h-auto w-auto inset-14  mt-10 bg-black z-100 bg-opacity-40 flex items-center justify-center " style={{zIndex:1301}}>
-                      <img
-                        className="block"
-                        src={image}
-                        alt="Modal content"
+                <div className="z-100">
+                  {modalVisibile && (
+                    <>
+                      <span
+                        className="mt-10 fixed top-10 right-5 text-black text-5xl cursor-pointer"
                         onClick={closeModal}
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            </>
+                      >
+                        &times;
+                      </span>
+                      <div className="fixed h-auto w-auto inset-14  mt-10 bg-black z-100 bg-opacity-40 flex items-center justify-center " style={{ zIndex: 1301 }}>
+                        <img
+                          className="block"
+                          src={image}
+                          alt="Modal content"
+                          onClick={closeModal}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </React.Fragment>
+            )
           ))}
         </div>
       </div>
