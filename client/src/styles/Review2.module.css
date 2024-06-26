@@ -1,0 +1,271 @@
+.formContainer {
+    max-width: 100%;
+    /* padding-left: 1vw; */
+    background-color: #ffffff;
+    /* //max-height: 1750px; */
+    max-height: 100vh; /* Adjusted to be viewport height */
+    overflow-y: auto; /* Added to handle overflow */
+  }
+  
+  .heading {
+    text-align: center;
+    color: #333; 
+    font-weight: bold;
+    margin-bottom: 2vh;
+  }
+  
+  .detailsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .detailsContainer .details {
+    flex: 1;
+    padding-left: 3vw;
+  }
+  
+  .detailsContainer p {
+    font-size: 1.1em;
+    margin: 1.7vh 0;
+    padding-top: 30px;
+  }
+  
+  .imagePreview {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .imagePreview img {
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  }
+  
+  .ratingContainer {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: right;
+  }
+  
+  .cancel,
+  .next,
+  .button1 {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+  }
+  
+  .cancel {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .cancel:hover {
+    background-color: #d32f2f;
+  }
+  
+  .next {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .next:hover {
+    background-color: #388e3c;
+  }
+  
+  .button1 {
+    background-color: #2196f3;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .button1:hover {
+    background-color: #1976d2;
+  }
+  
+  .leftText {
+    text-align: left;
+    padding-top: 60px;
+  }
+  
+  #leftdown {
+    padding-top: 20px;
+  }
+  
+  .downloadContainer {
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+  }
+  
+  .downloadContainer a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000000;
+  }
+  
+  .downloadContainer svg {
+    margin-right: 5px;
+  }
+  
+  .detaillist {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .detailtext {
+    padding: 20px;
+  }
+  
+  .tagsContainer {
+    display: inline;
+  }
+  
+  .tag {
+    display: inline;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.9em;
+    margin-right: 4px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  /* 
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  } */
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .detailsContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .detailsContainer .details {
+      padding-left: 0;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .imagePreview {
+      margin-left: 0;
+    }
+  
+    .buttons {
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .detailsContainer p {
+      font-size: 1em;
+    }
+  
+    .cancel,
+    .next,
+    .button1 {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  
+    .detailsContainer {
+      margin-bottom: 10px;
+    }
+  
+    .card {
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-height: 800px) {
+    .formContainer {
+      max-height: 100%;
+      overflow-y: auto;
+    }
+  
+    .imagePreview img {
+      max-height: 300px;
+    }
+  
+    .detailsContainer p {
+      padding-top: 10px;
+    }
+  
+    .leftText {
+      padding-top: 30px;
+    }
+  
+    #leftdown {
+      padding-top: 10px;
+    }
+  }
+  
+  @media (max-height: 600px) {
+    .formContainer {
+      max-height: 100%;
+      overflow-y: auto;
+    }
+  
+    .imagePreview img {
+      max-height: 150px;
+    }
+  
+    .detailsContainer p {
+      padding-top: 5px;
+    }
+  
+    .leftText {
+      padding-top: 15px;
+    }
+  
+    #leftdown {
+      padding-top: 5px;
+    }
+  }

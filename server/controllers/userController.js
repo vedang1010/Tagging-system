@@ -62,7 +62,7 @@ const insertDummyUser = async (req, res) => {
     try {
         const data = [
             {
-                email: "john.doe@example.com",
+                email: "techreview@gmail.com",
                 name: "John Doe",
                 imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
                 about: "This is my about",
@@ -70,7 +70,7 @@ const insertDummyUser = async (req, res) => {
                 points: 120,
                 dept: "Engineering",
                 group: "A",
-                subgroup: 1,
+                subgroup: "technical",
                 linkedinProfile: "https://www.linkedin.com/in/johndoe",
                 yearsOfExperience: 5,
                 skills: ["JavaScript", "React", "Node.js"],
@@ -98,7 +98,80 @@ const insertDummyUser = async (req, res) => {
                 ]
             },
             {
-                email: "test@gmail.com",
+                email: "legalreview@gmail.com",
+                name: "Emily Johnson",
+                imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about: "This is my about",
+                designation: "Legal Counsel",
+                points: 180,
+                dept: "Legal",
+                group: "B",
+                subgroup: "legal",
+                linkedinProfile: "https://www.linkedin.com/in/emilyjohnson",
+                yearsOfExperience: 7,
+                skills: ["Contract Law", "Intellectual Property", "Legal Compliance"],
+                location: "Washington D.C., USA",
+                ideasAccepted: 4,
+                ideasProposed: 12,
+                componentsAccepted: 6,
+                componentsProposed: 9,
+                experience: [
+                    {
+                        title: "Legal Counsel",
+                        company: "Law & Co.",
+                        period: "Jan 2019 - Present",
+                        duration: "3 years"
+                    },
+                    {
+                        title: "Associate Lawyer",
+                        company: "Legal Solutions Ltd.",
+                        period: "Jan 2016 - Dec 2018",
+                        duration: "3 years"
+                    }
+                ],
+                contributions: [
+                    '6668258265a68659390b87cf',
+                    '666853df5a37c0dfb0acdc2e'
+                ]
+            },
+            {
+                email: "functionalreview@gmail.com",
+                name: "Michael Brown",
+                imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
+                about: "This is my about",
+                designation: "Business Analyst",
+                points: 150,
+                dept: "Operations",
+                group: "C",
+                subgroup: "functional",
+                linkedinProfile: "https://www.linkedin.com/in/michaelbrown",
+                yearsOfExperience: 6,
+                skills: ["Business Analysis", "Process Improvement", "Data Analysis"],
+                location: "Chicago, USA",
+                ideasAccepted: 3,
+                ideasProposed: 8,
+                componentsAccepted: 4,
+                componentsProposed: 7,
+                experience: [
+                    {
+                        title: "Business Analyst",
+                        company: "Biz Solutions Inc.",
+                        period: "Feb 2018 - Present",
+                        duration: "4 years"
+                    },
+                    {
+                        title: "Operations Analyst",
+                        company: "OpEx Ltd.",
+                        period: "Jan 2014 - Jan 2018",
+                        duration: "4 years"
+                    }
+                ],
+                contributions: [
+                    '666853df5a37c0dfb0acdc2f'
+                ]
+            },
+            {
+                email: "testuser@gmail.com",
                 name: "Jane Smith",
                 imageUrl: "https://www.punestartupfest.in/images/navbarAndFooter/PSF24%20White.webp",
                 about: "This is my about",
@@ -106,7 +179,7 @@ const insertDummyUser = async (req, res) => {
                 points: 200,
                 dept: "Product",
                 group: "B",
-                subgroup: 2,
+                subgroup: "user",
                 linkedinProfile: "https://www.linkedin.com/in/janesmith",
                 yearsOfExperience: 8,
                 skills: ["Product Management", "Agile", "Scrum"],
@@ -136,7 +209,8 @@ const insertDummyUser = async (req, res) => {
                 ]
             }
         ];
-
+        
+console.log(data)
         const result = await UserInfo.insertMany(data);
         res.status(201).json(result);
     } catch (error) {

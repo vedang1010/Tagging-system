@@ -131,7 +131,7 @@ const ModifyComponent = () => {
       if (id) {
         console.log("reached if", id)
         // Update existing component
-        const modify = await axios.put(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
+        const modify = await axios.post(`${SERVER_URL}api/modify/updateComponent/${id}`, formData);
         // console.log("req",modify.data._id)
         const modifyId = modify.data._id
         const contributorId = localStorage.getItem('userId')
