@@ -69,7 +69,7 @@ function RaiseIssue() {
                 Description about your issue
               </label>
               <div className="w-10/12 mx-auto text-black bg-zinc-200">
-                <Text_Editor getDescription={getIssueDescription} />
+                <Text_Editor getDescription={getIssueDescription} data={description} />
               </div>
             </div>
           </div>
