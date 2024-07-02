@@ -200,6 +200,7 @@ const ModifyComponent = () => {
                 placeholder="Component Name"
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
+                required
               />
             </div>
 
@@ -395,6 +396,7 @@ const ModifyComponent = () => {
             <div>
               <button
                 className="px-6 py-4 text-2xl leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
+                type="submit"
                 onClick={handleUpload}
               >
                 Upload Your Component
