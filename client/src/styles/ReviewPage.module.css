@@ -1,183 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* ReviewPage.module.css */
 
 .ReviewPage {
-  padding-left: 40px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.list{
   display: flex;
-  flex-direction: column;
-
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
 }
-/*.list {
+
+.list {
   list-style-type: none;
   padding: 0;
-  /* display: flex;
-  flex-direction: row; 
-  align-items: center;
-  /* width: 100%; 
-}*/
-
-.Ideas {
+  margin: 0;
   width: 100%;
-  margin-bottom: 20px;
-  height: 150px;
-  
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.ComponentPreview{
-  display: flex;
-  flex-direction: row;
-  gap:10px;
-  height: 120px;
-  width:700px;
-  /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out;
-  justify-content: space-around; */
+.Ideas {
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  border: 1px solid #fffefe;
+  justify-content: space-between;
   border-radius: 8px;
-  /* overflow: hidden;
-  width: 100%;
-  height: 150px; */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 20px;
+  min-height: 280px; /* Ensure all cards have a minimum height */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ComponentPreview {
   text-decoration: none;
-}
-
-
-.leftSection .mainTitle {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.leftSection .smallText {
-  font-size: 14px;
-  font-weight: 400;
-} 
-
-.leftSection {
-  
-  background-color: #2d2d6d;
-  color: white;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40%; 
-  border: 1px solid #2d2d6d;
-  border-radius:13px 0 0 13px;
-  /* width : 144px, */
-} 
-
-.rightSection {
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  width: 60%; /* Adjust the width as needed */
-  height: 100%;
-  border: 1px solid #ffffff;
-  border-radius:13px 13px 13px 0;
-}
-
-
-.leftSection .mainTitle {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.leftSection .smallText {
-  font-size: 14px;
-  font-weight: 400;
-}
-/* 
-.rightSection {
-  background-color: #ffffff;
+  color: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  width: 60%;
+  justify-content: space-between;
   height: 100%;
-} */
-
-.rightSection .subtitle {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.rightSection .smallText {
-  font-size: 14px;
-  font-weight: 400;
+  /* height: 280px; */
 }
 
 .cardContent {
+  display: flex;
+  flex-direction: column;
+ /* height: 100%;*/
+}
+
+.mainTitle {
+  font-size: 38px; /* Increase the font size */
+  font-weight: bold; /* Make the font extra bold */
+  color: #333;
+  margin-bottom: 20px; /* Increase the margin */
+  height: 40%;
+}
+
+.subtitle {
+  font-size: 15px; /* Increase the font size */
+  font-weight: 600; /* Add more weight to the subtitle */
+  color: #666;
+  margin-top: 2vh;
+  margin-bottom: 10px;
+  /* height: 360px */
+  padding-top: 80px;
+}
+
+.loading,
+.error {
+  font-size: 18px;
+  color: #666;
   text-align: center;
+  margin-top: 50px;
 }
-
-.continueButton {
-  background-color: #2d2d6d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.continueButton:hover {
-  background-color: #1a1a4f;
-}
-/* 
-.cardContent {
-  text-align: center;
-}
-
-.continueButton {
-  background-color: #2d2d6d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
-} */
-/* 
-.continueButton:hover {
-  background-color: #1a1a4f;
-} */
 
 @media (max-width: 1200px) {
-  .card {
-    width: 100%;
-    height: 150px;
+  .Ideas {
+    flex: 1 1 calc(50% - 20px);
   }
-}
 
-@media (max-width: 992px) {
-  .card {
-    width: 100%;
-    height: 150px;
+  .mainTitle {
+    font-size: 32px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 14px; /* Adjust font size for smaller screens */
   }
 }
 
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
-    height: 150px;
+  .Ideas {
+    flex: 1 1 calc(50% - 20px);
+  }
+
+  .mainTitle {
+    font-size: 28px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 13px; /* Adjust font size for smaller screens */
   }
 }
 
-@media (max-width: 576px) {
-  .card {
-    width: 100%;
-    height: 150px;
+@media (max-width: 480px) {
+  .Ideas {
+    flex: 1 1 calc(100% - 20px);
+  }
+
+  .mainTitle {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 12px; /* Adjust font size for smaller screens */
   }
 }
