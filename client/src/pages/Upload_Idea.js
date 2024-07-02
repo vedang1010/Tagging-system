@@ -6,7 +6,7 @@ import SystemRequirements from '../components/componentCards/components/SystemRe
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Upload_Idea() {
-  sessionStorage.setItem("location","/uploadidea")
+  sessionStorage.setItem("location", "/uploadidea");
 
   const [ideaName, setIdeaName] = useState("");
   const [domain, setDomain] = useState("");
@@ -20,16 +20,25 @@ function Upload_Idea() {
   const getShortDescription = (description) => {
     setShortDescription(description);
   };
-useEffect(()=>{
-  const user=localStorage.getItem("userId")
 
-setContributorId(user)
-},[])
+  useEffect(() => {
+    const user = localStorage.getItem("userId");
+    setContributorId(user);
+  }, []);
 
-  //upload the idea
+  // Upload the idea
   const handleUpload = async (e) => {
     e.preventDefault();
 
+    // Check for empty required fields
+    if (!ideaName || !domain || !shortdescription || !sysRequirements) {
+      Swal.fire({
+        title: "Missing Fields",
+        text: "Please fill in all required fields",
+        icon: "error",
+      });
+      return;
+    }
 
     // Collect all data
     const formData = {
@@ -39,31 +48,30 @@ setContributorId(user)
       shortdescription,
       contributorId,
     };
-    // Log collected data (for debugging)
-    // console.log("Form Data: ", formData);
+
     try {
       const response = await axios.post(
         `${SERVER_URL}api/upload/uploadIdea`,
         formData
       );
-      const componentId=response.data.newEntity._id
-      const userData={
+      const componentId = response.data.newEntity._id;
+      const userData = {
         contributorId,
         componentId,
-      }
-      console.log(componentId)
+      };
+      console.log(componentId);
       const response2 = await axios.put(
         `${SERVER_URL}api/userinfo/updateUserContributions`,
         userData
       );
-      console.log("user status",response2)
+      console.log("user status", response2);
 
-      //Send to Review Idea
-      const reviewResponse= await axios.post(
+      // Send to Review Idea
+      const reviewResponse = await axios.post(
         `${SERVER_URL}api/upload/sendToReviewIdea`,
         userData
       );
-      console.log(reviewResponse)
+      console.log(reviewResponse);
       Swal.fire({
         title: "Upload Successful",
         text: "Your idea has been uploaded successfully",
@@ -82,13 +90,13 @@ setContributorId(user)
 
   return (
     <>
-      <section className="text-lg w-10/12 p-6 mx-auto  bg-black rounded-lg shadow-md mt-20 mb-20">
+      <section className="text-lg w-10/12 p-6 mx-auto bg-black rounded-lg shadow-md mt-20 mb-20">
         <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
           Upload Your Idea
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-3 mt-2 sm:grid-cols-1">
-          <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center">
               <label className="text-white text-xl" htmlFor="idea-name">
                 Idea Name
               </label>
@@ -97,15 +105,16 @@ setContributorId(user)
                 name="idea-name"
                 type="text"
                 className="block w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
-                placeholder="idea Name"
+                placeholder="Idea Name"
                 value={ideaName}
                 onChange={(e) => setIdeaName(e.target.value)}
+                required
               />
             </div>
 
             <div className="flex mt-7 flex-col items-center">
               <label className="text-white" htmlFor="select">
-                Select idea Domain
+                Select Idea Domain
               </label>
               <select
                 id="select"
@@ -113,39 +122,40 @@ setContributorId(user)
                 className="block w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
+                required
               >
-                <option>Other</option>
-                <option>DTS</option>
-                <option>LM</option>
-                <option>SB</option>
+                <option value="">Select Domain</option>
+                <option value="Other">Other</option>
+                <option value="DTS">DTS</option>
+                <option value="LM">LM</option>
+                <option value="SB">SB</option>
               </select>
             </div>
 
             <div>
-            <div className="flex  mt-7 flex-col items-center">
-              <label className="text-white" htmlFor="textarea">
-                System Requirements : languages and libraries
-              </label>
-              <div className="w-8/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getSysRequirements} data={sysRequirements}/>
+              <div className="flex mt-7 flex-col items-center">
+                <label className="text-white" htmlFor="textarea">
+                  System Requirements: languages and libraries
+                </label>
+                <div className="w-8/12 mx-auto text-black bg-white">
+                  <Text_Editor getDescription={getSysRequirements} data={sysRequirements} />
+                </div>
               </div>
-            </div>
 
-            <div className="flex mt-7 flex-col items-center">
-              <label className="text-white" htmlFor="textarea">
-                Short Description
-              </label>
-              <div className="w-8/12 mx-auto text-black bg-white ">
-                <Text_Editor getDescription={getShortDescription} data={shortdescription}/>
+              <div className="flex mt-7 flex-col items-center">
+                <label className="text-white" htmlFor="textarea">
+                  Short Description
+                </label>
+                <div className="w-8/12 mx-auto text-black bg-white">
+                  <Text_Editor getDescription={getShortDescription} data={shortdescription} />
+                </div>
               </div>
             </div>
-            </div>
-            
           </div>
 
           <div className="flex justify-center mt-10">
             <button
-              className="px-6 py-4 text-2xl leading-5 mb-5  text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
+              className="px-6 py-4 text-2xl leading-5 mb-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-950 focus:outline-none focus:bg-gray-600"
               onClick={handleUpload}
             >
               Upload Your Idea
