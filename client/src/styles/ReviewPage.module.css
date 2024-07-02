@@ -34,7 +34,7 @@
   background-color: #ffffff;
   transition: transform 0.3s, box-shadow 0.3s;
   padding: 20px;
-  min-height: 250px; /* Ensure all cards have a minimum height */
+  min-height: 280px; /* Ensure all cards have a minimum height */
 }
 
 .card:hover {
@@ -49,33 +49,31 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  /* height: 280px; */
 }
 
 .cardContent {
   display: flex;
   flex-direction: column;
-  height: 100%;
+ /* height: 100%;*/
 }
 
 .mainTitle {
-  font-size: 32px; /* Increase the font size */
-  font-weight: 800; /* Make the font extra bold */
+  font-size: 38px; /* Increase the font size */
+  font-weight: bold; /* Make the font extra bold */
   color: #333;
   margin-bottom: 20px; /* Increase the margin */
+  height: 40%;
 }
 
 .subtitle {
-  font-size: 20px; /* Increase the font size */
+  font-size: 15px; /* Increase the font size */
   font-weight: 600; /* Add more weight to the subtitle */
   color: #666;
-  margin-top: auto;
+  margin-top: 2vh;
   margin-bottom: 10px;
-}
-
-.description {
-  font-size: 18px; /* Increase font size */
-  color: #666;
-  margin-top: 10px; /* Add margin for spacing */
+  /* height: 360px */
+  padding-top: 80px;
 }
 
 .loading,
@@ -86,14 +84,44 @@
   margin-top: 50px;
 }
 
+@media (max-width: 1200px) {
+  .Ideas {
+    flex: 1 1 calc(50% - 20px);
+  }
+
+  .mainTitle {
+    font-size: 32px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
 @media (max-width: 768px) {
   .Ideas {
     flex: 1 1 calc(50% - 20px);
+  }
+
+  .mainTitle {
+    font-size: 28px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 13px; /* Adjust font size for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .Ideas {
     flex: 1 1 calc(100% - 20px);
+  }
+
+  .mainTitle {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+
+  .subtitle {
+    font-size: 12px; /* Adjust font size for smaller screens */
   }
 }

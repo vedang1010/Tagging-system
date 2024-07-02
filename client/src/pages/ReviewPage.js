@@ -79,19 +79,19 @@ return (
         <li key={component._id} className={styles.Ideas}>
           <div className={styles.card}>
             <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
-              <div className={styles.leftSection}>
+              
                 <div className={styles.cardContent}>
-                  <div className="mainTitle">{component.name}</div>
-                  <div className="mainTitle">{component.short_desc}</div>
-                </div>
-              </div>
-              <div className={styles.rightSection}>
-                <div className={styles.cardContent}>
-                  <div className="subtitle">
-                    <HtmlRenderer htmlString={component.short_desc != null ? component.short_desc : " "} />
+                  <div className="mainTitle" style = {{fontWeight:"bold", fontSize:"20px"}}>{component.name}</div>
+                  <div className="subtitle" style={{paddingTop:"30px"}} >
+                    <HtmlRenderer htmlString={component.short_desc != null ? component.short_desc : "Hello "} />
                   </div>
                 </div>
-              </div>
+              
+              
+                <div className={styles.cardContent}>
+                 
+                </div>
+             
             </Link>
           </div>
         </li>
