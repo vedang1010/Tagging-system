@@ -175,7 +175,7 @@ function Navbar() {
             </IconButton>
           )}
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            Navbar
+            Tagging System
           </Typography>
           <IconButton color="inherit" onClick={handleNotificationsClick}>
             {newNotifications ? (
