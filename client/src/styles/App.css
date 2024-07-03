@@ -44,8 +44,9 @@
     margin-top: 70px;
     justify-content: center;
     background-image: url("../assests/images/homeBg.jpg");
-    background-size: cover;
+    background-size: auto 60vw;
     background-position: center;
+    background-repeat: repeat;
   }
   
   @media (max-width: 900px) {
@@ -54,7 +55,3 @@
     }
   }
 
-
-.most-outer-box{
-  
-}
