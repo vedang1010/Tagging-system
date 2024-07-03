@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Text_Editor from "../utils/Text_Editor";
 import axios from "axios";
 import Swal from "sweetalert2";
+import sanitizeInput from "../utils/SanitizeInput";
 import SystemRequirements from "../components/componentCards/components/SystemRequirements";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
