@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import SearchBar from "./SearchBar";
-
+import React from 'react';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

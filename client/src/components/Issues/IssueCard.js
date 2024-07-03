@@ -1,6 +1,7 @@
 import {Card,Button} from '@mui/material';
 import './IssueCard.css'
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 const IssueCard = ({issue}) =>{
     console.log(issue);
