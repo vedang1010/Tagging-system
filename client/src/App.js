@@ -31,9 +31,12 @@ import CurrentIssues from "./components/Issues/CurrentIssues";
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const auth_flag = sessionStorage.getItem('isLogin') ? sessionStorage.getItem('isLogin') : false;
+  const [isAuthenticated, setIsAuthenticated] = useState(auth_flag);
   const [isLoginView, setIsLoginView] = useState(true);
-
+  console.log('in app');
+  // setTimeout(50000);
+  console.log(isAuthenticated);
   const toggleView = () => {
     setIsLoginView(!isLoginView);
   };

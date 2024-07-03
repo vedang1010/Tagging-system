@@ -53,7 +53,7 @@ const Login = ({ onLogin }) => {
     try {
       const response = await axios.post(`${SERVER_URL}api/user/login`, { email, password });
       const { token, email: userEmail } = response.data;
-
+      sessionStorage.setItem('isLogin',true);
       localStorage.setItem('token', token);
       localStorage.setItem('user', userEmail);
       const response2=await getUserInfo(userEmail)
