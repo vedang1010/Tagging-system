@@ -37,7 +37,7 @@ body {
 }
 
 .advertisers-service-sec span {
-  color: rgb(255, 23, 131);
+  color: #0dcaf0;
 }
 
 .advertisers-service-sec .col {
@@ -63,7 +63,7 @@ body {
   content: "";
   width: 100%;
   height: 100%;
-  background: linear-gradient(#0dcaf0, rgb(255, 23, 131));
+  background: linear-gradient(#0dcaf0, rgb(120, 120, 161));
   position: absolute;
   left: 0%;
   top: -98%;
@@ -109,7 +109,7 @@ body {
 
 .service-card .icon-wrapper {
   background-color: #ffffff;
-  color: rgb(255, 23, 131);
+  color: #0dcaf0;
 }
 
 .advertisers-service-sec .service-card:hover .icon-wrapper {
@@ -128,6 +128,7 @@ body {
 .advertisers-service-sec .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .advertisers-service-sec .col {
@@ -137,3 +138,58 @@ body {
 }
 
 /* ADVERTISERS SERVICE CARD ENDED */
+/* ReviewPage.css */
+
+/* Center and wrap items in a flexbox layout */
+.advertisers-service-sec {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.advertisers-service-sec .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center items horizontally */
+}
+
+.advertisers-service-sec .col {
+  flex: 0 0 calc(33.3333% - 1rem); /* Adjust based on the number of columns per row */
+  margin: 0.5rem; /* Adjust spacing between columns */
+  max-width: 100%; /* Ensure columns don't exceed their container */
+}
+
+@media (max-width: 992px) {
+  .advertisers-service-sec .col {
+    flex: 0 0 calc(50% - 1rem); /* Two cards per row for medium devices */
+  }
+}
+
+@media (max-width: 576px) {
+  .advertisers-service-sec .col {
+    flex: 0 0 calc(100% - 1rem); /* One card per row for small devices */
+  }
+}
+
+/* Style for the service cards */
+.service-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px); /* Example hover effect */
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: #666;
+}
