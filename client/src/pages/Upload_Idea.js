@@ -90,22 +90,22 @@ function Upload_Idea() {
 
   return (
     <>
-      <section className="text-lg w-10/12 p-6 mx-auto bg-black rounded-lg shadow-md mt-20 mb-20">
-        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
+      <section className="text-sm lg:text-lg xl:text-xl w-10/12 p-6 mx-auto  bg-black rounded-lg shadow-md mt-20 mb-20">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-rose-600 text-center">
           Upload Your Idea
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-3 mt-2 sm:grid-cols-1">
-            <div className="flex flex-col items-center">
-              <label className="text-white text-xl" htmlFor="idea-name">
+          <div className="flex flex-col items-center">
+              <label className="text-white" htmlFor="idea-name">
                 Idea Name
               </label>
               <input
                 id="idea-name"
                 name="idea-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
-                placeholder="Idea Name"
+                className="block w-full lg:w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
+                placeholder="idea Name"
                 value={ideaName}
                 onChange={(e) => setIdeaName(e.target.value)}
                 required
@@ -119,7 +119,7 @@ function Upload_Idea() {
               <select
                 id="select"
                 name="domain"
-                className="block w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
+                className="block  w-full lg:w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 required
@@ -133,22 +133,21 @@ function Upload_Idea() {
             </div>
 
             <div>
-              <div className="flex mt-7 flex-col items-center">
-                <label className="text-white" htmlFor="textarea">
-                  System Requirements: languages and libraries
-                </label>
-                <div className="w-8/12 mx-auto text-black bg-white">
-                  <Text_Editor getDescription={getSysRequirements} data={sysRequirements} />
-                </div>
+            <div className="flex  mt-7 flex-col items-center">
+              <label className="text-white" htmlFor="textarea">
+                System Requirements : languages and libraries
+              </label>
+              <div className="w-full mx-auto text-black bg-zinc-300 sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12 ">
+                <Text_Editor getDescription={getSysRequirements} data={sysRequirements}/>
               </div>
+            </div>
 
-              <div className="flex mt-7 flex-col items-center">
-                <label className="text-white" htmlFor="textarea">
-                  Short Description
-                </label>
-                <div className="w-8/12 mx-auto text-black bg-white">
-                  <Text_Editor getDescription={getShortDescription} data={shortdescription} />
-                </div>
+            <div className="flex mt-7 flex-col items-center">
+              <label className="text-white" htmlFor="textarea">
+                Short Description
+              </label>
+              <div className="w-full mx-auto text-black bg-zinc-300 sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12 ">
+                <Text_Editor getDescription={getShortDescription} data={shortdescription}/>
               </div>
             </div>
           </div>
