@@ -43,21 +43,21 @@ function RaiseIssue() {
   };
   return (
     <>
-      <section className="text-lg w-10/12 p-6 mx-auto bg-white  rounded-lg shadow-md mb-20">
-        <h1 className="text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-600 text-center">
+      <section className="text-sm lg:text-lg xl:text-xl w-10/12 p-6 mx-auto bg-white rounded-lg shadow-md mb-20">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl my-10 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-600 text-center">
           Raise An Issue
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-3 mt-2 sm:grid-cols-1">
             <div className="flex flex-col items-center">
-              <label className="text-black text-xl" htmlFor="idea-name">
+              <label className="text-black" htmlFor="idea-name">
                 Issue Name
               </label>
               <input
                 id="issue-name"
                 name="issue-name"
                 type="text"
-                className="block w-10/12 px-4 py-2 mt-2 text-black bg-zinc-200 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-full lg:w-10/12  px-4 py-2 mt-2 text-black bg-zinc-200 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder="Issue Name"
                 value={issueName}
                 onChange={(e) => setIssueName(e.target.value)}
@@ -68,7 +68,7 @@ function RaiseIssue() {
               <label className="text-black mb-3" htmlFor="textarea">
                 Description about your issue
               </label>
-              <div className="w-10/12 mx-auto text-black bg-zinc-200">
+              <div className=" w-full lg:w-10/12 mx-auto text-black bg-zinc-200">
                 <Text_Editor getDescription={getIssueDescription} data={description} />
               </div>
             </div>

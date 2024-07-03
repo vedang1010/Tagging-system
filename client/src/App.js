@@ -31,9 +31,12 @@ import CurrentIssues from "./components/Issues/CurrentIssues";
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const auth_flag = sessionStorage.getItem('isLogin') ? sessionStorage.getItem('isLogin') : false;
+  const [isAuthenticated, setIsAuthenticated] = useState(auth_flag);
   const [isLoginView, setIsLoginView] = useState(true);
-
+  console.log('in app');
+  // setTimeout(50000);
+  console.log(isAuthenticated);
   const toggleView = () => {
     setIsLoginView(!isLoginView);
   };
@@ -41,7 +44,7 @@ function App() {
   return (
     <>
       <Router>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} className='most-outer-box'>
           <CssBaseline />
           {isAuthenticated && <Navbar />}
           <Routes>
@@ -88,7 +91,7 @@ function App() {
           </Routes>
           {isAuthenticated && <Grid container spacing={0} className='outer-grid' sx={{
 
-            
+            minHeight:'100vh',
             '@media (min-width:900px)': {
               width: '85%',
             },
