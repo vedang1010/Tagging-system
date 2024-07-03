@@ -41,7 +41,7 @@ function App() {
   return (
     <>
       <Router>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} className='most-outer-box'>
           <CssBaseline />
           {isAuthenticated && <Navbar />}
           <Routes>

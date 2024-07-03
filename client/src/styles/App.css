@@ -43,6 +43,9 @@
     margin-left: 15%;
     margin-top: 70px;
     justify-content: center;
+    background-image: url("../assests/images/homeBg.jpg");
+    background-size: cover;
+    background-position: center;
   }
   
   @media (max-width: 900px) {
@@ -50,3 +53,8 @@
       margin-left: 0rem;
     }
   }
+
+
+.most-outer-box{
+  
+}

@@ -1,0 +1,20 @@
+.issuesContainer{
+    /* width:8/0%; */
+    margin: 50px auto;
+    display: flex;
+    border: 2px solid black;
+    height : 400px;
+    width: 100%;
+    background-image: url("https://images.unsplash.com/photo-1507525428034-b7232f1ebf6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wF9wYXRpbWV8fHx8fHx8fHw%3D&auto=format&fit=crop&w=500&q=60");
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.issuesHeading{
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+}
