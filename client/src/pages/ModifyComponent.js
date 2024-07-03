@@ -6,6 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Chunked from "../utils/Upload_File";
 import Loader from "../components/loader/Loader";
+import sanitizeInput from "../utils/SanitizeInput";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -94,15 +95,15 @@ const ModifyComponent = () => {
   };
 
   const getShortDescription = (description) => {
-    setShortDescription(description);
+    setShortDescription(sanitizeInput(description));
   };
 
   const getLargeDescription = (description) => {
-    setLargeDescription(description);
+    setLargeDescription(sanitizeInput(description));
   };
 
   const getSysRequirements = (description) => {
-    setSysRequirements(description);
+    setSysRequirements(sanitizeInput(description));
   };
   const handleCustomTag = (e) => {
     e.preventDefault();
@@ -199,7 +200,7 @@ const ModifyComponent = () => {
                 className="block w-full lg:w-10/12 px-4 py-2 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none"
                 placeholder="Component Name"
                 value={componentName}
-                onChange={(e) => setComponentName(e.target.value)}
+                onChange={(e) => setComponentName(sanitizeInput(e.target.value))}
                 required
               />
             </div>
@@ -213,7 +214,7 @@ const ModifyComponent = () => {
                 name="domain"
                 className="block w-full lg:w-10/12 px-4 py-3 mt-2 max-w-3xl text-white bg-zinc-800 rounded-md focus:border-blue-500 focus:outline-none "
                 value={domain}
-                onChange={(e) => setDomain(e.target.value)}
+                onChange={(e) => setDomain(sanitizeInput(e.target.value))}
               >
                 <option>Other</option>
                 <option>DTS</option>
@@ -232,7 +233,7 @@ const ModifyComponent = () => {
                     id="search"
                     placeholder="Search Your Tag..."
                     value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
+                    onChange={(e) => setSearchInput(sanitizeInput(e.target.value))}
                   />
                 </div>
               </div>
@@ -261,7 +262,7 @@ const ModifyComponent = () => {
                   id="custom-tag"
                   placeholder="Add Your Custom Tag..."
                   value={customTagInput}
-                  onChange={(e) => setCustomTagInput(e.target.value)}
+                  onChange={(e) => setCustomTagInput(sanitizeInput(e.target.value))}
                 />
                 <button
                   className="px-2 py-1 lg:px-3 lg:py-2 m-2 leading-5 mb-5  text-white transition-colors duration-200 transform bg-green-500 rounded-md hover:bg-green-800 focus:outline-none"
