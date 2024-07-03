@@ -1,10 +1,13 @@
 
 import { Link } from 'react-router-dom';
-import styles from '../styles/ReviewPage.module.css';
+import '../styles/ReviewPage.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
 import HtmlRenderer from "../utils/HtmlRenderer"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+
 // Sample images (you can replace these with actual image URLs)
 //const[user,setUser]=useState('true');
 // const images = [
@@ -72,31 +75,28 @@ if (error) {
 }
 
 return (
-  <div className={styles.ReviewPage}>
+  <div >
     {isComponents ? (
-      <ul className={styles.list}>
-      {components.map((component) => (
-        <li key={component._id} className={styles.Ideas}>
-          <div className={styles.card}>
-            <Link to={`/review1/${component.id}/${component._id}`} className={styles.ComponentPreview}>
-              
-                <div className={styles.cardContent}>
-                  <div className="mainTitle" style = {{fontWeight:"bold", fontSize:"20px"}}>{component.name}</div>
-                  <div className="subtitle" style={{paddingTop:"30px"}} >
-                    <HtmlRenderer htmlString={component.short_desc != null ? component.short_desc : "Hello "} />
-                  </div>
-                </div>
-              
-              
-                <div className={styles.cardContent}>
-                 
-                </div>
-             
+      <section id="advertisers" className="advertisers-service-sec pt-5 pb-5">
+    
+        
+        <div className="row mt-5 mt-md-4 row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center">
+          {components.map((component) => (
+          
+            <div className="col" key={component._id}>
+            <Link to={`/review1/${component.id}/${component._id}`}>
+              <div className="service-card">
+                
+                <h3>{component.name}</h3>
+                <p><HtmlRenderer htmlString={component.short_desc != null ? component.short_desc : "Hello "} /></p>
+              </div>
             </Link>
-          </div>
-        </li>
-      ))}
-    </ul>
+            </div>
+            
+          ))}
+        </div>
+    
+    </section>
     ) : (
       Swal.fire({
         title: "Sorry",
