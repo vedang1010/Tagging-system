@@ -125,6 +125,7 @@ const getAllIdeas = async (req, res) => {
                         name: compbyId.name,
                         preview: compbyId.preview,
                         type : compbyId.type,
+                        short_desc : compbyId.description.short
                     };
 
                     //console.log("Updated component:", updatedComponent);
