@@ -1,96 +1,96 @@
 .ReviewPage {
-    font-family: Arial, sans-serif;
-    padding-left: 40px;
-  }
+  font-family: Arial, sans-serif;
+  padding-left: 40px;
+}
 
-  .heading {
-    text-align: center;
-    margin-top:-10px;
-    color: #333;
-    font-weight: bold;;
-  }
-  
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .Ideas {
-    margin: 10px;
-  }
-  
+.heading {
+  text-align: center;
+  margin-top: -10px;
+  color: #333;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.Ideas {
+  margin: 10px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 280px; /* Default width for larger screens */
+  height: 370px; /* Default height for larger screens */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.ComponentPreview {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card img {
+  width: 100%;
+  height: 75%; /* Adjust height percentage to make image taller */
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f8f8;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  overflow: visible;
+}
+
+@media (max-width: 1200px) {
   .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 300px; 
-    height: 400px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    display: flex;
-    flex-direction: column;
+    /* width: 180px; */
+    /* height: 270px; */
+    font-size:small ;
   }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 992px) {
+  .card {
+    /* width: 180px; */
+    /* height: 270px; */
   }
-  
-  .ComponentPreview {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+}
+
+@media (max-width: 768px) {
+  .card {
+    /* width: 180px; */
+    /* height: 270px; */
   }
-  
-  .card img {
-    width: 100%;
-    height: 75%; /* Adjust height percentage to make image taller */
-    object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .card {
+    /* width: 180px; */
+    /* height: 270px; */
   }
-  
-  .cardContent {
-    padding: 10px;
-    text-align: center;
-    background-color: #f8f8f8;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    overflow: visible;
-  }
-  
-  @media (max-width: 1200px) {
-    .card {
-      width: 180px;
-      height: 270px;
-    }
-  }
-  
-  @media (max-width: 992px) {
-    .card {
-      width: 160px;
-      height: 240px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .card {
-      width: 140px;
-      height: 210px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .card {
-      width: 120px;
-      height: 180px;
-    }
-  }
+}
