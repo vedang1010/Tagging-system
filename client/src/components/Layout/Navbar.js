@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import {
-  AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery
+  AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem, Drawer, List, ListItem, ListItemText, Box, useTheme, useMediaQuery,
+  Button
 } from '@mui/material';
 import { Menu as MenuIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -134,7 +135,7 @@ function Navbar() {
             </IconButton>
           )}
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            Navbar
+            Tagging System
           </Typography>
           <IconButton color="inherit" onClick={handleNotificationsClick}>
             {newNotifications ? (

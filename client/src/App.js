@@ -41,7 +41,7 @@ function App() {
   return (
     <>
       <Router>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} className='most-outer-box'>
           <CssBaseline />
           {isAuthenticated && <Navbar />}
           <Routes>
@@ -88,7 +88,7 @@ function App() {
           </Routes>
           {isAuthenticated && <Grid container spacing={0} className='outer-grid' sx={{
 
-            
+            minHeight:'100vh',
             '@media (min-width:900px)': {
               width: '85%',
             },

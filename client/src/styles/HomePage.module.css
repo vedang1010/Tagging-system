@@ -1,9 +1,9 @@
 .homepage {
-    width: 1520px;
-    height: 950px;
-    background-color: white;
+    background-image: url("../assests/images/homeBg.jpg");
+    background-size: cover;
+    background-position: center;
     color: black;
-    margin: 0 auto; /* Center the page horizontally */
+    
   }
   .button{
     width:250px;

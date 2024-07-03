@@ -1,0 +1,20 @@
+.heroContainer{
+    /* width:8/0%; */
+    margin: 5rem auto;
+    display: flex;
+    border-radius: 5px;
+    
+    height : 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(30, 30, 30);
+    color: white;
+
+}
+
+.heroHeading{
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+}
