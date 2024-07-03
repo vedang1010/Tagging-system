@@ -183,11 +183,11 @@ const Review = () => {
               </Grid>
             </Grid>
           </Paper>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2,gap:2 }}>
             <Button variant="contained" color="error" onClick={handleReject} sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
               Reject
             </Button>
-            <Button variant="contained" color="primary" onClick={handleAccept} sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            <Button variant="contained" color="success" onClick={handleAccept} sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
               Accept
             </Button>
           </Box>
