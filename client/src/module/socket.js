@@ -1,5 +1,6 @@
 import socketIOClient from 'socket.io-client';
-const socket = socketIOClient('http://localhost:5000', {
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const socket = socketIOClient(`${SERVER_URL}`, {
   
     cors: {
       origin: "*",

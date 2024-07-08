@@ -31,7 +31,7 @@ function RaiseIssue() {
         text: "Your issue has been uploaded successfully",
         icon: "success",
       }).then(() => {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "/";
       });
     } catch (error) {
       Swal.fire({
