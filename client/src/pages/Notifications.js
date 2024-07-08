@@ -5,6 +5,7 @@ import styles from '../styles/Notifications.module.css';
 
 const NotificationsPage = () => {
   sessionStorage.setItem("location", "/notifications");
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const NotificationsPage = () => {
   console.log("subgroup "+ subgroup)
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/api/notification/notifications');
+      const response = await axios.get(`${SERVER_URL}api/notification/notifications`);
       if (response.status === 200) {
         setNotifications(response.data);
       } else {

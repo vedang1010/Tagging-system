@@ -20,6 +20,7 @@ import {
 const Review = () => {
   const { objectId, reviewId } = useParams();
   sessionStorage.setItem("location", `/review1/${objectId}/${reviewId}`);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const [rating, setRating] = useState(0);
   const [remarks, setRemarks] = useState('');
@@ -34,7 +35,7 @@ const Review = () => {
   const userEmail = localStorage.getItem('user');
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/api/review/fetchIdea/${objectId}`)
+    axios.get(`${SERVER_URL}api/review/fetchIdea/${objectId}`)
       .then(response => {
         setIdeas(response.data.component);
         setIsLoading(false);
@@ -71,7 +72,7 @@ const Review = () => {
   const handleOnClick = async () => {
     setPage('ratings');
     try {
-      const response = await axios.post("http://127.0.0.1:5000/api/review/status1", {
+      const response = await axios.post(`${SERVER_URL}api/review/status1`, {
         status,
         remarks,
         rating,

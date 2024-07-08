@@ -21,6 +21,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 function ReviewPage() {
   sessionStorage.setItem("location","/reviewidea")
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 // const [userState, setUserState] = useState(true);
 const [components, setComponents] = useState([]);
@@ -34,7 +35,7 @@ console.log('userState');
 const fetchIdeas = async () => {
   try {
     console.log("Fetching data...");
-    const response = await axios.get('http://127.0.0.1:5000/api/review/getAllIdeas');
+    const response = await axios.get(`${SERVER_URL}api/review/getAllIdeas`);
       if(response.status === 200  &&  response.data.length > 0)  {setIsComponents(true)}
       else setIsComponents(false);
 
