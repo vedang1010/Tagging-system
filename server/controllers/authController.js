@@ -28,7 +28,7 @@ const sendOtp = async (req, res) => {
             return res.status(500).json({ message: 'Email already in use' });
         }
 
-        await sendMail(email, 'Your OTP Code', `Your OTP code is ${otp}`);
+        await sendMail(email, 'OTP for Signup', `Your OTP for signup is ${otp}. OTP is valid for 1 hour only.`);
 
         res.status(200).json({ message: 'OTP sent to email' });
     } catch (error) {
