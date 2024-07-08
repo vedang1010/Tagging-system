@@ -55,3 +55,8 @@
     }
   }
 
+.authLogo{
+  width: 8rem;
+  transform: rotate(45deg);
+  box-shadow: #275889 0px 0px 20px 3px;
+}

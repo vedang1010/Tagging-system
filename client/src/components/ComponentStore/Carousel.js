@@ -2,23 +2,24 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@mui/material';
+import styles from '../../styles/Crousel.module.css'
 
 const items = [
   {
     img: 'https://dummyimage.com/900x350/000/fff',
-    name: 'Random Name #1',
-    description: 'Probably the most random thing you have ever seen!'
+    name: 'Crousel Name 1',
+    description: 'Demo Crousel 1 Text'
   },
   {
-    img: 'https://dummyimage.com/9 00x350/000/fff',
-    name: 'Random Name #2',
-    description: 'Hello World!'
+    img: 'https://dummyimage.com/900x350/000/fff',
+    name: 'Crousel Name 2',
+    description: 'Demo Crousel 2 Text'
   }
 ];
 
 const CustomCarousel = () => {
   return (
-    <Carousel>
+    <Carousel className={styles.crousel}>
       {items.map((item, i) => (
         <Item key={i} item={item} />
       ))}
@@ -32,9 +33,9 @@ const Item = ({ item }) => {
       <div className="img-cover">
       <img src={item.img} className='carousel-img' />
       </div>
-      <h2>{item.name}</h2>
-      <p>{item.description}</p>
-      <Button className="CheckButton">Check it out!</Button>
+      <h2 style={{margin:'5px 10px',fontSize:'1.2rem'}}>{item.name}</h2>
+      <p style={{margin:'0px 10px',fontSize:'1rem'}}>{item.description}</p>
+      <Button style={{margin:'5px 0px'}} className="CheckButton">Check it out!</Button>
     </Paper>
   );
 };

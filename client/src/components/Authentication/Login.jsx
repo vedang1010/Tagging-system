@@ -101,7 +101,7 @@ const Login = ({ onLogin }) => {
   return (
     <Container maxWidth="xs">
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography component="h1" variant="h5">Login</Typography>
+        <Typography component="h1" variant="h5" fontSize={'2rem'}>Login</Typography>
         {alertMessage && <Alert severity={alertSeverity} sx={{ width: '100%', mt: 2 }}>{alertMessage}</Alert>}
         <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
           <TextField

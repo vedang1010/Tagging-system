@@ -29,3 +29,17 @@
     margin: 0px 2.5rem ;
     width: 70%;
 }
+.resDivIssue{
+    flex-direction: row;
+    align-items: center;
+}
+
+@media screen and (max-width:600px) {
+    .resDivIssue{
+        flex-direction: column;
+        align-items: start;
+    }
+    .issuesContainer{
+        min-height: 400px;
+    }
+}

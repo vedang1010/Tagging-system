@@ -14,9 +14,7 @@ const viewComponentStoreDashboard = async (req, res) => {
 const SearchComponents = async (req, res) => {
     try {
         const { query, tags, dept } = req.body;
-        console.log(tags);
-        console.log(typeof (tags));
-        console.log(query)
+        
         const components = await Component.find({ "$or": [{ "taglist": { "$in": tags } }, { "dept": { "$in": dept } }, { "name": { $regex: query, $options: 'i' } }] });
         console.log(components);
         res.status(200).json(components);

@@ -1,0 +1,14 @@
+.crousel{
+    min-height: 30rem;
+}
+
+@media screen and (max-width:800px) {
+    .crousel{
+        min-height: 25rem;
+    }
+}
+@media screen and (max-width:600px) {
+    .crousel{
+        min-height: 20rem;
+    }
+}

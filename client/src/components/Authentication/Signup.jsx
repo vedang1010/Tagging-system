@@ -92,7 +92,7 @@ const Signup = ({ onComplete }) => {
   return (
     <Container maxWidth="xs">
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography component="h1" variant="h5">Sign Up</Typography>
+        <Typography component="h1" variant="h5" fontSize={'2rem'}>Sign Up</Typography>
         {alertMessage && <Alert severity={alertSeverity} sx={{ width: '100%', mt: 2 }}>{alertMessage}</Alert>}
         {step === 1 && (
           <Box component="form" onSubmit={handleSendOtp} sx={{ mt: 1 }}>

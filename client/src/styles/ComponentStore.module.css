@@ -29,3 +29,17 @@
     margin: 0px 2.5rem ;
     width: 70%;
 }
+.resDivComp{
+    flex-direction: row;
+    align-items: center;
+}
+
+@media screen and (max-width:600px) {
+    .resDivComp{
+        flex-direction: column;
+        align-items: start;
+    }
+    .componentContainer{
+        min-height: 400px;
+    }
+}

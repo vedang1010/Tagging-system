@@ -26,7 +26,7 @@ import Navbar from "./components/Layout/Navbar";
 import './styles/App.css'
 import ModifyComponent from "./pages/ModifyComponent";
 import CurrentIssues from "./components/Issues/CurrentIssues";
-
+import authLogo from './assests/images/auth-logo1.jpg'
 
 
 
@@ -59,14 +59,15 @@ function App() {
                       <Navigate to="/home" />
                     )
                   ) : (
-                    <Container  sx={{height:'100vh', display:'flex',alignItems:'center',justifyContent:'center'}} >
+                    <Container  sx={{height:'100vh', display:'flex', flexDirection:'column',alignItems:'center',justifyContent:'center'}} >
+                      <img className="authLogo" src={authLogo}/>
                       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , }}>
                         {isLoginView ? (
                           <Login onLogin={() => setIsAuthenticated(true)} />
                         ) : (
                           <Signup onComplete={() => setIsLoginView(true)} />
                         )}
-                        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row' , alignItems:'center'}}>
                           {isLoginView ? <p>Don't have an account?</p> : <p>Already have an account?</p>}
                           <Button onClick={toggleView}>
                             {isLoginView ? 'Signup' : 'Login'}
