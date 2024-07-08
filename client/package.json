@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--max-old-space-size=8096 react-scripts --openssl-legacy-provider start",
-    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8096 react-scripts --openssl-legacy-provider build",
+    "build": "react-scripts build",
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=9096 react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts eject"
   },
