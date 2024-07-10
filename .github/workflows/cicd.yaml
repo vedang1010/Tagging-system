@@ -1,10 +1,10 @@
-name: Deploy Server Application
+name: Deploy Client Application
 on:
   push:
     branches:
       - main
     paths:
-      - 'server/**'
+      - 'client/**'
 
 jobs:
   build:
@@ -15,25 +15,17 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker image
-        run: docker build -t vedang10/server ./server
+        run: docker build -t vedang10/client --build-arg REACT_APP_SERVER_URL='${{ secrets.REACT_APP_SERVER_URL }}' ./client
       - name: Publish image to Docker Hub
-        run: docker push vedang10/server:latest
+        run: docker push vedang10/client:latest
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull vedang10/server:latest
+        run: docker pull vedang10/client:latest
       - name: Delete old container
-        run: docker rm -f server-app-container
+        run: docker rm -f client-app-container
       - name: Run Docker Container
-        run: |
-          docker run -d -p 5000:5000 --name server-app-container \
-            -e DATABASE_URL='${{ secrets.DATABASE_URL }}' \
-            -e SECRET='${{ secrets.SECRET }}' \
-            -e EMAIL_HOST='${{ secrets.EMAIL_HOST }}' \
-            -e EMAIL_PORT='${{ secrets.EMAIL_PORT }}' \
-            -e EMAIL_HOST_USER='${{ secrets.EMAIL_HOST_USER }}' \
-            -e EMAIL_HOST_PASSWORD='${{ secrets.EMAIL_HOST_PASSWORD }}' \
-            vedang10/server
+        run: docker run -d -p 3000:80 --name client-app-container vedang10/client
