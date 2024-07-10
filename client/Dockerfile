@@ -6,9 +6,11 @@ ENV REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL
 # ENV SKIP_PREFLIGHT_CHECK=$SKIP_PREFLIGHT_CHECK
 
 WORKDIR /app
-COPY package.json .
+COPY package.json ./
 RUN npm install
 COPY . .
+RUN echo "REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL"  # Echo the environment variable
+
 RUN npm run build
 # CMD [ "npm","run","start" ]
 
@@ -17,5 +19,5 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf *
 COPY --from=build /app/build .
 EXPOSE 80
-EXPOSE 30000
+
 ENTRYPOINT [ "nginx"."-g","daemon off;" ]
