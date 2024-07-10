@@ -12,8 +12,6 @@ COPY . .
 RUN echo "REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL"  # Echo the environment variable
 
 RUN npm run build
-# CMD [ "npm","run","start" ]
-
 FROM nginx:1.23-alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf *
