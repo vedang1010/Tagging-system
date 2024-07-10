@@ -26,7 +26,7 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull vedang10/server:latest
       - name: Delete old container
-        run: docker rm -f erver-app-container
+        run: docker rm -f server-app-container
       - name: Run Docker Container
         run: |
           docker run -d -p 5000:5000 --name server-app-container \
