@@ -26,11 +26,4 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull vedang10/server:latest
       - name: Run Docker Container
-        run: docker run -d -p 5000:5000 --name server-app-container \
-              -e DATABASE_URL='${{ secrets.MONGO_URL }}' \
-              -e SECRET='${{ secrets.SECRET }}' \
-              -e EMAIL_HOST='${{ secrets.EMAIL_HOST }}' \
-              -e EMAIL_PORT='${{ secrets.EMAIL_PORT }}' \
-              -e EMAIL_HOST_USER='${{ secrets.EMAIL_HOST_USER }}' \
-              -e EMAIL_HOST_PASSWORD='${{ secrets.EMAIL_HOST_PASSWORD }}' \
-              vedang10/server
+        run: docker run -d -p 5000:5000 --name server-app-container -e DATABASE_URL='${{ secrets.MONGO_URL }}' -e SECRET='${{ secrets.SECRET }}' -e EMAIL_HOST='${{ secrets.EMAIL_HOST }}' -e EMAIL_PORT='${{ secrets.EMAIL_PORT }}' -e EMAIL_HOST_USER='${{ secrets.EMAIL_HOST_USER }}' -e EMAIL_HOST_PASSWORD='${{ secrets.EMAIL_HOST_PASSWORD }}' vedang10/server
