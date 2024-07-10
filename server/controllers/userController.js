@@ -26,7 +26,7 @@ const fetchUserInfo = async (req, res) => {
         const response = await UserInfo.findById(userId);
         console.log("response" + response)
         if (!response) {
-            console.log("Nothing found");
+            console.log("Nothing found in user");
             return res.status(500).json({ error: 'Internal Server Error' })
         }
         // console.log(response)

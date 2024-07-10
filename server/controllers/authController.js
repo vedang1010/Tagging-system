@@ -1,5 +1,6 @@
 // server/controllers/authController.js
 const User = require('../models/user');
+const {UserInfo} = require('../models/userInfo');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const sendMail = require('../utils/mailer');
@@ -83,6 +84,7 @@ const setPassword = async (req, res) => {
         user.otpExpiration = undefined;
 
         await user.save();
+        await UserInfo.create({email:email,name:'ABC',imageUrl:'https://dummyimage.com/300x200/000/fff',designation:'Software Developer',points:0,dept:'DTS',group:'B'});
 
         res.status(200).json({ message: 'Password set successfully' });
     } catch (error) {
